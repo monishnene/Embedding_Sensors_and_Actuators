@@ -1,0 +1,1540 @@
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.LCD,"ax",%progbits
+  20              		.align	2
+  21              		.global	LCD
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	LCD, %function
+  25              	LCD:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** void LCD() // LCD Display
+  15:main.c        **** {              
+  28              		.loc 1 15 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  16:main.c        ****         LCD_Char_1_Position(0,0);
+  36              		.loc 1 16 0
+  37 0002 0021     		movs	r1, #0
+  38 0004 0846     		mov	r0, r1
+  39 0006 FFF7FEFF 		bl	LCD_Char_1_Position
+  40              	.LVL0:
+  17:main.c        ****         LCD_Char_1_PrintString("                ");
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 2
+
+
+  41              		.loc 1 17 0
+  42 000a 0D4C     		ldr	r4, .L3
+  43 000c 2046     		mov	r0, r4
+  44 000e FFF7FEFF 		bl	LCD_Char_1_PrintString
+  45              	.LVL1:
+  18:main.c        ****         LCD_Char_1_Position(0,0);
+  46              		.loc 1 18 0
+  47 0012 0021     		movs	r1, #0
+  48 0014 0846     		mov	r0, r1
+  49 0016 FFF7FEFF 		bl	LCD_Char_1_Position
+  50              	.LVL2:
+  19:main.c        ****         LCD_Char_1_PrintString("LASER");
+  51              		.loc 1 19 0
+  52 001a 0A48     		ldr	r0, .L3+4
+  53 001c FFF7FEFF 		bl	LCD_Char_1_PrintString
+  54              	.LVL3:
+  20:main.c        ****         LCD_Char_1_Position(1,0);
+  55              		.loc 1 20 0
+  56 0020 0021     		movs	r1, #0
+  57 0022 0120     		movs	r0, #1
+  58 0024 FFF7FEFF 		bl	LCD_Char_1_Position
+  59              	.LVL4:
+  21:main.c        ****         LCD_Char_1_PrintString("                ");
+  60              		.loc 1 21 0
+  61 0028 2046     		mov	r0, r4
+  62 002a FFF7FEFF 		bl	LCD_Char_1_PrintString
+  63              	.LVL5:
+  22:main.c        ****         LCD_Char_1_Position(1,0);
+  64              		.loc 1 22 0
+  65 002e 0021     		movs	r1, #0
+  66 0030 0120     		movs	r0, #1
+  67 0032 FFF7FEFF 		bl	LCD_Char_1_Position
+  68              	.LVL6:
+  23:main.c        ****         LCD_Char_1_PrintString("LAB3");
+  69              		.loc 1 23 0
+  70 0036 0448     		ldr	r0, .L3+8
+  71 0038 FFF7FEFF 		bl	LCD_Char_1_PrintString
+  72              	.LVL7:
+  73 003c 10BD     		pop	{r4, pc}
+  74              	.L4:
+  75 003e 00BF     		.align	2
+  76              	.L3:
+  77 0040 00000000 		.word	.LC0
+  78 0044 14000000 		.word	.LC1
+  79 0048 1C000000 		.word	.LC2
+  80              		.cfi_endproc
+  81              	.LFE63:
+  82              		.size	LCD, .-LCD
+  83              		.section	.text.LCDvalue,"ax",%progbits
+  84              		.align	2
+  85              		.global	LCDvalue
+  86              		.thumb
+  87              		.thumb_func
+  88              		.type	LCDvalue, %function
+  89              	LCDvalue:
+  90              	.LFB64:
+  24:main.c        ****         return;
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 3
+
+
+  25:main.c        **** }
+  26:main.c        **** 
+  27:main.c        **** void LCDvalue(int value) // LCD Display Degree
+  28:main.c        **** {       
+  91              		.loc 1 28 0
+  92              		.cfi_startproc
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95              	.LVL8:
+  96 0000 10B5     		push	{r4, lr}
+  97              		.cfi_def_cfa_offset 8
+  98              		.cfi_offset 4, -8
+  99              		.cfi_offset 14, -4
+ 100 0002 0446     		mov	r4, r0
+  29:main.c        ****         LCD_Char_1_Position(1,0);
+ 101              		.loc 1 29 0
+ 102 0004 0021     		movs	r1, #0
+ 103 0006 0120     		movs	r0, #1
+ 104              	.LVL9:
+ 105 0008 FFF7FEFF 		bl	LCD_Char_1_Position
+ 106              	.LVL10:
+  30:main.c        ****         LCD_Char_1_PrintString("               ");
+ 107              		.loc 1 30 0
+ 108 000c 0648     		ldr	r0, .L7
+ 109 000e FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 110              	.LVL11:
+  31:main.c        ****         LCD_Char_1_Position(1,0);
+ 111              		.loc 1 31 0
+ 112 0012 0021     		movs	r1, #0
+ 113 0014 0120     		movs	r0, #1
+ 114 0016 FFF7FEFF 		bl	LCD_Char_1_Position
+ 115              	.LVL12:
+  32:main.c        ****         LCD_Char_1_PrintString("PWM=");
+ 116              		.loc 1 32 0
+ 117 001a 0448     		ldr	r0, .L7+4
+ 118 001c FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 119              	.LVL13:
+  33:main.c        ****         LCD_Char_1_PrintU32Number(value);
+ 120              		.loc 1 33 0
+ 121 0020 2046     		mov	r0, r4
+ 122 0022 FFF7FEFF 		bl	LCD_Char_1_PrintU32Number
+ 123              	.LVL14:
+ 124 0026 10BD     		pop	{r4, pc}
+ 125              	.LVL15:
+ 126              	.L8:
+ 127              		.align	2
+ 128              	.L7:
+ 129 0028 24000000 		.word	.LC3
+ 130 002c 34000000 		.word	.LC4
+ 131              		.cfi_endproc
+ 132              	.LFE64:
+ 133              		.size	LCDvalue, .-LCDvalue
+ 134              		.section	.text.main,"ax",%progbits
+ 135              		.align	2
+ 136              		.global	main
+ 137              		.thumb
+ 138              		.thumb_func
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 4
+
+
+ 139              		.type	main, %function
+ 140              	main:
+ 141              	.LFB65:
+  34:main.c        ****         
+  35:main.c        ****         return;
+  36:main.c        **** }
+  37:main.c        **** 
+  38:main.c        **** int main(void)
+  39:main.c        **** {   int8_t value;
+ 142              		.loc 1 39 0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146 0000 38B5     		push	{r3, r4, r5, lr}
+ 147              		.cfi_def_cfa_offset 16
+ 148              		.cfi_offset 3, -16
+ 149              		.cfi_offset 4, -12
+ 150              		.cfi_offset 5, -8
+ 151              		.cfi_offset 14, -4
+ 152              	.LVL16:
+  40:main.c        ****     uint8_t i,count=128,value2;
+  41:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 153              		.loc 1 41 0
+ 154              		.syntax unified
+ 155              	@ 41 "main.c" 1
+ 156 0002 62B6     		CPSIE   i
+ 157              	@ 0 "" 2
+  42:main.c        ****     LCD_Char_1_Start();
+ 158              		.loc 1 42 0
+ 159              		.thumb
+ 160              		.syntax unified
+ 161 0004 FFF7FEFF 		bl	LCD_Char_1_Start
+ 162              	.LVL17:
+  43:main.c        ****     ADC_SAR_1_Start();
+ 163              		.loc 1 43 0
+ 164 0008 FFF7FEFF 		bl	ADC_SAR_1_Start
+ 165              	.LVL18:
+  44:main.c        ****     ADC_SAR_1_StartConvert();
+ 166              		.loc 1 44 0
+ 167 000c FFF7FEFF 		bl	ADC_SAR_1_StartConvert
+ 168              	.LVL19:
+  45:main.c        ****     VDAC8_1_Start();
+ 169              		.loc 1 45 0
+ 170 0010 FFF7FEFF 		bl	VDAC8_1_Start
+ 171              	.LVL20:
+  46:main.c        ****     VDAC8_1_SetRange(255);
+ 172              		.loc 1 46 0
+ 173 0014 FF20     		movs	r0, #255
+ 174 0016 FFF7FEFF 		bl	VDAC8_1_SetRange
+ 175              	.LVL21:
+  47:main.c        ****     LCD();
+ 176              		.loc 1 47 0
+ 177 001a FFF7FEFF 		bl	LCD
+ 178              	.LVL22:
+  40:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 179              		.loc 1 40 0
+ 180 001e 8025     		movs	r5, #128
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 5
+
+
+ 181              	.LVL23:
+ 182              	.L14:
+  48:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  49:main.c        ****     for(;;)
+  50:main.c        ****     {
+  51:main.c        ****         value = ADC_SAR_1_GetResult8();
+ 183              		.loc 1 51 0
+ 184 0020 FFF7FEFF 		bl	ADC_SAR_1_GetResult8
+ 185              	.LVL24:
+  52:main.c        ****         value2=value;
+ 186              		.loc 1 52 0
+ 187 0024 C0B2     		uxtb	r0, r0
+ 188              	.LVL25:
+  53:main.c        ****             // input from ADC 2's Compliment form 
+  54:main.c        ****         if(i<value2)
+ 189              		.loc 1 54 0
+ 190 0026 8442     		cmp	r4, r0
+ 191 0028 09D2     		bcs	.L10
+  55:main.c        ****         {
+  56:main.c        ****             p0_5_Write(1);
+ 192              		.loc 1 56 0
+ 193 002a 0120     		movs	r0, #1
+ 194              	.LVL26:
+ 195 002c FFF7FEFF 		bl	p0_5_Write
+ 196              	.LVL27:
+  57:main.c        ****             p0_7_Write(1);
+ 197              		.loc 1 57 0
+ 198 0030 0120     		movs	r0, #1
+ 199 0032 FFF7FEFF 		bl	p0_7_Write
+ 200              	.LVL28:
+  58:main.c        ****             p0_6_Write(1);
+ 201              		.loc 1 58 0
+ 202 0036 0120     		movs	r0, #1
+ 203 0038 FFF7FEFF 		bl	p0_6_Write
+ 204              	.LVL29:
+ 205 003c 08E0     		b	.L11
+ 206              	.LVL30:
+ 207              	.L10:
+  59:main.c        ****         }
+  60:main.c        ****         else
+  61:main.c        ****         {
+  62:main.c        ****             p0_5_Write(0);
+ 208              		.loc 1 62 0
+ 209 003e 0020     		movs	r0, #0
+ 210              	.LVL31:
+ 211 0040 FFF7FEFF 		bl	p0_5_Write
+ 212              	.LVL32:
+  63:main.c        ****             p0_6_Write(0);
+ 213              		.loc 1 63 0
+ 214 0044 0020     		movs	r0, #0
+ 215 0046 FFF7FEFF 		bl	p0_6_Write
+ 216              	.LVL33:
+  64:main.c        ****             p0_7_Write(0);
+ 217              		.loc 1 64 0
+ 218 004a 0020     		movs	r0, #0
+ 219 004c FFF7FEFF 		bl	p0_7_Write
+ 220              	.LVL34:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 6
+
+
+ 221              	.L11:
+  65:main.c        ****         }    
+  66:main.c        ****         /* Place your application code here. */
+  67:main.c        ****         if(p3_2_Read()==1u)
+ 222              		.loc 1 67 0
+ 223 0050 FFF7FEFF 		bl	p3_2_Read
+ 224              	.LVL35:
+ 225 0054 0128     		cmp	r0, #1
+ 226 0056 01D1     		bne	.L12
+  68:main.c        ****         {
+  69:main.c        ****         count++;   
+ 227              		.loc 1 69 0
+ 228 0058 0135     		adds	r5, r5, #1
+ 229              	.LVL36:
+ 230 005a EDB2     		uxtb	r5, r5
+ 231              	.LVL37:
+ 232              	.L12:
+  70:main.c        ****         }
+  71:main.c        ****         
+  72:main.c        ****         if(i==255)
+ 233              		.loc 1 72 0
+ 234 005c FF2C     		cmp	r4, #255
+ 235 005e 04D1     		bne	.L13
+  73:main.c        ****         {
+  74:main.c        ****             VDAC8_1_SetValue(count+128);
+ 236              		.loc 1 74 0
+ 237 0060 85F08000 		eor	r0, r5, #128
+ 238 0064 FFF7FEFF 		bl	VDAC8_1_SetValue
+ 239              	.LVL38:
+  75:main.c        ****             count=128;
+ 240              		.loc 1 75 0
+ 241 0068 8025     		movs	r5, #128
+ 242              	.LVL39:
+ 243              	.L13:
+  76:main.c        ****         }
+  77:main.c        ****         i++;
+ 244              		.loc 1 77 0
+ 245 006a 0134     		adds	r4, r4, #1
+ 246              	.LVL40:
+ 247 006c E4B2     		uxtb	r4, r4
+ 248              	.LVL41:
+  78:main.c        **** }
+ 249              		.loc 1 78 0
+ 250 006e D7E7     		b	.L14
+ 251              		.cfi_endproc
+ 252              	.LFE65:
+ 253              		.size	main, .-main
+ 254              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 255              		.align	2
+ 256              	.LC0:
+ 257 0000 20202020 		.ascii	"                \000"
+ 257      20202020 
+ 257      20202020 
+ 257      20202020 
+ 257      00
+ 258 0011 000000   		.space	3
+ 259              	.LC1:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 7
+
+
+ 260 0014 4C415345 		.ascii	"LASER\000"
+ 260      5200
+ 261 001a 0000     		.space	2
+ 262              	.LC2:
+ 263 001c 4C414233 		.ascii	"LAB3\000"
+ 263      00
+ 264 0021 000000   		.space	3
+ 265              	.LC3:
+ 266 0024 20202020 		.ascii	"               \000"
+ 266      20202020 
+ 266      20202020 
+ 266      20202000 
+ 267              	.LC4:
+ 268 0034 50574D3D 		.ascii	"PWM=\000"
+ 268      00
+ 269              		.text
+ 270              	.Letext0:
+ 271              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.1\\psoc creator\\import\\gnu\\arm\\5.4.
+ 272              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.1\\psoc creator\\import\\gnu\\arm\\5.4.
+ 273              		.file 4 "Generated_Source\\PSoC5/LCD_Char_1.h"
+ 274              		.file 5 "Generated_Source\\PSoC5/ADC_SAR_1.h"
+ 275              		.file 6 "Generated_Source\\PSoC5/VDAC8_1.h"
+ 276              		.file 7 "Generated_Source\\PSoC5/p0_5.h"
+ 277              		.file 8 "Generated_Source\\PSoC5/p0_7.h"
+ 278              		.file 9 "Generated_Source\\PSoC5/p0_6.h"
+ 279              		.file 10 "Generated_Source\\PSoC5/p3_2.h"
+ 280              		.file 11 "Generated_Source\\PSoC5/core_cm3.h"
+ 281              		.section	.debug_info,"",%progbits
+ 282              	.Ldebug_info0:
+ 283 0000 FF030000 		.4byte	0x3ff
+ 284 0004 0400     		.2byte	0x4
+ 285 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 286 000a 04       		.byte	0x4
+ 287 000b 01       		.uleb128 0x1
+ 288 000c C0000000 		.4byte	.LASF37
+ 289 0010 0C       		.byte	0xc
+ 290 0011 2E020000 		.4byte	.LASF38
+ 291 0015 23000000 		.4byte	.LASF39
+ 292 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 293 001d 00000000 		.4byte	0
+ 294 0021 00000000 		.4byte	.Ldebug_line0
+ 295 0025 02       		.uleb128 0x2
+ 296 0026 00000000 		.4byte	.LASF0
+ 297 002a 02       		.byte	0x2
+ 298 002b 1B       		.byte	0x1b
+ 299 002c 30000000 		.4byte	0x30
+ 300 0030 03       		.uleb128 0x3
+ 301 0031 01       		.byte	0x1
+ 302 0032 06       		.byte	0x6
+ 303 0033 8C020000 		.4byte	.LASF2
+ 304 0037 02       		.uleb128 0x2
+ 305 0038 09000000 		.4byte	.LASF1
+ 306 003c 02       		.byte	0x2
+ 307 003d 1D       		.byte	0x1d
+ 308 003e 42000000 		.4byte	0x42
+ 309 0042 03       		.uleb128 0x3
+ 310 0043 01       		.byte	0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 8
+
+
+ 311 0044 08       		.byte	0x8
+ 312 0045 C9010000 		.4byte	.LASF3
+ 313 0049 03       		.uleb128 0x3
+ 314 004a 02       		.byte	0x2
+ 315 004b 05       		.byte	0x5
+ 316 004c 5C020000 		.4byte	.LASF4
+ 317 0050 03       		.uleb128 0x3
+ 318 0051 02       		.byte	0x2
+ 319 0052 07       		.byte	0x7
+ 320 0053 61000000 		.4byte	.LASF5
+ 321 0057 02       		.uleb128 0x2
+ 322 0058 19000000 		.4byte	.LASF6
+ 323 005c 02       		.byte	0x2
+ 324 005d 3F       		.byte	0x3f
+ 325 005e 62000000 		.4byte	0x62
+ 326 0062 03       		.uleb128 0x3
+ 327 0063 04       		.byte	0x4
+ 328 0064 05       		.byte	0x5
+ 329 0065 66020000 		.4byte	.LASF7
+ 330 0069 03       		.uleb128 0x3
+ 331 006a 04       		.byte	0x4
+ 332 006b 07       		.byte	0x7
+ 333 006c 59010000 		.4byte	.LASF8
+ 334 0070 03       		.uleb128 0x3
+ 335 0071 08       		.byte	0x8
+ 336 0072 05       		.byte	0x5
+ 337 0073 20020000 		.4byte	.LASF9
+ 338 0077 03       		.uleb128 0x3
+ 339 0078 08       		.byte	0x8
+ 340 0079 07       		.byte	0x7
+ 341 007a 88000000 		.4byte	.LASF10
+ 342 007e 04       		.uleb128 0x4
+ 343 007f 04       		.byte	0x4
+ 344 0080 05       		.byte	0x5
+ 345 0081 696E7400 		.ascii	"int\000"
+ 346 0085 03       		.uleb128 0x3
+ 347 0086 04       		.byte	0x4
+ 348 0087 07       		.byte	0x7
+ 349 0088 D7010000 		.4byte	.LASF11
+ 350 008c 02       		.uleb128 0x2
+ 351 008d 74000000 		.4byte	.LASF12
+ 352 0091 03       		.byte	0x3
+ 353 0092 14       		.byte	0x14
+ 354 0093 25000000 		.4byte	0x25
+ 355 0097 02       		.uleb128 0x2
+ 356 0098 FE010000 		.4byte	.LASF13
+ 357 009c 03       		.byte	0x3
+ 358 009d 18       		.byte	0x18
+ 359 009e 37000000 		.4byte	0x37
+ 360 00a2 02       		.uleb128 0x2
+ 361 00a3 54020000 		.4byte	.LASF14
+ 362 00a7 03       		.byte	0x3
+ 363 00a8 2C       		.byte	0x2c
+ 364 00a9 57000000 		.4byte	0x57
+ 365 00ad 03       		.uleb128 0x3
+ 366 00ae 04       		.byte	0x4
+ 367 00af 04       		.byte	0x4
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 9
+
+
+ 368 00b0 82000000 		.4byte	.LASF15
+ 369 00b4 03       		.uleb128 0x3
+ 370 00b5 08       		.byte	0x8
+ 371 00b6 04       		.byte	0x4
+ 372 00b7 BD010000 		.4byte	.LASF16
+ 373 00bb 03       		.uleb128 0x3
+ 374 00bc 01       		.byte	0x1
+ 375 00bd 08       		.byte	0x8
+ 376 00be 35020000 		.4byte	.LASF17
+ 377 00c2 03       		.uleb128 0x3
+ 378 00c3 04       		.byte	0x4
+ 379 00c4 07       		.byte	0x7
+ 380 00c5 17020000 		.4byte	.LASF18
+ 381 00c9 03       		.uleb128 0x3
+ 382 00ca 08       		.byte	0x8
+ 383 00cb 04       		.byte	0x4
+ 384 00cc 80020000 		.4byte	.LASF19
+ 385 00d0 05       		.uleb128 0x5
+ 386 00d1 4C434400 		.ascii	"LCD\000"
+ 387 00d5 01       		.byte	0x1
+ 388 00d6 0E       		.byte	0xe
+ 389 00d7 00000000 		.4byte	.LFB63
+ 390 00db 4C000000 		.4byte	.LFE63-.LFB63
+ 391 00df 01       		.uleb128 0x1
+ 392 00e0 9C       		.byte	0x9c
+ 393 00e1 98010000 		.4byte	0x198
+ 394 00e5 06       		.uleb128 0x6
+ 395 00e6 0A000000 		.4byte	.LVL0
+ 396 00ea 68030000 		.4byte	0x368
+ 397 00ee FD000000 		.4byte	0xfd
+ 398 00f2 07       		.uleb128 0x7
+ 399 00f3 01       		.uleb128 0x1
+ 400 00f4 50       		.byte	0x50
+ 401 00f5 01       		.uleb128 0x1
+ 402 00f6 30       		.byte	0x30
+ 403 00f7 07       		.uleb128 0x7
+ 404 00f8 01       		.uleb128 0x1
+ 405 00f9 51       		.byte	0x51
+ 406 00fa 01       		.uleb128 0x1
+ 407 00fb 30       		.byte	0x30
+ 408 00fc 00       		.byte	0
+ 409 00fd 06       		.uleb128 0x6
+ 410 00fe 12000000 		.4byte	.LVL1
+ 411 0102 73030000 		.4byte	0x373
+ 412 0106 11010000 		.4byte	0x111
+ 413 010a 07       		.uleb128 0x7
+ 414 010b 01       		.uleb128 0x1
+ 415 010c 50       		.byte	0x50
+ 416 010d 02       		.uleb128 0x2
+ 417 010e 74       		.byte	0x74
+ 418 010f 00       		.sleb128 0
+ 419 0110 00       		.byte	0
+ 420 0111 06       		.uleb128 0x6
+ 421 0112 1A000000 		.4byte	.LVL2
+ 422 0116 68030000 		.4byte	0x368
+ 423 011a 29010000 		.4byte	0x129
+ 424 011e 07       		.uleb128 0x7
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 10
+
+
+ 425 011f 01       		.uleb128 0x1
+ 426 0120 50       		.byte	0x50
+ 427 0121 01       		.uleb128 0x1
+ 428 0122 30       		.byte	0x30
+ 429 0123 07       		.uleb128 0x7
+ 430 0124 01       		.uleb128 0x1
+ 431 0125 51       		.byte	0x51
+ 432 0126 01       		.uleb128 0x1
+ 433 0127 30       		.byte	0x30
+ 434 0128 00       		.byte	0
+ 435 0129 06       		.uleb128 0x6
+ 436 012a 20000000 		.4byte	.LVL3
+ 437 012e 73030000 		.4byte	0x373
+ 438 0132 40010000 		.4byte	0x140
+ 439 0136 07       		.uleb128 0x7
+ 440 0137 01       		.uleb128 0x1
+ 441 0138 50       		.byte	0x50
+ 442 0139 05       		.uleb128 0x5
+ 443 013a 03       		.byte	0x3
+ 444 013b 14000000 		.4byte	.LC1
+ 445 013f 00       		.byte	0
+ 446 0140 06       		.uleb128 0x6
+ 447 0141 28000000 		.4byte	.LVL4
+ 448 0145 68030000 		.4byte	0x368
+ 449 0149 58010000 		.4byte	0x158
+ 450 014d 07       		.uleb128 0x7
+ 451 014e 01       		.uleb128 0x1
+ 452 014f 50       		.byte	0x50
+ 453 0150 01       		.uleb128 0x1
+ 454 0151 31       		.byte	0x31
+ 455 0152 07       		.uleb128 0x7
+ 456 0153 01       		.uleb128 0x1
+ 457 0154 51       		.byte	0x51
+ 458 0155 01       		.uleb128 0x1
+ 459 0156 30       		.byte	0x30
+ 460 0157 00       		.byte	0
+ 461 0158 06       		.uleb128 0x6
+ 462 0159 2E000000 		.4byte	.LVL5
+ 463 015d 73030000 		.4byte	0x373
+ 464 0161 6C010000 		.4byte	0x16c
+ 465 0165 07       		.uleb128 0x7
+ 466 0166 01       		.uleb128 0x1
+ 467 0167 50       		.byte	0x50
+ 468 0168 02       		.uleb128 0x2
+ 469 0169 74       		.byte	0x74
+ 470 016a 00       		.sleb128 0
+ 471 016b 00       		.byte	0
+ 472 016c 06       		.uleb128 0x6
+ 473 016d 36000000 		.4byte	.LVL6
+ 474 0171 68030000 		.4byte	0x368
+ 475 0175 84010000 		.4byte	0x184
+ 476 0179 07       		.uleb128 0x7
+ 477 017a 01       		.uleb128 0x1
+ 478 017b 50       		.byte	0x50
+ 479 017c 01       		.uleb128 0x1
+ 480 017d 31       		.byte	0x31
+ 481 017e 07       		.uleb128 0x7
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 11
+
+
+ 482 017f 01       		.uleb128 0x1
+ 483 0180 51       		.byte	0x51
+ 484 0181 01       		.uleb128 0x1
+ 485 0182 30       		.byte	0x30
+ 486 0183 00       		.byte	0
+ 487 0184 08       		.uleb128 0x8
+ 488 0185 3C000000 		.4byte	.LVL7
+ 489 0189 73030000 		.4byte	0x373
+ 490 018d 07       		.uleb128 0x7
+ 491 018e 01       		.uleb128 0x1
+ 492 018f 50       		.byte	0x50
+ 493 0190 05       		.uleb128 0x5
+ 494 0191 03       		.byte	0x3
+ 495 0192 1C000000 		.4byte	.LC2
+ 496 0196 00       		.byte	0
+ 497 0197 00       		.byte	0
+ 498 0198 09       		.uleb128 0x9
+ 499 0199 C4020000 		.4byte	.LASF40
+ 500 019d 01       		.byte	0x1
+ 501 019e 1B       		.byte	0x1b
+ 502 019f 00000000 		.4byte	.LFB64
+ 503 01a3 30000000 		.4byte	.LFE64-.LFB64
+ 504 01a7 01       		.uleb128 0x1
+ 505 01a8 9C       		.byte	0x9c
+ 506 01a9 2B020000 		.4byte	0x22b
+ 507 01ad 0A       		.uleb128 0xa
+ 508 01ae 13000000 		.4byte	.LASF20
+ 509 01b2 01       		.byte	0x1
+ 510 01b3 1B       		.byte	0x1b
+ 511 01b4 7E000000 		.4byte	0x7e
+ 512 01b8 00000000 		.4byte	.LLST0
+ 513 01bc 06       		.uleb128 0x6
+ 514 01bd 0C000000 		.4byte	.LVL10
+ 515 01c1 68030000 		.4byte	0x368
+ 516 01c5 D4010000 		.4byte	0x1d4
+ 517 01c9 07       		.uleb128 0x7
+ 518 01ca 01       		.uleb128 0x1
+ 519 01cb 50       		.byte	0x50
+ 520 01cc 01       		.uleb128 0x1
+ 521 01cd 31       		.byte	0x31
+ 522 01ce 07       		.uleb128 0x7
+ 523 01cf 01       		.uleb128 0x1
+ 524 01d0 51       		.byte	0x51
+ 525 01d1 01       		.uleb128 0x1
+ 526 01d2 30       		.byte	0x30
+ 527 01d3 00       		.byte	0
+ 528 01d4 06       		.uleb128 0x6
+ 529 01d5 12000000 		.4byte	.LVL11
+ 530 01d9 73030000 		.4byte	0x373
+ 531 01dd EB010000 		.4byte	0x1eb
+ 532 01e1 07       		.uleb128 0x7
+ 533 01e2 01       		.uleb128 0x1
+ 534 01e3 50       		.byte	0x50
+ 535 01e4 05       		.uleb128 0x5
+ 536 01e5 03       		.byte	0x3
+ 537 01e6 24000000 		.4byte	.LC3
+ 538 01ea 00       		.byte	0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 12
+
+
+ 539 01eb 06       		.uleb128 0x6
+ 540 01ec 1A000000 		.4byte	.LVL12
+ 541 01f0 68030000 		.4byte	0x368
+ 542 01f4 03020000 		.4byte	0x203
+ 543 01f8 07       		.uleb128 0x7
+ 544 01f9 01       		.uleb128 0x1
+ 545 01fa 50       		.byte	0x50
+ 546 01fb 01       		.uleb128 0x1
+ 547 01fc 31       		.byte	0x31
+ 548 01fd 07       		.uleb128 0x7
+ 549 01fe 01       		.uleb128 0x1
+ 550 01ff 51       		.byte	0x51
+ 551 0200 01       		.uleb128 0x1
+ 552 0201 30       		.byte	0x30
+ 553 0202 00       		.byte	0
+ 554 0203 06       		.uleb128 0x6
+ 555 0204 20000000 		.4byte	.LVL13
+ 556 0208 73030000 		.4byte	0x373
+ 557 020c 1A020000 		.4byte	0x21a
+ 558 0210 07       		.uleb128 0x7
+ 559 0211 01       		.uleb128 0x1
+ 560 0212 50       		.byte	0x50
+ 561 0213 05       		.uleb128 0x5
+ 562 0214 03       		.byte	0x3
+ 563 0215 34000000 		.4byte	.LC4
+ 564 0219 00       		.byte	0
+ 565 021a 08       		.uleb128 0x8
+ 566 021b 26000000 		.4byte	.LVL14
+ 567 021f 7E030000 		.4byte	0x37e
+ 568 0223 07       		.uleb128 0x7
+ 569 0224 01       		.uleb128 0x1
+ 570 0225 50       		.byte	0x50
+ 571 0226 02       		.uleb128 0x2
+ 572 0227 74       		.byte	0x74
+ 573 0228 00       		.sleb128 0
+ 574 0229 00       		.byte	0
+ 575 022a 00       		.byte	0
+ 576 022b 0B       		.uleb128 0xb
+ 577 022c C4010000 		.4byte	.LASF41
+ 578 0230 01       		.byte	0x1
+ 579 0231 26       		.byte	0x26
+ 580 0232 7E000000 		.4byte	0x7e
+ 581 0236 00000000 		.4byte	.LFB65
+ 582 023a 70000000 		.4byte	.LFE65-.LFB65
+ 583 023e 01       		.uleb128 0x1
+ 584 023f 9C       		.byte	0x9c
+ 585 0240 57030000 		.4byte	0x357
+ 586 0244 0C       		.uleb128 0xc
+ 587 0245 13000000 		.4byte	.LASF20
+ 588 0249 01       		.byte	0x1
+ 589 024a 27       		.byte	0x27
+ 590 024b 8C000000 		.4byte	0x8c
+ 591 024f 2C000000 		.4byte	.LLST1
+ 592 0253 0D       		.uleb128 0xd
+ 593 0254 6900     		.ascii	"i\000"
+ 594 0256 01       		.byte	0x1
+ 595 0257 28       		.byte	0x28
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 13
+
+
+ 596 0258 97000000 		.4byte	0x97
+ 597 025c 4A000000 		.4byte	.LLST2
+ 598 0260 0C       		.uleb128 0xc
+ 599 0261 4E020000 		.4byte	.LASF21
+ 600 0265 01       		.byte	0x1
+ 601 0266 28       		.byte	0x28
+ 602 0267 97000000 		.4byte	0x97
+ 603 026b 68000000 		.4byte	.LLST3
+ 604 026f 0C       		.uleb128 0xc
+ 605 0270 7B000000 		.4byte	.LASF22
+ 606 0274 01       		.byte	0x1
+ 607 0275 28       		.byte	0x28
+ 608 0276 97000000 		.4byte	0x97
+ 609 027a AB000000 		.4byte	.LLST4
+ 610 027e 0E       		.uleb128 0xe
+ 611 027f 08000000 		.4byte	.LVL17
+ 612 0283 89030000 		.4byte	0x389
+ 613 0287 0E       		.uleb128 0xe
+ 614 0288 0C000000 		.4byte	.LVL18
+ 615 028c 94030000 		.4byte	0x394
+ 616 0290 0E       		.uleb128 0xe
+ 617 0291 10000000 		.4byte	.LVL19
+ 618 0295 9F030000 		.4byte	0x39f
+ 619 0299 0E       		.uleb128 0xe
+ 620 029a 14000000 		.4byte	.LVL20
+ 621 029e AA030000 		.4byte	0x3aa
+ 622 02a2 06       		.uleb128 0x6
+ 623 02a3 1A000000 		.4byte	.LVL21
+ 624 02a7 B5030000 		.4byte	0x3b5
+ 625 02ab B6020000 		.4byte	0x2b6
+ 626 02af 07       		.uleb128 0x7
+ 627 02b0 01       		.uleb128 0x1
+ 628 02b1 50       		.byte	0x50
+ 629 02b2 02       		.uleb128 0x2
+ 630 02b3 09       		.byte	0x9
+ 631 02b4 FF       		.byte	0xff
+ 632 02b5 00       		.byte	0
+ 633 02b6 0E       		.uleb128 0xe
+ 634 02b7 1E000000 		.4byte	.LVL22
+ 635 02bb D0000000 		.4byte	0xd0
+ 636 02bf 0E       		.uleb128 0xe
+ 637 02c0 24000000 		.4byte	.LVL24
+ 638 02c4 C0030000 		.4byte	0x3c0
+ 639 02c8 06       		.uleb128 0x6
+ 640 02c9 30000000 		.4byte	.LVL27
+ 641 02cd CB030000 		.4byte	0x3cb
+ 642 02d1 DB020000 		.4byte	0x2db
+ 643 02d5 07       		.uleb128 0x7
+ 644 02d6 01       		.uleb128 0x1
+ 645 02d7 50       		.byte	0x50
+ 646 02d8 01       		.uleb128 0x1
+ 647 02d9 31       		.byte	0x31
+ 648 02da 00       		.byte	0
+ 649 02db 06       		.uleb128 0x6
+ 650 02dc 36000000 		.4byte	.LVL28
+ 651 02e0 D6030000 		.4byte	0x3d6
+ 652 02e4 EE020000 		.4byte	0x2ee
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 14
+
+
+ 653 02e8 07       		.uleb128 0x7
+ 654 02e9 01       		.uleb128 0x1
+ 655 02ea 50       		.byte	0x50
+ 656 02eb 01       		.uleb128 0x1
+ 657 02ec 31       		.byte	0x31
+ 658 02ed 00       		.byte	0
+ 659 02ee 06       		.uleb128 0x6
+ 660 02ef 3C000000 		.4byte	.LVL29
+ 661 02f3 E1030000 		.4byte	0x3e1
+ 662 02f7 01030000 		.4byte	0x301
+ 663 02fb 07       		.uleb128 0x7
+ 664 02fc 01       		.uleb128 0x1
+ 665 02fd 50       		.byte	0x50
+ 666 02fe 01       		.uleb128 0x1
+ 667 02ff 31       		.byte	0x31
+ 668 0300 00       		.byte	0
+ 669 0301 06       		.uleb128 0x6
+ 670 0302 44000000 		.4byte	.LVL32
+ 671 0306 CB030000 		.4byte	0x3cb
+ 672 030a 14030000 		.4byte	0x314
+ 673 030e 07       		.uleb128 0x7
+ 674 030f 01       		.uleb128 0x1
+ 675 0310 50       		.byte	0x50
+ 676 0311 01       		.uleb128 0x1
+ 677 0312 30       		.byte	0x30
+ 678 0313 00       		.byte	0
+ 679 0314 06       		.uleb128 0x6
+ 680 0315 4A000000 		.4byte	.LVL33
+ 681 0319 E1030000 		.4byte	0x3e1
+ 682 031d 27030000 		.4byte	0x327
+ 683 0321 07       		.uleb128 0x7
+ 684 0322 01       		.uleb128 0x1
+ 685 0323 50       		.byte	0x50
+ 686 0324 01       		.uleb128 0x1
+ 687 0325 30       		.byte	0x30
+ 688 0326 00       		.byte	0
+ 689 0327 06       		.uleb128 0x6
+ 690 0328 50000000 		.4byte	.LVL34
+ 691 032c D6030000 		.4byte	0x3d6
+ 692 0330 3A030000 		.4byte	0x33a
+ 693 0334 07       		.uleb128 0x7
+ 694 0335 01       		.uleb128 0x1
+ 695 0336 50       		.byte	0x50
+ 696 0337 01       		.uleb128 0x1
+ 697 0338 30       		.byte	0x30
+ 698 0339 00       		.byte	0
+ 699 033a 0E       		.uleb128 0xe
+ 700 033b 54000000 		.4byte	.LVL35
+ 701 033f EC030000 		.4byte	0x3ec
+ 702 0343 08       		.uleb128 0x8
+ 703 0344 68000000 		.4byte	.LVL38
+ 704 0348 F7030000 		.4byte	0x3f7
+ 705 034c 07       		.uleb128 0x7
+ 706 034d 01       		.uleb128 0x1
+ 707 034e 50       		.byte	0x50
+ 708 034f 05       		.uleb128 0x5
+ 709 0350 75       		.byte	0x75
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 15
+
+
+ 710 0351 00       		.sleb128 0
+ 711 0352 08       		.byte	0x8
+ 712 0353 80       		.byte	0x80
+ 713 0354 27       		.byte	0x27
+ 714 0355 00       		.byte	0
+ 715 0356 00       		.byte	0
+ 716 0357 0F       		.uleb128 0xf
+ 717 0358 82010000 		.4byte	.LASF42
+ 718 035c 0B       		.byte	0xb
+ 719 035d 1207     		.2byte	0x712
+ 720 035f 63030000 		.4byte	0x363
+ 721 0363 10       		.uleb128 0x10
+ 722 0364 A2000000 		.4byte	0xa2
+ 723 0368 11       		.uleb128 0x11
+ 724 0369 3A020000 		.4byte	.LASF23
+ 725 036d 3A020000 		.4byte	.LASF23
+ 726 0371 04       		.byte	0x4
+ 727 0372 3D       		.byte	0x3d
+ 728 0373 11       		.uleb128 0x11
+ 729 0374 A9000000 		.4byte	.LASF24
+ 730 0378 A9000000 		.4byte	.LASF24
+ 731 037c 04       		.byte	0x4
+ 732 037d 3C       		.byte	0x3c
+ 733 037e 11       		.uleb128 0x11
+ 734 037f E4010000 		.4byte	.LASF25
+ 735 0383 E4010000 		.4byte	.LASF25
+ 736 0387 04       		.byte	0x4
+ 737 0388 61       		.byte	0x61
+ 738 0389 11       		.uleb128 0x11
+ 739 038a 6F020000 		.4byte	.LASF26
+ 740 038e 6F020000 		.4byte	.LASF26
+ 741 0392 04       		.byte	0x4
+ 742 0393 38       		.byte	0x38
+ 743 0394 11       		.uleb128 0x11
+ 744 0395 98020000 		.4byte	.LASF27
+ 745 0399 98020000 		.4byte	.LASF27
+ 746 039d 05       		.byte	0x5
+ 747 039e 34       		.byte	0x34
+ 748 039f 11       		.uleb128 0x11
+ 749 03a0 6B010000 		.4byte	.LASF28
+ 750 03a4 6B010000 		.4byte	.LASF28
+ 751 03a8 05       		.byte	0x5
+ 752 03a9 D1       		.byte	0xd1
+ 753 03aa 11       		.uleb128 0x11
+ 754 03ab AF010000 		.4byte	.LASF29
+ 755 03af AF010000 		.4byte	.LASF29
+ 756 03b3 06       		.byte	0x6
+ 757 03b4 33       		.byte	0x33
+ 758 03b5 11       		.uleb128 0x11
+ 759 03b6 B3020000 		.4byte	.LASF30
+ 760 03ba B3020000 		.4byte	.LASF30
+ 761 03be 06       		.byte	0x6
+ 762 03bf 36       		.byte	0x36
+ 763 03c0 11       		.uleb128 0x11
+ 764 03c1 9A010000 		.4byte	.LASF31
+ 765 03c5 9A010000 		.4byte	.LASF31
+ 766 03c9 05       		.byte	0x5
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 16
+
+
+ 767 03ca 3A       		.byte	0x3a
+ 768 03cb 11       		.uleb128 0x11
+ 769 03cc A8020000 		.4byte	.LASF32
+ 770 03d0 A8020000 		.4byte	.LASF32
+ 771 03d4 07       		.byte	0x7
+ 772 03d5 26       		.byte	0x26
+ 773 03d6 11       		.uleb128 0x11
+ 774 03d7 8F010000 		.4byte	.LASF33
+ 775 03db 8F010000 		.4byte	.LASF33
+ 776 03df 08       		.byte	0x8
+ 777 03e0 26       		.byte	0x26
+ 778 03e1 11       		.uleb128 0x11
+ 779 03e2 4E010000 		.4byte	.LASF34
+ 780 03e6 4E010000 		.4byte	.LASF34
+ 781 03ea 09       		.byte	0x9
+ 782 03eb 26       		.byte	0x26
+ 783 03ec 11       		.uleb128 0x11
+ 784 03ed 9F000000 		.4byte	.LASF35
+ 785 03f1 9F000000 		.4byte	.LASF35
+ 786 03f5 0A       		.byte	0xa
+ 787 03f6 29       		.byte	0x29
+ 788 03f7 11       		.uleb128 0x11
+ 789 03f8 06020000 		.4byte	.LASF36
+ 790 03fc 06020000 		.4byte	.LASF36
+ 791 0400 06       		.byte	0x6
+ 792 0401 37       		.byte	0x37
+ 793 0402 00       		.byte	0
+ 794              		.section	.debug_abbrev,"",%progbits
+ 795              	.Ldebug_abbrev0:
+ 796 0000 01       		.uleb128 0x1
+ 797 0001 11       		.uleb128 0x11
+ 798 0002 01       		.byte	0x1
+ 799 0003 25       		.uleb128 0x25
+ 800 0004 0E       		.uleb128 0xe
+ 801 0005 13       		.uleb128 0x13
+ 802 0006 0B       		.uleb128 0xb
+ 803 0007 03       		.uleb128 0x3
+ 804 0008 0E       		.uleb128 0xe
+ 805 0009 1B       		.uleb128 0x1b
+ 806 000a 0E       		.uleb128 0xe
+ 807 000b 55       		.uleb128 0x55
+ 808 000c 17       		.uleb128 0x17
+ 809 000d 11       		.uleb128 0x11
+ 810 000e 01       		.uleb128 0x1
+ 811 000f 10       		.uleb128 0x10
+ 812 0010 17       		.uleb128 0x17
+ 813 0011 00       		.byte	0
+ 814 0012 00       		.byte	0
+ 815 0013 02       		.uleb128 0x2
+ 816 0014 16       		.uleb128 0x16
+ 817 0015 00       		.byte	0
+ 818 0016 03       		.uleb128 0x3
+ 819 0017 0E       		.uleb128 0xe
+ 820 0018 3A       		.uleb128 0x3a
+ 821 0019 0B       		.uleb128 0xb
+ 822 001a 3B       		.uleb128 0x3b
+ 823 001b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 17
+
+
+ 824 001c 49       		.uleb128 0x49
+ 825 001d 13       		.uleb128 0x13
+ 826 001e 00       		.byte	0
+ 827 001f 00       		.byte	0
+ 828 0020 03       		.uleb128 0x3
+ 829 0021 24       		.uleb128 0x24
+ 830 0022 00       		.byte	0
+ 831 0023 0B       		.uleb128 0xb
+ 832 0024 0B       		.uleb128 0xb
+ 833 0025 3E       		.uleb128 0x3e
+ 834 0026 0B       		.uleb128 0xb
+ 835 0027 03       		.uleb128 0x3
+ 836 0028 0E       		.uleb128 0xe
+ 837 0029 00       		.byte	0
+ 838 002a 00       		.byte	0
+ 839 002b 04       		.uleb128 0x4
+ 840 002c 24       		.uleb128 0x24
+ 841 002d 00       		.byte	0
+ 842 002e 0B       		.uleb128 0xb
+ 843 002f 0B       		.uleb128 0xb
+ 844 0030 3E       		.uleb128 0x3e
+ 845 0031 0B       		.uleb128 0xb
+ 846 0032 03       		.uleb128 0x3
+ 847 0033 08       		.uleb128 0x8
+ 848 0034 00       		.byte	0
+ 849 0035 00       		.byte	0
+ 850 0036 05       		.uleb128 0x5
+ 851 0037 2E       		.uleb128 0x2e
+ 852 0038 01       		.byte	0x1
+ 853 0039 3F       		.uleb128 0x3f
+ 854 003a 19       		.uleb128 0x19
+ 855 003b 03       		.uleb128 0x3
+ 856 003c 08       		.uleb128 0x8
+ 857 003d 3A       		.uleb128 0x3a
+ 858 003e 0B       		.uleb128 0xb
+ 859 003f 3B       		.uleb128 0x3b
+ 860 0040 0B       		.uleb128 0xb
+ 861 0041 11       		.uleb128 0x11
+ 862 0042 01       		.uleb128 0x1
+ 863 0043 12       		.uleb128 0x12
+ 864 0044 06       		.uleb128 0x6
+ 865 0045 40       		.uleb128 0x40
+ 866 0046 18       		.uleb128 0x18
+ 867 0047 9742     		.uleb128 0x2117
+ 868 0049 19       		.uleb128 0x19
+ 869 004a 01       		.uleb128 0x1
+ 870 004b 13       		.uleb128 0x13
+ 871 004c 00       		.byte	0
+ 872 004d 00       		.byte	0
+ 873 004e 06       		.uleb128 0x6
+ 874 004f 898201   		.uleb128 0x4109
+ 875 0052 01       		.byte	0x1
+ 876 0053 11       		.uleb128 0x11
+ 877 0054 01       		.uleb128 0x1
+ 878 0055 31       		.uleb128 0x31
+ 879 0056 13       		.uleb128 0x13
+ 880 0057 01       		.uleb128 0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 18
+
+
+ 881 0058 13       		.uleb128 0x13
+ 882 0059 00       		.byte	0
+ 883 005a 00       		.byte	0
+ 884 005b 07       		.uleb128 0x7
+ 885 005c 8A8201   		.uleb128 0x410a
+ 886 005f 00       		.byte	0
+ 887 0060 02       		.uleb128 0x2
+ 888 0061 18       		.uleb128 0x18
+ 889 0062 9142     		.uleb128 0x2111
+ 890 0064 18       		.uleb128 0x18
+ 891 0065 00       		.byte	0
+ 892 0066 00       		.byte	0
+ 893 0067 08       		.uleb128 0x8
+ 894 0068 898201   		.uleb128 0x4109
+ 895 006b 01       		.byte	0x1
+ 896 006c 11       		.uleb128 0x11
+ 897 006d 01       		.uleb128 0x1
+ 898 006e 31       		.uleb128 0x31
+ 899 006f 13       		.uleb128 0x13
+ 900 0070 00       		.byte	0
+ 901 0071 00       		.byte	0
+ 902 0072 09       		.uleb128 0x9
+ 903 0073 2E       		.uleb128 0x2e
+ 904 0074 01       		.byte	0x1
+ 905 0075 3F       		.uleb128 0x3f
+ 906 0076 19       		.uleb128 0x19
+ 907 0077 03       		.uleb128 0x3
+ 908 0078 0E       		.uleb128 0xe
+ 909 0079 3A       		.uleb128 0x3a
+ 910 007a 0B       		.uleb128 0xb
+ 911 007b 3B       		.uleb128 0x3b
+ 912 007c 0B       		.uleb128 0xb
+ 913 007d 27       		.uleb128 0x27
+ 914 007e 19       		.uleb128 0x19
+ 915 007f 11       		.uleb128 0x11
+ 916 0080 01       		.uleb128 0x1
+ 917 0081 12       		.uleb128 0x12
+ 918 0082 06       		.uleb128 0x6
+ 919 0083 40       		.uleb128 0x40
+ 920 0084 18       		.uleb128 0x18
+ 921 0085 9742     		.uleb128 0x2117
+ 922 0087 19       		.uleb128 0x19
+ 923 0088 01       		.uleb128 0x1
+ 924 0089 13       		.uleb128 0x13
+ 925 008a 00       		.byte	0
+ 926 008b 00       		.byte	0
+ 927 008c 0A       		.uleb128 0xa
+ 928 008d 05       		.uleb128 0x5
+ 929 008e 00       		.byte	0
+ 930 008f 03       		.uleb128 0x3
+ 931 0090 0E       		.uleb128 0xe
+ 932 0091 3A       		.uleb128 0x3a
+ 933 0092 0B       		.uleb128 0xb
+ 934 0093 3B       		.uleb128 0x3b
+ 935 0094 0B       		.uleb128 0xb
+ 936 0095 49       		.uleb128 0x49
+ 937 0096 13       		.uleb128 0x13
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 19
+
+
+ 938 0097 02       		.uleb128 0x2
+ 939 0098 17       		.uleb128 0x17
+ 940 0099 00       		.byte	0
+ 941 009a 00       		.byte	0
+ 942 009b 0B       		.uleb128 0xb
+ 943 009c 2E       		.uleb128 0x2e
+ 944 009d 01       		.byte	0x1
+ 945 009e 3F       		.uleb128 0x3f
+ 946 009f 19       		.uleb128 0x19
+ 947 00a0 03       		.uleb128 0x3
+ 948 00a1 0E       		.uleb128 0xe
+ 949 00a2 3A       		.uleb128 0x3a
+ 950 00a3 0B       		.uleb128 0xb
+ 951 00a4 3B       		.uleb128 0x3b
+ 952 00a5 0B       		.uleb128 0xb
+ 953 00a6 27       		.uleb128 0x27
+ 954 00a7 19       		.uleb128 0x19
+ 955 00a8 49       		.uleb128 0x49
+ 956 00a9 13       		.uleb128 0x13
+ 957 00aa 8701     		.uleb128 0x87
+ 958 00ac 19       		.uleb128 0x19
+ 959 00ad 11       		.uleb128 0x11
+ 960 00ae 01       		.uleb128 0x1
+ 961 00af 12       		.uleb128 0x12
+ 962 00b0 06       		.uleb128 0x6
+ 963 00b1 40       		.uleb128 0x40
+ 964 00b2 18       		.uleb128 0x18
+ 965 00b3 9742     		.uleb128 0x2117
+ 966 00b5 19       		.uleb128 0x19
+ 967 00b6 01       		.uleb128 0x1
+ 968 00b7 13       		.uleb128 0x13
+ 969 00b8 00       		.byte	0
+ 970 00b9 00       		.byte	0
+ 971 00ba 0C       		.uleb128 0xc
+ 972 00bb 34       		.uleb128 0x34
+ 973 00bc 00       		.byte	0
+ 974 00bd 03       		.uleb128 0x3
+ 975 00be 0E       		.uleb128 0xe
+ 976 00bf 3A       		.uleb128 0x3a
+ 977 00c0 0B       		.uleb128 0xb
+ 978 00c1 3B       		.uleb128 0x3b
+ 979 00c2 0B       		.uleb128 0xb
+ 980 00c3 49       		.uleb128 0x49
+ 981 00c4 13       		.uleb128 0x13
+ 982 00c5 02       		.uleb128 0x2
+ 983 00c6 17       		.uleb128 0x17
+ 984 00c7 00       		.byte	0
+ 985 00c8 00       		.byte	0
+ 986 00c9 0D       		.uleb128 0xd
+ 987 00ca 34       		.uleb128 0x34
+ 988 00cb 00       		.byte	0
+ 989 00cc 03       		.uleb128 0x3
+ 990 00cd 08       		.uleb128 0x8
+ 991 00ce 3A       		.uleb128 0x3a
+ 992 00cf 0B       		.uleb128 0xb
+ 993 00d0 3B       		.uleb128 0x3b
+ 994 00d1 0B       		.uleb128 0xb
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 20
+
+
+ 995 00d2 49       		.uleb128 0x49
+ 996 00d3 13       		.uleb128 0x13
+ 997 00d4 02       		.uleb128 0x2
+ 998 00d5 17       		.uleb128 0x17
+ 999 00d6 00       		.byte	0
+ 1000 00d7 00       		.byte	0
+ 1001 00d8 0E       		.uleb128 0xe
+ 1002 00d9 898201   		.uleb128 0x4109
+ 1003 00dc 00       		.byte	0
+ 1004 00dd 11       		.uleb128 0x11
+ 1005 00de 01       		.uleb128 0x1
+ 1006 00df 31       		.uleb128 0x31
+ 1007 00e0 13       		.uleb128 0x13
+ 1008 00e1 00       		.byte	0
+ 1009 00e2 00       		.byte	0
+ 1010 00e3 0F       		.uleb128 0xf
+ 1011 00e4 34       		.uleb128 0x34
+ 1012 00e5 00       		.byte	0
+ 1013 00e6 03       		.uleb128 0x3
+ 1014 00e7 0E       		.uleb128 0xe
+ 1015 00e8 3A       		.uleb128 0x3a
+ 1016 00e9 0B       		.uleb128 0xb
+ 1017 00ea 3B       		.uleb128 0x3b
+ 1018 00eb 05       		.uleb128 0x5
+ 1019 00ec 49       		.uleb128 0x49
+ 1020 00ed 13       		.uleb128 0x13
+ 1021 00ee 3F       		.uleb128 0x3f
+ 1022 00ef 19       		.uleb128 0x19
+ 1023 00f0 3C       		.uleb128 0x3c
+ 1024 00f1 19       		.uleb128 0x19
+ 1025 00f2 00       		.byte	0
+ 1026 00f3 00       		.byte	0
+ 1027 00f4 10       		.uleb128 0x10
+ 1028 00f5 35       		.uleb128 0x35
+ 1029 00f6 00       		.byte	0
+ 1030 00f7 49       		.uleb128 0x49
+ 1031 00f8 13       		.uleb128 0x13
+ 1032 00f9 00       		.byte	0
+ 1033 00fa 00       		.byte	0
+ 1034 00fb 11       		.uleb128 0x11
+ 1035 00fc 2E       		.uleb128 0x2e
+ 1036 00fd 00       		.byte	0
+ 1037 00fe 3F       		.uleb128 0x3f
+ 1038 00ff 19       		.uleb128 0x19
+ 1039 0100 3C       		.uleb128 0x3c
+ 1040 0101 19       		.uleb128 0x19
+ 1041 0102 6E       		.uleb128 0x6e
+ 1042 0103 0E       		.uleb128 0xe
+ 1043 0104 03       		.uleb128 0x3
+ 1044 0105 0E       		.uleb128 0xe
+ 1045 0106 3A       		.uleb128 0x3a
+ 1046 0107 0B       		.uleb128 0xb
+ 1047 0108 3B       		.uleb128 0x3b
+ 1048 0109 0B       		.uleb128 0xb
+ 1049 010a 00       		.byte	0
+ 1050 010b 00       		.byte	0
+ 1051 010c 00       		.byte	0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 21
+
+
+ 1052              		.section	.debug_loc,"",%progbits
+ 1053              	.Ldebug_loc0:
+ 1054              	.LLST0:
+ 1055 0000 00000000 		.4byte	.LVL8
+ 1056 0004 08000000 		.4byte	.LVL9
+ 1057 0008 0100     		.2byte	0x1
+ 1058 000a 50       		.byte	0x50
+ 1059 000b 08000000 		.4byte	.LVL9
+ 1060 000f 28000000 		.4byte	.LVL15
+ 1061 0013 0100     		.2byte	0x1
+ 1062 0015 54       		.byte	0x54
+ 1063 0016 28000000 		.4byte	.LVL15
+ 1064 001a 30000000 		.4byte	.LFE64
+ 1065 001e 0400     		.2byte	0x4
+ 1066 0020 F3       		.byte	0xf3
+ 1067 0021 01       		.uleb128 0x1
+ 1068 0022 50       		.byte	0x50
+ 1069 0023 9F       		.byte	0x9f
+ 1070 0024 00000000 		.4byte	0
+ 1071 0028 00000000 		.4byte	0
+ 1072              	.LLST1:
+ 1073 002c 24000000 		.4byte	.LVL24
+ 1074 0030 2C000000 		.4byte	.LVL26
+ 1075 0034 0100     		.2byte	0x1
+ 1076 0036 50       		.byte	0x50
+ 1077 0037 3E000000 		.4byte	.LVL30
+ 1078 003b 40000000 		.4byte	.LVL31
+ 1079 003f 0100     		.2byte	0x1
+ 1080 0041 50       		.byte	0x50
+ 1081 0042 00000000 		.4byte	0
+ 1082 0046 00000000 		.4byte	0
+ 1083              	.LLST2:
+ 1084 004a 20000000 		.4byte	.LVL23
+ 1085 004e 6C000000 		.4byte	.LVL40
+ 1086 0052 0100     		.2byte	0x1
+ 1087 0054 54       		.byte	0x54
+ 1088 0055 6E000000 		.4byte	.LVL41
+ 1089 0059 70000000 		.4byte	.LFE65
+ 1090 005d 0100     		.2byte	0x1
+ 1091 005f 54       		.byte	0x54
+ 1092 0060 00000000 		.4byte	0
+ 1093 0064 00000000 		.4byte	0
+ 1094              	.LLST3:
+ 1095 0068 02000000 		.4byte	.LVL16
+ 1096 006c 20000000 		.4byte	.LVL23
+ 1097 0070 0300     		.2byte	0x3
+ 1098 0072 09       		.byte	0x9
+ 1099 0073 80       		.byte	0x80
+ 1100 0074 9F       		.byte	0x9f
+ 1101 0075 20000000 		.4byte	.LVL23
+ 1102 0079 5A000000 		.4byte	.LVL36
+ 1103 007d 0100     		.2byte	0x1
+ 1104 007f 55       		.byte	0x55
+ 1105 0080 5C000000 		.4byte	.LVL37
+ 1106 0084 68000000 		.4byte	.LVL38
+ 1107 0088 0100     		.2byte	0x1
+ 1108 008a 55       		.byte	0x55
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 22
+
+
+ 1109 008b 68000000 		.4byte	.LVL38
+ 1110 008f 6A000000 		.4byte	.LVL39
+ 1111 0093 0300     		.2byte	0x3
+ 1112 0095 09       		.byte	0x9
+ 1113 0096 80       		.byte	0x80
+ 1114 0097 9F       		.byte	0x9f
+ 1115 0098 6A000000 		.4byte	.LVL39
+ 1116 009c 70000000 		.4byte	.LFE65
+ 1117 00a0 0100     		.2byte	0x1
+ 1118 00a2 55       		.byte	0x55
+ 1119 00a3 00000000 		.4byte	0
+ 1120 00a7 00000000 		.4byte	0
+ 1121              	.LLST4:
+ 1122 00ab 26000000 		.4byte	.LVL25
+ 1123 00af 2C000000 		.4byte	.LVL26
+ 1124 00b3 0100     		.2byte	0x1
+ 1125 00b5 50       		.byte	0x50
+ 1126 00b6 3E000000 		.4byte	.LVL30
+ 1127 00ba 40000000 		.4byte	.LVL31
+ 1128 00be 0100     		.2byte	0x1
+ 1129 00c0 50       		.byte	0x50
+ 1130 00c1 00000000 		.4byte	0
+ 1131 00c5 00000000 		.4byte	0
+ 1132              		.section	.debug_aranges,"",%progbits
+ 1133 0000 2C000000 		.4byte	0x2c
+ 1134 0004 0200     		.2byte	0x2
+ 1135 0006 00000000 		.4byte	.Ldebug_info0
+ 1136 000a 04       		.byte	0x4
+ 1137 000b 00       		.byte	0
+ 1138 000c 0000     		.2byte	0
+ 1139 000e 0000     		.2byte	0
+ 1140 0010 00000000 		.4byte	.LFB63
+ 1141 0014 4C000000 		.4byte	.LFE63-.LFB63
+ 1142 0018 00000000 		.4byte	.LFB64
+ 1143 001c 30000000 		.4byte	.LFE64-.LFB64
+ 1144 0020 00000000 		.4byte	.LFB65
+ 1145 0024 70000000 		.4byte	.LFE65-.LFB65
+ 1146 0028 00000000 		.4byte	0
+ 1147 002c 00000000 		.4byte	0
+ 1148              		.section	.debug_ranges,"",%progbits
+ 1149              	.Ldebug_ranges0:
+ 1150 0000 00000000 		.4byte	.LFB63
+ 1151 0004 4C000000 		.4byte	.LFE63
+ 1152 0008 00000000 		.4byte	.LFB64
+ 1153 000c 30000000 		.4byte	.LFE64
+ 1154 0010 00000000 		.4byte	.LFB65
+ 1155 0014 70000000 		.4byte	.LFE65
+ 1156 0018 00000000 		.4byte	0
+ 1157 001c 00000000 		.4byte	0
+ 1158              		.section	.debug_line,"",%progbits
+ 1159              	.Ldebug_line0:
+ 1160 0000 EF010000 		.section	.debug_str,"MS",%progbits,1
+ 1160      02009301 
+ 1160      00000201 
+ 1160      FB0E0D00 
+ 1160      01010101 
+ 1161              	.LASF0:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 23
+
+
+ 1162 0000 5F5F696E 		.ascii	"__int8_t\000"
+ 1162      74385F74 
+ 1162      00
+ 1163              	.LASF1:
+ 1164 0009 5F5F7569 		.ascii	"__uint8_t\000"
+ 1164      6E74385F 
+ 1164      7400
+ 1165              	.LASF20:
+ 1166 0013 76616C75 		.ascii	"value\000"
+ 1166      6500
+ 1167              	.LASF6:
+ 1168 0019 5F5F696E 		.ascii	"__int32_t\000"
+ 1168      7433325F 
+ 1168      7400
+ 1169              	.LASF39:
+ 1170 0023 433A5C55 		.ascii	"C:\\Users\\monis\\Documents\\Academics\\SA\\Lab 3\\"
+ 1170      73657273 
+ 1170      5C6D6F6E 
+ 1170      69735C44 
+ 1170      6F63756D 
+ 1171 004f 4C415345 		.ascii	"LASER\\LASER.cydsn\000"
+ 1171      525C4C41 
+ 1171      5345522E 
+ 1171      63796473 
+ 1171      6E00
+ 1172              	.LASF5:
+ 1173 0061 73686F72 		.ascii	"short unsigned int\000"
+ 1173      7420756E 
+ 1173      7369676E 
+ 1173      65642069 
+ 1173      6E7400
+ 1174              	.LASF12:
+ 1175 0074 696E7438 		.ascii	"int8_t\000"
+ 1175      5F7400
+ 1176              	.LASF22:
+ 1177 007b 76616C75 		.ascii	"value2\000"
+ 1177      653200
+ 1178              	.LASF15:
+ 1179 0082 666C6F61 		.ascii	"float\000"
+ 1179      7400
+ 1180              	.LASF10:
+ 1181 0088 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1181      206C6F6E 
+ 1181      6720756E 
+ 1181      7369676E 
+ 1181      65642069 
+ 1182              	.LASF35:
+ 1183 009f 70335F32 		.ascii	"p3_2_Read\000"
+ 1183      5F526561 
+ 1183      6400
+ 1184              	.LASF24:
+ 1185 00a9 4C43445F 		.ascii	"LCD_Char_1_PrintString\000"
+ 1185      43686172 
+ 1185      5F315F50 
+ 1185      72696E74 
+ 1185      53747269 
+ 1186              	.LASF37:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 24
+
+
+ 1187 00c0 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1187      43313120 
+ 1187      352E342E 
+ 1187      31203230 
+ 1187      31363036 
+ 1188 00f3 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1188      20726576 
+ 1188      6973696F 
+ 1188      6E203233 
+ 1188      37373135 
+ 1189 0126 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1189      66756E63 
+ 1189      74696F6E 
+ 1189      2D736563 
+ 1189      74696F6E 
+ 1190              	.LASF34:
+ 1191 014e 70305F36 		.ascii	"p0_6_Write\000"
+ 1191      5F577269 
+ 1191      746500
+ 1192              	.LASF8:
+ 1193 0159 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1193      20756E73 
+ 1193      69676E65 
+ 1193      6420696E 
+ 1193      7400
+ 1194              	.LASF28:
+ 1195 016b 4144435F 		.ascii	"ADC_SAR_1_StartConvert\000"
+ 1195      5341525F 
+ 1195      315F5374 
+ 1195      61727443 
+ 1195      6F6E7665 
+ 1196              	.LASF42:
+ 1197 0182 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1197      52784275 
+ 1197      66666572 
+ 1197      00
+ 1198              	.LASF33:
+ 1199 018f 70305F37 		.ascii	"p0_7_Write\000"
+ 1199      5F577269 
+ 1199      746500
+ 1200              	.LASF31:
+ 1201 019a 4144435F 		.ascii	"ADC_SAR_1_GetResult8\000"
+ 1201      5341525F 
+ 1201      315F4765 
+ 1201      74526573 
+ 1201      756C7438 
+ 1202              	.LASF29:
+ 1203 01af 56444143 		.ascii	"VDAC8_1_Start\000"
+ 1203      385F315F 
+ 1203      53746172 
+ 1203      7400
+ 1204              	.LASF16:
+ 1205 01bd 646F7562 		.ascii	"double\000"
+ 1205      6C6500
+ 1206              	.LASF41:
+ 1207 01c4 6D61696E 		.ascii	"main\000"
+ 1207      00
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 25
+
+
+ 1208              	.LASF3:
+ 1209 01c9 756E7369 		.ascii	"unsigned char\000"
+ 1209      676E6564 
+ 1209      20636861 
+ 1209      7200
+ 1210              	.LASF11:
+ 1211 01d7 756E7369 		.ascii	"unsigned int\000"
+ 1211      676E6564 
+ 1211      20696E74 
+ 1211      00
+ 1212              	.LASF25:
+ 1213 01e4 4C43445F 		.ascii	"LCD_Char_1_PrintU32Number\000"
+ 1213      43686172 
+ 1213      5F315F50 
+ 1213      72696E74 
+ 1213      5533324E 
+ 1214              	.LASF13:
+ 1215 01fe 75696E74 		.ascii	"uint8_t\000"
+ 1215      385F7400 
+ 1216              	.LASF36:
+ 1217 0206 56444143 		.ascii	"VDAC8_1_SetValue\000"
+ 1217      385F315F 
+ 1217      53657456 
+ 1217      616C7565 
+ 1217      00
+ 1218              	.LASF18:
+ 1219 0217 73697A65 		.ascii	"sizetype\000"
+ 1219      74797065 
+ 1219      00
+ 1220              	.LASF9:
+ 1221 0220 6C6F6E67 		.ascii	"long long int\000"
+ 1221      206C6F6E 
+ 1221      6720696E 
+ 1221      7400
+ 1222              	.LASF38:
+ 1223 022e 6D61696E 		.ascii	"main.c\000"
+ 1223      2E6300
+ 1224              	.LASF17:
+ 1225 0235 63686172 		.ascii	"char\000"
+ 1225      00
+ 1226              	.LASF23:
+ 1227 023a 4C43445F 		.ascii	"LCD_Char_1_Position\000"
+ 1227      43686172 
+ 1227      5F315F50 
+ 1227      6F736974 
+ 1227      696F6E00 
+ 1228              	.LASF21:
+ 1229 024e 636F756E 		.ascii	"count\000"
+ 1229      7400
+ 1230              	.LASF14:
+ 1231 0254 696E7433 		.ascii	"int32_t\000"
+ 1231      325F7400 
+ 1232              	.LASF4:
+ 1233 025c 73686F72 		.ascii	"short int\000"
+ 1233      7420696E 
+ 1233      7400
+ 1234              	.LASF7:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\cc0OwWV4.s 			page 26
+
+
+ 1235 0266 6C6F6E67 		.ascii	"long int\000"
+ 1235      20696E74 
+ 1235      00
+ 1236              	.LASF26:
+ 1237 026f 4C43445F 		.ascii	"LCD_Char_1_Start\000"
+ 1237      43686172 
+ 1237      5F315F53 
+ 1237      74617274 
+ 1237      00
+ 1238              	.LASF19:
+ 1239 0280 6C6F6E67 		.ascii	"long double\000"
+ 1239      20646F75 
+ 1239      626C6500 
+ 1240              	.LASF2:
+ 1241 028c 7369676E 		.ascii	"signed char\000"
+ 1241      65642063 
+ 1241      68617200 
+ 1242              	.LASF27:
+ 1243 0298 4144435F 		.ascii	"ADC_SAR_1_Start\000"
+ 1243      5341525F 
+ 1243      315F5374 
+ 1243      61727400 
+ 1244              	.LASF32:
+ 1245 02a8 70305F35 		.ascii	"p0_5_Write\000"
+ 1245      5F577269 
+ 1245      746500
+ 1246              	.LASF30:
+ 1247 02b3 56444143 		.ascii	"VDAC8_1_SetRange\000"
+ 1247      385F315F 
+ 1247      53657452 
+ 1247      616E6765 
+ 1247      00
+ 1248              	.LASF40:
+ 1249 02c4 4C434476 		.ascii	"LCDvalue\000"
+ 1249      616C7565 
+ 1249      00
+ 1250              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

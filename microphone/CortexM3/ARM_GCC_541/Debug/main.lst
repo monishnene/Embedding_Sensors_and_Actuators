@@ -1,0 +1,1104 @@
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.LCD,"ax",%progbits
+  20              		.align	2
+  21              		.global	LCD
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	LCD, %function
+  25              	LCD:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** void LCD() // LCD Display
+  15:main.c        **** {       
+  28              		.loc 1 15 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  16:main.c        ****         LCD_Char_1_Start();
+  36              		.loc 1 16 0
+  37 0002 FFF7FEFF 		bl	LCD_Char_1_Start
+  38              	.LVL0:
+  17:main.c        ****         LCD_Char_1_Position(0,0);
+  39              		.loc 1 17 0
+  40 0006 0021     		movs	r1, #0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 2
+
+
+  41 0008 0846     		mov	r0, r1
+  42 000a FFF7FEFF 		bl	LCD_Char_1_Position
+  43              	.LVL1:
+  18:main.c        ****         LCD_Char_1_PrintString("Monish Nene");
+  44              		.loc 1 18 0
+  45 000e 0548     		ldr	r0, .L3
+  46 0010 FFF7FEFF 		bl	LCD_Char_1_PrintString
+  47              	.LVL2:
+  19:main.c        ****         LCD_Char_1_Position(1,0);
+  48              		.loc 1 19 0
+  49 0014 0021     		movs	r1, #0
+  50 0016 0120     		movs	r0, #1
+  51 0018 FFF7FEFF 		bl	LCD_Char_1_Position
+  52              	.LVL3:
+  20:main.c        ****         LCD_Char_1_PrintString("Microphone Lab 1");
+  53              		.loc 1 20 0
+  54 001c 0248     		ldr	r0, .L3+4
+  55 001e FFF7FEFF 		bl	LCD_Char_1_PrintString
+  56              	.LVL4:
+  57 0022 08BD     		pop	{r3, pc}
+  58              	.L4:
+  59              		.align	2
+  60              	.L3:
+  61 0024 00000000 		.word	.LC0
+  62 0028 0C000000 		.word	.LC1
+  63              		.cfi_endproc
+  64              	.LFE63:
+  65              		.size	LCD, .-LCD
+  66              		.section	.text.main,"ax",%progbits
+  67              		.align	2
+  68              		.global	main
+  69              		.thumb
+  70              		.thumb_func
+  71              		.type	main, %function
+  72              	main:
+  73              	.LFB64:
+  21:main.c        ****         return;
+  22:main.c        **** }
+  23:main.c        **** 
+  24:main.c        **** int main(void)
+  25:main.c        **** {
+  74              		.loc 1 25 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78 0000 08B5     		push	{r3, lr}
+  79              		.cfi_def_cfa_offset 8
+  80              		.cfi_offset 3, -8
+  81              		.cfi_offset 14, -4
+  26:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  82              		.loc 1 26 0
+  83              		.syntax unified
+  84              	@ 26 "main.c" 1
+  85 0002 62B6     		CPSIE   i
+  86              	@ 0 "" 2
+  87              	.LVL5:
+  27:main.c        ****     short filtered,unfiltered,adcop;
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 3
+
+
+  28:main.c        ****     int prevvalue=1,prevvalue2=1,k=0;
+  29:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  30:main.c        ****     LCD();
+  88              		.loc 1 30 0
+  89              		.thumb
+  90              		.syntax unified
+  91 0004 FFF7FEFF 		bl	LCD
+  92              	.LVL6:
+  31:main.c        ****     PGA_1_Start();
+  93              		.loc 1 31 0
+  94 0008 FFF7FEFF 		bl	PGA_1_Start
+  95              	.LVL7:
+  32:main.c        ****     Opamp_1_Start();
+  96              		.loc 1 32 0
+  97 000c FFF7FEFF 		bl	Opamp_1_Start
+  98              	.LVL8:
+  33:main.c        ****     ADC_SAR_1_Start();
+  99              		.loc 1 33 0
+ 100 0010 FFF7FEFF 		bl	ADC_SAR_1_Start
+ 101              	.LVL9:
+  34:main.c        ****     ADC_SAR_1_StartConvert();
+ 102              		.loc 1 34 0
+ 103 0014 FFF7FEFF 		bl	ADC_SAR_1_StartConvert
+ 104              	.LVL10:
+  35:main.c        ****     VDAC8_1_Start();
+ 105              		.loc 1 35 0
+ 106 0018 FFF7FEFF 		bl	VDAC8_1_Start
+ 107              	.LVL11:
+  36:main.c        ****     VDAC8_1_SetRange(255);
+ 108              		.loc 1 36 0
+ 109 001c FF20     		movs	r0, #255
+ 110 001e FFF7FEFF 		bl	VDAC8_1_SetRange
+ 111              	.LVL12:
+  37:main.c        ****     VDAC8_2_Start();
+ 112              		.loc 1 37 0
+ 113 0022 FFF7FEFF 		bl	VDAC8_2_Start
+ 114              	.LVL13:
+  38:main.c        ****     VDAC8_2_SetRange(255);
+ 115              		.loc 1 38 0
+ 116 0026 FF20     		movs	r0, #255
+ 117 0028 FFF7FEFF 		bl	VDAC8_2_SetRange
+ 118              	.LVL14:
+ 119              	.L6:
+  39:main.c        ****     for(;;)
+  40:main.c        ****     {   
+  41:main.c        ****         adcop = ADC_SAR_1_GetResult8();
+ 120              		.loc 1 41 0 discriminator 1
+ 121 002c FFF7FEFF 		bl	ADC_SAR_1_GetResult8
+ 122              	.LVL15:
+  42:main.c        ****         unfiltered = adcop + 128;  // input from ADC 2's Compliment form 
+ 123              		.loc 1 42 0 discriminator 1
+ 124 0030 8030     		adds	r0, r0, #128
+ 125              	.LVL16:
+  43:main.c        ****         VDAC8_1_SetValue(unfiltered);
+ 126              		.loc 1 43 0 discriminator 1
+ 127 0032 C0B2     		uxtb	r0, r0
+ 128              	.LVL17:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 4
+
+
+ 129 0034 FFF7FEFF 		bl	VDAC8_1_SetValue
+ 130              	.LVL18:
+  44:main.c        ****         //k=unfiltered;
+  45:main.c        ****         //filtered = (6*prevvalue+5*prevvalue2+k)/3;  //For weighted average half
+  46:main.c        **** 
+  47:main.c        ****           //filtered = 234-unfiltered; //For inverse
+  48:main.c        ****           /*if(unfiltered<88)
+  49:main.c        ****             {filtered=88;}
+  50:main.c        ****           else if (unfiltered>168)
+  51:main.c        ****             {filtered=168;}
+  52:main.c        ****           else
+  53:main.c        ****             {filtered=unfiltered;}*/ //For mean clipping
+  54:main.c        ****         VDAC8_2_SetValue(filtered);
+ 131              		.loc 1 54 0 discriminator 1
+ 132 0038 0020     		movs	r0, #0
+ 133 003a FFF7FEFF 		bl	VDAC8_2_SetValue
+ 134              	.LVL19:
+ 135 003e F5E7     		b	.L6
+ 136              		.cfi_endproc
+ 137              	.LFE64:
+ 138              		.size	main, .-main
+ 139              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 140              		.align	2
+ 141              	.LC0:
+ 142 0000 4D6F6E69 		.ascii	"Monish Nene\000"
+ 142      7368204E 
+ 142      656E6500 
+ 143              	.LC1:
+ 144 000c 4D696372 		.ascii	"Microphone Lab 1\000"
+ 144      6F70686F 
+ 144      6E65204C 
+ 144      61622031 
+ 144      00
+ 145              		.text
+ 146              	.Letext0:
+ 147              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.1\\psoc creator\\import\\gnu\\arm\\5.4.
+ 148              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.1\\psoc creator\\import\\gnu\\arm\\5.4.
+ 149              		.file 4 "Generated_Source\\PSoC5/LCD_Char_1.h"
+ 150              		.file 5 "Generated_Source\\PSoC5/PGA_1.h"
+ 151              		.file 6 "Generated_Source\\PSoC5/Opamp_1.h"
+ 152              		.file 7 "Generated_Source\\PSoC5/ADC_SAR_1.h"
+ 153              		.file 8 "Generated_Source\\PSoC5/VDAC8_1.h"
+ 154              		.file 9 "Generated_Source\\PSoC5/VDAC8_2.h"
+ 155              		.file 10 "Generated_Source\\PSoC5/core_cm3.h"
+ 156              		.section	.debug_info,"",%progbits
+ 157              	.Ldebug_info0:
+ 158 0000 B2020000 		.4byte	0x2b2
+ 159 0004 0400     		.2byte	0x4
+ 160 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 161 000a 04       		.byte	0x4
+ 162 000b 01       		.uleb128 0x1
+ 163 000c C8000000 		.4byte	.LASF34
+ 164 0010 0C       		.byte	0xc
+ 165 0011 4F020000 		.4byte	.LASF35
+ 166 0015 24000000 		.4byte	.LASF36
+ 167 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 168 001d 00000000 		.4byte	0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 5
+
+
+ 169 0021 00000000 		.4byte	.Ldebug_line0
+ 170 0025 02       		.uleb128 0x2
+ 171 0026 01       		.byte	0x1
+ 172 0027 06       		.byte	0x6
+ 173 0028 95020000 		.4byte	.LASF0
+ 174 002c 02       		.uleb128 0x2
+ 175 002d 01       		.byte	0x1
+ 176 002e 08       		.byte	0x8
+ 177 002f F0010000 		.4byte	.LASF1
+ 178 0033 02       		.uleb128 0x2
+ 179 0034 02       		.byte	0x2
+ 180 0035 05       		.byte	0x5
+ 181 0036 D2010000 		.4byte	.LASF2
+ 182 003a 02       		.uleb128 0x2
+ 183 003b 02       		.byte	0x2
+ 184 003c 07       		.byte	0x7
+ 185 003d 6A000000 		.4byte	.LASF3
+ 186 0041 03       		.uleb128 0x3
+ 187 0042 0C000000 		.4byte	.LASF9
+ 188 0046 02       		.byte	0x2
+ 189 0047 3F       		.byte	0x3f
+ 190 0048 4C000000 		.4byte	0x4c
+ 191 004c 02       		.uleb128 0x2
+ 192 004d 04       		.byte	0x4
+ 193 004e 05       		.byte	0x5
+ 194 004f 80020000 		.4byte	.LASF4
+ 195 0053 02       		.uleb128 0x2
+ 196 0054 04       		.byte	0x4
+ 197 0055 07       		.byte	0x7
+ 198 0056 56010000 		.4byte	.LASF5
+ 199 005a 02       		.uleb128 0x2
+ 200 005b 08       		.byte	0x8
+ 201 005c 05       		.byte	0x5
+ 202 005d 41020000 		.4byte	.LASF6
+ 203 0061 02       		.uleb128 0x2
+ 204 0062 08       		.byte	0x8
+ 205 0063 07       		.byte	0x7
+ 206 0064 0B020000 		.4byte	.LASF7
+ 207 0068 04       		.uleb128 0x4
+ 208 0069 04       		.byte	0x4
+ 209 006a 05       		.byte	0x5
+ 210 006b 696E7400 		.ascii	"int\000"
+ 211 006f 02       		.uleb128 0x2
+ 212 0070 04       		.byte	0x4
+ 213 0071 07       		.byte	0x7
+ 214 0072 FE010000 		.4byte	.LASF8
+ 215 0076 03       		.uleb128 0x3
+ 216 0077 92000000 		.4byte	.LASF10
+ 217 007b 03       		.byte	0x3
+ 218 007c 2C       		.byte	0x2c
+ 219 007d 41000000 		.4byte	0x41
+ 220 0081 02       		.uleb128 0x2
+ 221 0082 04       		.byte	0x4
+ 222 0083 04       		.byte	0x4
+ 223 0084 9A000000 		.4byte	.LASF11
+ 224 0088 02       		.uleb128 0x2
+ 225 0089 08       		.byte	0x8
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 6
+
+
+ 226 008a 04       		.byte	0x4
+ 227 008b BA010000 		.4byte	.LASF12
+ 228 008f 02       		.uleb128 0x2
+ 229 0090 01       		.byte	0x1
+ 230 0091 08       		.byte	0x8
+ 231 0092 56020000 		.4byte	.LASF13
+ 232 0096 02       		.uleb128 0x2
+ 233 0097 08       		.byte	0x8
+ 234 0098 04       		.byte	0x4
+ 235 0099 89020000 		.4byte	.LASF14
+ 236 009d 02       		.uleb128 0x2
+ 237 009e 04       		.byte	0x4
+ 238 009f 07       		.byte	0x7
+ 239 00a0 38020000 		.4byte	.LASF15
+ 240 00a4 05       		.uleb128 0x5
+ 241 00a5 4C434400 		.ascii	"LCD\000"
+ 242 00a9 01       		.byte	0x1
+ 243 00aa 0E       		.byte	0xe
+ 244 00ab 00000000 		.4byte	.LFB63
+ 245 00af 2C000000 		.4byte	.LFE63-.LFB63
+ 246 00b3 01       		.uleb128 0x1
+ 247 00b4 9C       		.byte	0x9c
+ 248 00b5 1D010000 		.4byte	0x11d
+ 249 00b9 06       		.uleb128 0x6
+ 250 00ba 06000000 		.4byte	.LVL0
+ 251 00be 1B020000 		.4byte	0x21b
+ 252 00c2 07       		.uleb128 0x7
+ 253 00c3 0E000000 		.4byte	.LVL1
+ 254 00c7 26020000 		.4byte	0x226
+ 255 00cb DA000000 		.4byte	0xda
+ 256 00cf 08       		.uleb128 0x8
+ 257 00d0 01       		.uleb128 0x1
+ 258 00d1 50       		.byte	0x50
+ 259 00d2 01       		.uleb128 0x1
+ 260 00d3 30       		.byte	0x30
+ 261 00d4 08       		.uleb128 0x8
+ 262 00d5 01       		.uleb128 0x1
+ 263 00d6 51       		.byte	0x51
+ 264 00d7 01       		.uleb128 0x1
+ 265 00d8 30       		.byte	0x30
+ 266 00d9 00       		.byte	0
+ 267 00da 07       		.uleb128 0x7
+ 268 00db 14000000 		.4byte	.LVL2
+ 269 00df 31020000 		.4byte	0x231
+ 270 00e3 F1000000 		.4byte	0xf1
+ 271 00e7 08       		.uleb128 0x8
+ 272 00e8 01       		.uleb128 0x1
+ 273 00e9 50       		.byte	0x50
+ 274 00ea 05       		.uleb128 0x5
+ 275 00eb 03       		.byte	0x3
+ 276 00ec 00000000 		.4byte	.LC0
+ 277 00f0 00       		.byte	0
+ 278 00f1 07       		.uleb128 0x7
+ 279 00f2 1C000000 		.4byte	.LVL3
+ 280 00f6 26020000 		.4byte	0x226
+ 281 00fa 09010000 		.4byte	0x109
+ 282 00fe 08       		.uleb128 0x8
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 7
+
+
+ 283 00ff 01       		.uleb128 0x1
+ 284 0100 50       		.byte	0x50
+ 285 0101 01       		.uleb128 0x1
+ 286 0102 31       		.byte	0x31
+ 287 0103 08       		.uleb128 0x8
+ 288 0104 01       		.uleb128 0x1
+ 289 0105 51       		.byte	0x51
+ 290 0106 01       		.uleb128 0x1
+ 291 0107 30       		.byte	0x30
+ 292 0108 00       		.byte	0
+ 293 0109 09       		.uleb128 0x9
+ 294 010a 22000000 		.4byte	.LVL4
+ 295 010e 31020000 		.4byte	0x231
+ 296 0112 08       		.uleb128 0x8
+ 297 0113 01       		.uleb128 0x1
+ 298 0114 50       		.byte	0x50
+ 299 0115 05       		.uleb128 0x5
+ 300 0116 03       		.byte	0x3
+ 301 0117 0C000000 		.4byte	.LC1
+ 302 011b 00       		.byte	0
+ 303 011c 00       		.byte	0
+ 304 011d 0A       		.uleb128 0xa
+ 305 011e 33020000 		.4byte	.LASF37
+ 306 0122 01       		.byte	0x1
+ 307 0123 18       		.byte	0x18
+ 308 0124 68000000 		.4byte	0x68
+ 309 0128 00000000 		.4byte	.LFB64
+ 310 012c 40000000 		.4byte	.LFE64-.LFB64
+ 311 0130 01       		.uleb128 0x1
+ 312 0131 9C       		.byte	0x9c
+ 313 0132 0A020000 		.4byte	0x20a
+ 314 0136 0B       		.uleb128 0xb
+ 315 0137 C2020000 		.4byte	.LASF38
+ 316 013b 01       		.byte	0x1
+ 317 013c 1B       		.byte	0x1b
+ 318 013d 33000000 		.4byte	0x33
+ 319 0141 0C       		.uleb128 0xc
+ 320 0142 87000000 		.4byte	.LASF16
+ 321 0146 01       		.byte	0x1
+ 322 0147 1B       		.byte	0x1b
+ 323 0148 33000000 		.4byte	0x33
+ 324 014c 00000000 		.4byte	.LLST0
+ 325 0150 0C       		.uleb128 0xc
+ 326 0151 EA010000 		.4byte	.LASF17
+ 327 0155 01       		.byte	0x1
+ 328 0156 1B       		.byte	0x1b
+ 329 0157 33000000 		.4byte	0x33
+ 330 015b 13000000 		.4byte	.LLST1
+ 331 015f 0D       		.uleb128 0xd
+ 332 0160 7D000000 		.4byte	.LASF18
+ 333 0164 01       		.byte	0x1
+ 334 0165 1C       		.byte	0x1c
+ 335 0166 68000000 		.4byte	0x68
+ 336 016a 01       		.byte	0x1
+ 337 016b 0D       		.uleb128 0xd
+ 338 016c AF010000 		.4byte	.LASF19
+ 339 0170 01       		.byte	0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 8
+
+
+ 340 0171 1C       		.byte	0x1c
+ 341 0172 68000000 		.4byte	0x68
+ 342 0176 01       		.byte	0x1
+ 343 0177 0E       		.uleb128 0xe
+ 344 0178 6B00     		.ascii	"k\000"
+ 345 017a 01       		.byte	0x1
+ 346 017b 1C       		.byte	0x1c
+ 347 017c 68000000 		.4byte	0x68
+ 348 0180 00       		.byte	0
+ 349 0181 06       		.uleb128 0x6
+ 350 0182 08000000 		.4byte	.LVL6
+ 351 0186 A4000000 		.4byte	0xa4
+ 352 018a 06       		.uleb128 0x6
+ 353 018b 0C000000 		.4byte	.LVL7
+ 354 018f 3C020000 		.4byte	0x23c
+ 355 0193 06       		.uleb128 0x6
+ 356 0194 10000000 		.4byte	.LVL8
+ 357 0198 47020000 		.4byte	0x247
+ 358 019c 06       		.uleb128 0x6
+ 359 019d 14000000 		.4byte	.LVL9
+ 360 01a1 52020000 		.4byte	0x252
+ 361 01a5 06       		.uleb128 0x6
+ 362 01a6 18000000 		.4byte	.LVL10
+ 363 01aa 5D020000 		.4byte	0x25d
+ 364 01ae 06       		.uleb128 0x6
+ 365 01af 1C000000 		.4byte	.LVL11
+ 366 01b3 68020000 		.4byte	0x268
+ 367 01b7 07       		.uleb128 0x7
+ 368 01b8 22000000 		.4byte	.LVL12
+ 369 01bc 73020000 		.4byte	0x273
+ 370 01c0 CB010000 		.4byte	0x1cb
+ 371 01c4 08       		.uleb128 0x8
+ 372 01c5 01       		.uleb128 0x1
+ 373 01c6 50       		.byte	0x50
+ 374 01c7 02       		.uleb128 0x2
+ 375 01c8 09       		.byte	0x9
+ 376 01c9 FF       		.byte	0xff
+ 377 01ca 00       		.byte	0
+ 378 01cb 06       		.uleb128 0x6
+ 379 01cc 26000000 		.4byte	.LVL13
+ 380 01d0 7E020000 		.4byte	0x27e
+ 381 01d4 07       		.uleb128 0x7
+ 382 01d5 2C000000 		.4byte	.LVL14
+ 383 01d9 89020000 		.4byte	0x289
+ 384 01dd E8010000 		.4byte	0x1e8
+ 385 01e1 08       		.uleb128 0x8
+ 386 01e2 01       		.uleb128 0x1
+ 387 01e3 50       		.byte	0x50
+ 388 01e4 02       		.uleb128 0x2
+ 389 01e5 09       		.byte	0x9
+ 390 01e6 FF       		.byte	0xff
+ 391 01e7 00       		.byte	0
+ 392 01e8 06       		.uleb128 0x6
+ 393 01e9 30000000 		.4byte	.LVL15
+ 394 01ed 94020000 		.4byte	0x294
+ 395 01f1 06       		.uleb128 0x6
+ 396 01f2 38000000 		.4byte	.LVL18
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 9
+
+
+ 397 01f6 9F020000 		.4byte	0x29f
+ 398 01fa 09       		.uleb128 0x9
+ 399 01fb 3E000000 		.4byte	.LVL19
+ 400 01ff AA020000 		.4byte	0x2aa
+ 401 0203 08       		.uleb128 0x8
+ 402 0204 01       		.uleb128 0x1
+ 403 0205 50       		.byte	0x50
+ 404 0206 01       		.uleb128 0x1
+ 405 0207 30       		.byte	0x30
+ 406 0208 00       		.byte	0
+ 407 0209 00       		.byte	0
+ 408 020a 0F       		.uleb128 0xf
+ 409 020b 7F010000 		.4byte	.LASF39
+ 410 020f 0A       		.byte	0xa
+ 411 0210 1207     		.2byte	0x712
+ 412 0212 16020000 		.4byte	0x216
+ 413 0216 10       		.uleb128 0x10
+ 414 0217 76000000 		.4byte	0x76
+ 415 021b 11       		.uleb128 0x11
+ 416 021c A0000000 		.4byte	.LASF20
+ 417 0220 A0000000 		.4byte	.LASF20
+ 418 0224 04       		.byte	0x4
+ 419 0225 38       		.byte	0x38
+ 420 0226 11       		.uleb128 0x11
+ 421 0227 5B020000 		.4byte	.LASF21
+ 422 022b 5B020000 		.4byte	.LASF21
+ 423 022f 04       		.byte	0x4
+ 424 0230 3D       		.byte	0x3d
+ 425 0231 11       		.uleb128 0x11
+ 426 0232 B1000000 		.4byte	.LASF22
+ 427 0236 B1000000 		.4byte	.LASF22
+ 428 023a 04       		.byte	0x4
+ 429 023b 3C       		.byte	0x3c
+ 430 023c 11       		.uleb128 0x11
+ 431 023d 00000000 		.4byte	.LASF23
+ 432 0241 00000000 		.4byte	.LASF23
+ 433 0245 05       		.byte	0x5
+ 434 0246 3E       		.byte	0x3e
+ 435 0247 11       		.uleb128 0x11
+ 436 0248 16000000 		.4byte	.LASF24
+ 437 024c 16000000 		.4byte	.LASF24
+ 438 0250 06       		.byte	0x6
+ 439 0251 33       		.byte	0x33
+ 440 0252 11       		.uleb128 0x11
+ 441 0253 A1020000 		.4byte	.LASF25
+ 442 0257 A1020000 		.4byte	.LASF25
+ 443 025b 07       		.byte	0x7
+ 444 025c 34       		.byte	0x34
+ 445 025d 11       		.uleb128 0x11
+ 446 025e 68010000 		.4byte	.LASF26
+ 447 0262 68010000 		.4byte	.LASF26
+ 448 0266 07       		.byte	0x7
+ 449 0267 D1       		.byte	0xd1
+ 450 0268 11       		.uleb128 0x11
+ 451 0269 A1010000 		.4byte	.LASF27
+ 452 026d A1010000 		.4byte	.LASF27
+ 453 0271 08       		.byte	0x8
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 10
+
+
+ 454 0272 33       		.byte	0x33
+ 455 0273 11       		.uleb128 0x11
+ 456 0274 B1020000 		.4byte	.LASF28
+ 457 0278 B1020000 		.4byte	.LASF28
+ 458 027c 08       		.byte	0x8
+ 459 027d 36       		.byte	0x36
+ 460 027e 11       		.uleb128 0x11
+ 461 027f DC010000 		.4byte	.LASF29
+ 462 0283 DC010000 		.4byte	.LASF29
+ 463 0287 09       		.byte	0x9
+ 464 0288 33       		.byte	0x33
+ 465 0289 11       		.uleb128 0x11
+ 466 028a 6F020000 		.4byte	.LASF30
+ 467 028e 6F020000 		.4byte	.LASF30
+ 468 0292 09       		.byte	0x9
+ 469 0293 36       		.byte	0x36
+ 470 0294 11       		.uleb128 0x11
+ 471 0295 8C010000 		.4byte	.LASF31
+ 472 0299 8C010000 		.4byte	.LASF31
+ 473 029d 07       		.byte	0x7
+ 474 029e 3A       		.byte	0x3a
+ 475 029f 11       		.uleb128 0x11
+ 476 02a0 22020000 		.4byte	.LASF32
+ 477 02a4 22020000 		.4byte	.LASF32
+ 478 02a8 08       		.byte	0x8
+ 479 02a9 37       		.byte	0x37
+ 480 02aa 11       		.uleb128 0x11
+ 481 02ab C1010000 		.4byte	.LASF33
+ 482 02af C1010000 		.4byte	.LASF33
+ 483 02b3 09       		.byte	0x9
+ 484 02b4 37       		.byte	0x37
+ 485 02b5 00       		.byte	0
+ 486              		.section	.debug_abbrev,"",%progbits
+ 487              	.Ldebug_abbrev0:
+ 488 0000 01       		.uleb128 0x1
+ 489 0001 11       		.uleb128 0x11
+ 490 0002 01       		.byte	0x1
+ 491 0003 25       		.uleb128 0x25
+ 492 0004 0E       		.uleb128 0xe
+ 493 0005 13       		.uleb128 0x13
+ 494 0006 0B       		.uleb128 0xb
+ 495 0007 03       		.uleb128 0x3
+ 496 0008 0E       		.uleb128 0xe
+ 497 0009 1B       		.uleb128 0x1b
+ 498 000a 0E       		.uleb128 0xe
+ 499 000b 55       		.uleb128 0x55
+ 500 000c 17       		.uleb128 0x17
+ 501 000d 11       		.uleb128 0x11
+ 502 000e 01       		.uleb128 0x1
+ 503 000f 10       		.uleb128 0x10
+ 504 0010 17       		.uleb128 0x17
+ 505 0011 00       		.byte	0
+ 506 0012 00       		.byte	0
+ 507 0013 02       		.uleb128 0x2
+ 508 0014 24       		.uleb128 0x24
+ 509 0015 00       		.byte	0
+ 510 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 11
+
+
+ 511 0017 0B       		.uleb128 0xb
+ 512 0018 3E       		.uleb128 0x3e
+ 513 0019 0B       		.uleb128 0xb
+ 514 001a 03       		.uleb128 0x3
+ 515 001b 0E       		.uleb128 0xe
+ 516 001c 00       		.byte	0
+ 517 001d 00       		.byte	0
+ 518 001e 03       		.uleb128 0x3
+ 519 001f 16       		.uleb128 0x16
+ 520 0020 00       		.byte	0
+ 521 0021 03       		.uleb128 0x3
+ 522 0022 0E       		.uleb128 0xe
+ 523 0023 3A       		.uleb128 0x3a
+ 524 0024 0B       		.uleb128 0xb
+ 525 0025 3B       		.uleb128 0x3b
+ 526 0026 0B       		.uleb128 0xb
+ 527 0027 49       		.uleb128 0x49
+ 528 0028 13       		.uleb128 0x13
+ 529 0029 00       		.byte	0
+ 530 002a 00       		.byte	0
+ 531 002b 04       		.uleb128 0x4
+ 532 002c 24       		.uleb128 0x24
+ 533 002d 00       		.byte	0
+ 534 002e 0B       		.uleb128 0xb
+ 535 002f 0B       		.uleb128 0xb
+ 536 0030 3E       		.uleb128 0x3e
+ 537 0031 0B       		.uleb128 0xb
+ 538 0032 03       		.uleb128 0x3
+ 539 0033 08       		.uleb128 0x8
+ 540 0034 00       		.byte	0
+ 541 0035 00       		.byte	0
+ 542 0036 05       		.uleb128 0x5
+ 543 0037 2E       		.uleb128 0x2e
+ 544 0038 01       		.byte	0x1
+ 545 0039 3F       		.uleb128 0x3f
+ 546 003a 19       		.uleb128 0x19
+ 547 003b 03       		.uleb128 0x3
+ 548 003c 08       		.uleb128 0x8
+ 549 003d 3A       		.uleb128 0x3a
+ 550 003e 0B       		.uleb128 0xb
+ 551 003f 3B       		.uleb128 0x3b
+ 552 0040 0B       		.uleb128 0xb
+ 553 0041 11       		.uleb128 0x11
+ 554 0042 01       		.uleb128 0x1
+ 555 0043 12       		.uleb128 0x12
+ 556 0044 06       		.uleb128 0x6
+ 557 0045 40       		.uleb128 0x40
+ 558 0046 18       		.uleb128 0x18
+ 559 0047 9742     		.uleb128 0x2117
+ 560 0049 19       		.uleb128 0x19
+ 561 004a 01       		.uleb128 0x1
+ 562 004b 13       		.uleb128 0x13
+ 563 004c 00       		.byte	0
+ 564 004d 00       		.byte	0
+ 565 004e 06       		.uleb128 0x6
+ 566 004f 898201   		.uleb128 0x4109
+ 567 0052 00       		.byte	0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 12
+
+
+ 568 0053 11       		.uleb128 0x11
+ 569 0054 01       		.uleb128 0x1
+ 570 0055 31       		.uleb128 0x31
+ 571 0056 13       		.uleb128 0x13
+ 572 0057 00       		.byte	0
+ 573 0058 00       		.byte	0
+ 574 0059 07       		.uleb128 0x7
+ 575 005a 898201   		.uleb128 0x4109
+ 576 005d 01       		.byte	0x1
+ 577 005e 11       		.uleb128 0x11
+ 578 005f 01       		.uleb128 0x1
+ 579 0060 31       		.uleb128 0x31
+ 580 0061 13       		.uleb128 0x13
+ 581 0062 01       		.uleb128 0x1
+ 582 0063 13       		.uleb128 0x13
+ 583 0064 00       		.byte	0
+ 584 0065 00       		.byte	0
+ 585 0066 08       		.uleb128 0x8
+ 586 0067 8A8201   		.uleb128 0x410a
+ 587 006a 00       		.byte	0
+ 588 006b 02       		.uleb128 0x2
+ 589 006c 18       		.uleb128 0x18
+ 590 006d 9142     		.uleb128 0x2111
+ 591 006f 18       		.uleb128 0x18
+ 592 0070 00       		.byte	0
+ 593 0071 00       		.byte	0
+ 594 0072 09       		.uleb128 0x9
+ 595 0073 898201   		.uleb128 0x4109
+ 596 0076 01       		.byte	0x1
+ 597 0077 11       		.uleb128 0x11
+ 598 0078 01       		.uleb128 0x1
+ 599 0079 31       		.uleb128 0x31
+ 600 007a 13       		.uleb128 0x13
+ 601 007b 00       		.byte	0
+ 602 007c 00       		.byte	0
+ 603 007d 0A       		.uleb128 0xa
+ 604 007e 2E       		.uleb128 0x2e
+ 605 007f 01       		.byte	0x1
+ 606 0080 3F       		.uleb128 0x3f
+ 607 0081 19       		.uleb128 0x19
+ 608 0082 03       		.uleb128 0x3
+ 609 0083 0E       		.uleb128 0xe
+ 610 0084 3A       		.uleb128 0x3a
+ 611 0085 0B       		.uleb128 0xb
+ 612 0086 3B       		.uleb128 0x3b
+ 613 0087 0B       		.uleb128 0xb
+ 614 0088 27       		.uleb128 0x27
+ 615 0089 19       		.uleb128 0x19
+ 616 008a 49       		.uleb128 0x49
+ 617 008b 13       		.uleb128 0x13
+ 618 008c 8701     		.uleb128 0x87
+ 619 008e 19       		.uleb128 0x19
+ 620 008f 11       		.uleb128 0x11
+ 621 0090 01       		.uleb128 0x1
+ 622 0091 12       		.uleb128 0x12
+ 623 0092 06       		.uleb128 0x6
+ 624 0093 40       		.uleb128 0x40
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 13
+
+
+ 625 0094 18       		.uleb128 0x18
+ 626 0095 9742     		.uleb128 0x2117
+ 627 0097 19       		.uleb128 0x19
+ 628 0098 01       		.uleb128 0x1
+ 629 0099 13       		.uleb128 0x13
+ 630 009a 00       		.byte	0
+ 631 009b 00       		.byte	0
+ 632 009c 0B       		.uleb128 0xb
+ 633 009d 34       		.uleb128 0x34
+ 634 009e 00       		.byte	0
+ 635 009f 03       		.uleb128 0x3
+ 636 00a0 0E       		.uleb128 0xe
+ 637 00a1 3A       		.uleb128 0x3a
+ 638 00a2 0B       		.uleb128 0xb
+ 639 00a3 3B       		.uleb128 0x3b
+ 640 00a4 0B       		.uleb128 0xb
+ 641 00a5 49       		.uleb128 0x49
+ 642 00a6 13       		.uleb128 0x13
+ 643 00a7 00       		.byte	0
+ 644 00a8 00       		.byte	0
+ 645 00a9 0C       		.uleb128 0xc
+ 646 00aa 34       		.uleb128 0x34
+ 647 00ab 00       		.byte	0
+ 648 00ac 03       		.uleb128 0x3
+ 649 00ad 0E       		.uleb128 0xe
+ 650 00ae 3A       		.uleb128 0x3a
+ 651 00af 0B       		.uleb128 0xb
+ 652 00b0 3B       		.uleb128 0x3b
+ 653 00b1 0B       		.uleb128 0xb
+ 654 00b2 49       		.uleb128 0x49
+ 655 00b3 13       		.uleb128 0x13
+ 656 00b4 02       		.uleb128 0x2
+ 657 00b5 17       		.uleb128 0x17
+ 658 00b6 00       		.byte	0
+ 659 00b7 00       		.byte	0
+ 660 00b8 0D       		.uleb128 0xd
+ 661 00b9 34       		.uleb128 0x34
+ 662 00ba 00       		.byte	0
+ 663 00bb 03       		.uleb128 0x3
+ 664 00bc 0E       		.uleb128 0xe
+ 665 00bd 3A       		.uleb128 0x3a
+ 666 00be 0B       		.uleb128 0xb
+ 667 00bf 3B       		.uleb128 0x3b
+ 668 00c0 0B       		.uleb128 0xb
+ 669 00c1 49       		.uleb128 0x49
+ 670 00c2 13       		.uleb128 0x13
+ 671 00c3 1C       		.uleb128 0x1c
+ 672 00c4 0B       		.uleb128 0xb
+ 673 00c5 00       		.byte	0
+ 674 00c6 00       		.byte	0
+ 675 00c7 0E       		.uleb128 0xe
+ 676 00c8 34       		.uleb128 0x34
+ 677 00c9 00       		.byte	0
+ 678 00ca 03       		.uleb128 0x3
+ 679 00cb 08       		.uleb128 0x8
+ 680 00cc 3A       		.uleb128 0x3a
+ 681 00cd 0B       		.uleb128 0xb
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 14
+
+
+ 682 00ce 3B       		.uleb128 0x3b
+ 683 00cf 0B       		.uleb128 0xb
+ 684 00d0 49       		.uleb128 0x49
+ 685 00d1 13       		.uleb128 0x13
+ 686 00d2 1C       		.uleb128 0x1c
+ 687 00d3 0B       		.uleb128 0xb
+ 688 00d4 00       		.byte	0
+ 689 00d5 00       		.byte	0
+ 690 00d6 0F       		.uleb128 0xf
+ 691 00d7 34       		.uleb128 0x34
+ 692 00d8 00       		.byte	0
+ 693 00d9 03       		.uleb128 0x3
+ 694 00da 0E       		.uleb128 0xe
+ 695 00db 3A       		.uleb128 0x3a
+ 696 00dc 0B       		.uleb128 0xb
+ 697 00dd 3B       		.uleb128 0x3b
+ 698 00de 05       		.uleb128 0x5
+ 699 00df 49       		.uleb128 0x49
+ 700 00e0 13       		.uleb128 0x13
+ 701 00e1 3F       		.uleb128 0x3f
+ 702 00e2 19       		.uleb128 0x19
+ 703 00e3 3C       		.uleb128 0x3c
+ 704 00e4 19       		.uleb128 0x19
+ 705 00e5 00       		.byte	0
+ 706 00e6 00       		.byte	0
+ 707 00e7 10       		.uleb128 0x10
+ 708 00e8 35       		.uleb128 0x35
+ 709 00e9 00       		.byte	0
+ 710 00ea 49       		.uleb128 0x49
+ 711 00eb 13       		.uleb128 0x13
+ 712 00ec 00       		.byte	0
+ 713 00ed 00       		.byte	0
+ 714 00ee 11       		.uleb128 0x11
+ 715 00ef 2E       		.uleb128 0x2e
+ 716 00f0 00       		.byte	0
+ 717 00f1 3F       		.uleb128 0x3f
+ 718 00f2 19       		.uleb128 0x19
+ 719 00f3 3C       		.uleb128 0x3c
+ 720 00f4 19       		.uleb128 0x19
+ 721 00f5 6E       		.uleb128 0x6e
+ 722 00f6 0E       		.uleb128 0xe
+ 723 00f7 03       		.uleb128 0x3
+ 724 00f8 0E       		.uleb128 0xe
+ 725 00f9 3A       		.uleb128 0x3a
+ 726 00fa 0B       		.uleb128 0xb
+ 727 00fb 3B       		.uleb128 0x3b
+ 728 00fc 0B       		.uleb128 0xb
+ 729 00fd 00       		.byte	0
+ 730 00fe 00       		.byte	0
+ 731 00ff 00       		.byte	0
+ 732              		.section	.debug_loc,"",%progbits
+ 733              	.Ldebug_loc0:
+ 734              	.LLST0:
+ 735 0000 32000000 		.4byte	.LVL16
+ 736 0004 34000000 		.4byte	.LVL17
+ 737 0008 0100     		.2byte	0x1
+ 738 000a 50       		.byte	0x50
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 15
+
+
+ 739 000b 00000000 		.4byte	0
+ 740 000f 00000000 		.4byte	0
+ 741              	.LLST1:
+ 742 0013 30000000 		.4byte	.LVL15
+ 743 0017 32000000 		.4byte	.LVL16
+ 744 001b 0700     		.2byte	0x7
+ 745 001d 70       		.byte	0x70
+ 746 001e 00       		.sleb128 0
+ 747 001f 48       		.byte	0x48
+ 748 0020 24       		.byte	0x24
+ 749 0021 48       		.byte	0x48
+ 750 0022 26       		.byte	0x26
+ 751 0023 9F       		.byte	0x9f
+ 752 0024 00000000 		.4byte	0
+ 753 0028 00000000 		.4byte	0
+ 754              		.section	.debug_aranges,"",%progbits
+ 755 0000 24000000 		.4byte	0x24
+ 756 0004 0200     		.2byte	0x2
+ 757 0006 00000000 		.4byte	.Ldebug_info0
+ 758 000a 04       		.byte	0x4
+ 759 000b 00       		.byte	0
+ 760 000c 0000     		.2byte	0
+ 761 000e 0000     		.2byte	0
+ 762 0010 00000000 		.4byte	.LFB63
+ 763 0014 2C000000 		.4byte	.LFE63-.LFB63
+ 764 0018 00000000 		.4byte	.LFB64
+ 765 001c 40000000 		.4byte	.LFE64-.LFB64
+ 766 0020 00000000 		.4byte	0
+ 767 0024 00000000 		.4byte	0
+ 768              		.section	.debug_ranges,"",%progbits
+ 769              	.Ldebug_ranges0:
+ 770 0000 00000000 		.4byte	.LFB63
+ 771 0004 2C000000 		.4byte	.LFE63
+ 772 0008 00000000 		.4byte	.LFB64
+ 773 000c 40000000 		.4byte	.LFE64
+ 774 0010 00000000 		.4byte	0
+ 775 0014 00000000 		.4byte	0
+ 776              		.section	.debug_line,"",%progbits
+ 777              	.Ldebug_line0:
+ 778 0000 D9010000 		.section	.debug_str,"MS",%progbits,1
+ 778      02009001 
+ 778      00000201 
+ 778      FB0E0D00 
+ 778      01010101 
+ 779              	.LASF23:
+ 780 0000 5047415F 		.ascii	"PGA_1_Start\000"
+ 780      315F5374 
+ 780      61727400 
+ 781              	.LASF9:
+ 782 000c 5F5F696E 		.ascii	"__int32_t\000"
+ 782      7433325F 
+ 782      7400
+ 783              	.LASF24:
+ 784 0016 4F70616D 		.ascii	"Opamp_1_Start\000"
+ 784      705F315F 
+ 784      53746172 
+ 784      7400
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 16
+
+
+ 785              	.LASF36:
+ 786 0024 433A5C55 		.ascii	"C:\\Users\\monis\\Documents\\Academics\\SA\\Lab 1\\"
+ 786      73657273 
+ 786      5C6D6F6E 
+ 786      69735C44 
+ 786      6F63756D 
+ 787 0050 6D696372 		.ascii	"microphone\\Design01.cydsn\000"
+ 787      6F70686F 
+ 787      6E655C44 
+ 787      65736967 
+ 787      6E30312E 
+ 788              	.LASF3:
+ 789 006a 73686F72 		.ascii	"short unsigned int\000"
+ 789      7420756E 
+ 789      7369676E 
+ 789      65642069 
+ 789      6E7400
+ 790              	.LASF18:
+ 791 007d 70726576 		.ascii	"prevvalue\000"
+ 791      76616C75 
+ 791      6500
+ 792              	.LASF16:
+ 793 0087 756E6669 		.ascii	"unfiltered\000"
+ 793      6C746572 
+ 793      656400
+ 794              	.LASF10:
+ 795 0092 696E7433 		.ascii	"int32_t\000"
+ 795      325F7400 
+ 796              	.LASF11:
+ 797 009a 666C6F61 		.ascii	"float\000"
+ 797      7400
+ 798              	.LASF20:
+ 799 00a0 4C43445F 		.ascii	"LCD_Char_1_Start\000"
+ 799      43686172 
+ 799      5F315F53 
+ 799      74617274 
+ 799      00
+ 800              	.LASF22:
+ 801 00b1 4C43445F 		.ascii	"LCD_Char_1_PrintString\000"
+ 801      43686172 
+ 801      5F315F50 
+ 801      72696E74 
+ 801      53747269 
+ 802              	.LASF34:
+ 803 00c8 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 803      43313120 
+ 803      352E342E 
+ 803      31203230 
+ 803      31363036 
+ 804 00fb 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 804      20726576 
+ 804      6973696F 
+ 804      6E203233 
+ 804      37373135 
+ 805 012e 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 805      66756E63 
+ 805      74696F6E 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 17
+
+
+ 805      2D736563 
+ 805      74696F6E 
+ 806              	.LASF5:
+ 807 0156 6C6F6E67 		.ascii	"long unsigned int\000"
+ 807      20756E73 
+ 807      69676E65 
+ 807      6420696E 
+ 807      7400
+ 808              	.LASF26:
+ 809 0168 4144435F 		.ascii	"ADC_SAR_1_StartConvert\000"
+ 809      5341525F 
+ 809      315F5374 
+ 809      61727443 
+ 809      6F6E7665 
+ 810              	.LASF39:
+ 811 017f 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 811      52784275 
+ 811      66666572 
+ 811      00
+ 812              	.LASF31:
+ 813 018c 4144435F 		.ascii	"ADC_SAR_1_GetResult8\000"
+ 813      5341525F 
+ 813      315F4765 
+ 813      74526573 
+ 813      756C7438 
+ 814              	.LASF27:
+ 815 01a1 56444143 		.ascii	"VDAC8_1_Start\000"
+ 815      385F315F 
+ 815      53746172 
+ 815      7400
+ 816              	.LASF19:
+ 817 01af 70726576 		.ascii	"prevvalue2\000"
+ 817      76616C75 
+ 817      653200
+ 818              	.LASF12:
+ 819 01ba 646F7562 		.ascii	"double\000"
+ 819      6C6500
+ 820              	.LASF33:
+ 821 01c1 56444143 		.ascii	"VDAC8_2_SetValue\000"
+ 821      385F325F 
+ 821      53657456 
+ 821      616C7565 
+ 821      00
+ 822              	.LASF2:
+ 823 01d2 73686F72 		.ascii	"short int\000"
+ 823      7420696E 
+ 823      7400
+ 824              	.LASF29:
+ 825 01dc 56444143 		.ascii	"VDAC8_2_Start\000"
+ 825      385F325F 
+ 825      53746172 
+ 825      7400
+ 826              	.LASF17:
+ 827 01ea 6164636F 		.ascii	"adcop\000"
+ 827      7000
+ 828              	.LASF1:
+ 829 01f0 756E7369 		.ascii	"unsigned char\000"
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 18
+
+
+ 829      676E6564 
+ 829      20636861 
+ 829      7200
+ 830              	.LASF8:
+ 831 01fe 756E7369 		.ascii	"unsigned int\000"
+ 831      676E6564 
+ 831      20696E74 
+ 831      00
+ 832              	.LASF7:
+ 833 020b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 833      206C6F6E 
+ 833      6720756E 
+ 833      7369676E 
+ 833      65642069 
+ 834              	.LASF32:
+ 835 0222 56444143 		.ascii	"VDAC8_1_SetValue\000"
+ 835      385F315F 
+ 835      53657456 
+ 835      616C7565 
+ 835      00
+ 836              	.LASF37:
+ 837 0233 6D61696E 		.ascii	"main\000"
+ 837      00
+ 838              	.LASF15:
+ 839 0238 73697A65 		.ascii	"sizetype\000"
+ 839      74797065 
+ 839      00
+ 840              	.LASF6:
+ 841 0241 6C6F6E67 		.ascii	"long long int\000"
+ 841      206C6F6E 
+ 841      6720696E 
+ 841      7400
+ 842              	.LASF35:
+ 843 024f 6D61696E 		.ascii	"main.c\000"
+ 843      2E6300
+ 844              	.LASF13:
+ 845 0256 63686172 		.ascii	"char\000"
+ 845      00
+ 846              	.LASF21:
+ 847 025b 4C43445F 		.ascii	"LCD_Char_1_Position\000"
+ 847      43686172 
+ 847      5F315F50 
+ 847      6F736974 
+ 847      696F6E00 
+ 848              	.LASF30:
+ 849 026f 56444143 		.ascii	"VDAC8_2_SetRange\000"
+ 849      385F325F 
+ 849      53657452 
+ 849      616E6765 
+ 849      00
+ 850              	.LASF4:
+ 851 0280 6C6F6E67 		.ascii	"long int\000"
+ 851      20696E74 
+ 851      00
+ 852              	.LASF14:
+ 853 0289 6C6F6E67 		.ascii	"long double\000"
+ 853      20646F75 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccdpHmue.s 			page 19
+
+
+ 853      626C6500 
+ 854              	.LASF0:
+ 855 0295 7369676E 		.ascii	"signed char\000"
+ 855      65642063 
+ 855      68617200 
+ 856              	.LASF25:
+ 857 02a1 4144435F 		.ascii	"ADC_SAR_1_Start\000"
+ 857      5341525F 
+ 857      315F5374 
+ 857      61727400 
+ 858              	.LASF28:
+ 859 02b1 56444143 		.ascii	"VDAC8_1_SetRange\000"
+ 859      385F315F 
+ 859      53657452 
+ 859      616E6765 
+ 859      00
+ 860              	.LASF38:
+ 861 02c2 66696C74 		.ascii	"filtered\000"
+ 861      65726564 
+ 861      00
+ 862              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

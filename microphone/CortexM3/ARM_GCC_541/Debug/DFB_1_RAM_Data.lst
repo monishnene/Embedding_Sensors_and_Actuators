@@ -1,0 +1,448 @@
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"DFB_1_RAM_Data.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	DFB_1_cfsm
+  20              		.global	DFB_1_acu
+  21              		.global	DFB_1_data_b
+  22              		.global	DFB_1_data_a
+  23              		.global	DFB_1_control
+  24              		.section	.rodata
+  25              		.align	2
+  26              		.type	DFB_1_cfsm, %object
+  27              		.size	DFB_1_cfsm, 8
+  28              	DFB_1_cfsm:
+  29 0000 00000000 		.space	8
+  29      00000000 
+  30              		.type	DFB_1_acu, %object
+  31              		.size	DFB_1_acu, 4
+  32              	DFB_1_acu:
+  33 0008 00000000 		.space	4
+  34              		.type	DFB_1_data_b, %object
+  35              		.size	DFB_1_data_b, 4
+  36              	DFB_1_data_b:
+  37 000c 00000000 		.space	4
+  38              		.type	DFB_1_data_a, %object
+  39              		.size	DFB_1_data_a, 4
+  40              	DFB_1_data_a:
+  41 0010 00000000 		.space	4
+  42              		.type	DFB_1_control, %object
+  43              		.size	DFB_1_control, 4
+  44              	DFB_1_control:
+  45 0014 00000000 		.space	4
+  46              		.text
+  47              	.Letext0:
+  48              		.file 1 "Generated_Source\\PSoC5\\DFB_1_RAM_Data.c"
+  49              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+  50              		.section	.debug_info,"",%progbits
+  51              	.Ldebug_info0:
+  52 0000 22010000 		.4byte	0x122
+  53 0004 0400     		.2byte	0x4
+  54 0006 00000000 		.4byte	.Ldebug_abbrev0
+  55 000a 04       		.byte	0x4
+  56 000b 01       		.uleb128 0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 2
+
+
+  57 000c 4A000000 		.4byte	.LASF19
+  58 0010 0C       		.byte	0xc
+  59 0011 99010000 		.4byte	.LASF20
+  60 0015 07010000 		.4byte	.LASF21
+  61 0019 00000000 		.4byte	.Ldebug_line0
+  62 001d 02       		.uleb128 0x2
+  63 001e 01       		.byte	0x1
+  64 001f 06       		.byte	0x6
+  65 0020 77010000 		.4byte	.LASF0
+  66 0024 02       		.uleb128 0x2
+  67 0025 01       		.byte	0x1
+  68 0026 08       		.byte	0x8
+  69 0027 37010000 		.4byte	.LASF1
+  70 002b 02       		.uleb128 0x2
+  71 002c 02       		.byte	0x2
+  72 002d 05       		.byte	0x5
+  73 002e 53010000 		.4byte	.LASF2
+  74 0032 02       		.uleb128 0x2
+  75 0033 02       		.byte	0x2
+  76 0034 07       		.byte	0x7
+  77 0035 64010000 		.4byte	.LASF3
+  78 0039 02       		.uleb128 0x2
+  79 003a 04       		.byte	0x4
+  80 003b 05       		.byte	0x5
+  81 003c 4A010000 		.4byte	.LASF4
+  82 0040 02       		.uleb128 0x2
+  83 0041 04       		.byte	0x4
+  84 0042 07       		.byte	0x7
+  85 0043 D8000000 		.4byte	.LASF5
+  86 0047 02       		.uleb128 0x2
+  87 0048 08       		.byte	0x8
+  88 0049 05       		.byte	0x5
+  89 004a 00000000 		.4byte	.LASF6
+  90 004e 02       		.uleb128 0x2
+  91 004f 08       		.byte	0x8
+  92 0050 07       		.byte	0x7
+  93 0051 EA000000 		.4byte	.LASF7
+  94 0055 03       		.uleb128 0x3
+  95 0056 04       		.byte	0x4
+  96 0057 05       		.byte	0x5
+  97 0058 696E7400 		.ascii	"int\000"
+  98 005c 02       		.uleb128 0x2
+  99 005d 04       		.byte	0x4
+ 100 005e 07       		.byte	0x7
+ 101 005f 15000000 		.4byte	.LASF8
+ 102 0063 04       		.uleb128 0x4
+ 103 0064 0E000000 		.4byte	.LASF22
+ 104 0068 02       		.byte	0x2
+ 105 0069 9401     		.2byte	0x194
+ 106 006b 40000000 		.4byte	0x40
+ 107 006f 02       		.uleb128 0x2
+ 108 0070 04       		.byte	0x4
+ 109 0071 04       		.byte	0x4
+ 110 0072 01010000 		.4byte	.LASF9
+ 111 0076 02       		.uleb128 0x2
+ 112 0077 08       		.byte	0x8
+ 113 0078 04       		.byte	0x4
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 3
+
+
+ 114 0079 5D010000 		.4byte	.LASF10
+ 115 007d 02       		.uleb128 0x2
+ 116 007e 01       		.byte	0x1
+ 117 007f 08       		.byte	0x8
+ 118 0080 45010000 		.4byte	.LASF11
+ 119 0084 02       		.uleb128 0x2
+ 120 0085 08       		.byte	0x8
+ 121 0086 04       		.byte	0x4
+ 122 0087 8D010000 		.4byte	.LASF12
+ 123 008b 02       		.uleb128 0x2
+ 124 008c 04       		.byte	0x4
+ 125 008d 07       		.byte	0x7
+ 126 008e CC010000 		.4byte	.LASF13
+ 127 0092 05       		.uleb128 0x5
+ 128 0093 A2000000 		.4byte	0xa2
+ 129 0097 A2000000 		.4byte	0xa2
+ 130 009b 06       		.uleb128 0x6
+ 131 009c 8B000000 		.4byte	0x8b
+ 132 00a0 00       		.byte	0
+ 133 00a1 00       		.byte	0
+ 134 00a2 07       		.uleb128 0x7
+ 135 00a3 63000000 		.4byte	0x63
+ 136 00a7 08       		.uleb128 0x8
+ 137 00a8 22000000 		.4byte	.LASF14
+ 138 00ac 01       		.byte	0x1
+ 139 00ad 04       		.byte	0x4
+ 140 00ae B8000000 		.4byte	0xb8
+ 141 00b2 05       		.uleb128 0x5
+ 142 00b3 03       		.byte	0x3
+ 143 00b4 00000000 		.4byte	DFB_1_control
+ 144 00b8 07       		.uleb128 0x7
+ 145 00b9 92000000 		.4byte	0x92
+ 146 00bd 08       		.uleb128 0x8
+ 147 00be 30000000 		.4byte	.LASF15
+ 148 00c2 01       		.byte	0x1
+ 149 00c3 09       		.byte	0x9
+ 150 00c4 CE000000 		.4byte	0xce
+ 151 00c8 05       		.uleb128 0x5
+ 152 00c9 03       		.byte	0x3
+ 153 00ca 00000000 		.4byte	DFB_1_data_a
+ 154 00ce 07       		.uleb128 0x7
+ 155 00cf 92000000 		.4byte	0x92
+ 156 00d3 08       		.uleb128 0x8
+ 157 00d4 3D000000 		.4byte	.LASF16
+ 158 00d8 01       		.byte	0x1
+ 159 00d9 0E       		.byte	0xe
+ 160 00da E4000000 		.4byte	0xe4
+ 161 00de 05       		.uleb128 0x5
+ 162 00df 03       		.byte	0x3
+ 163 00e0 00000000 		.4byte	DFB_1_data_b
+ 164 00e4 07       		.uleb128 0x7
+ 165 00e5 92000000 		.4byte	0x92
+ 166 00e9 05       		.uleb128 0x5
+ 167 00ea A2000000 		.4byte	0xa2
+ 168 00ee F9000000 		.4byte	0xf9
+ 169 00f2 06       		.uleb128 0x6
+ 170 00f3 8B000000 		.4byte	0x8b
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 4
+
+
+ 171 00f7 01       		.byte	0x1
+ 172 00f8 00       		.byte	0
+ 173 00f9 08       		.uleb128 0x8
+ 174 00fa C1010000 		.4byte	.LASF17
+ 175 00fe 01       		.byte	0x1
+ 176 00ff 18       		.byte	0x18
+ 177 0100 0A010000 		.4byte	0x10a
+ 178 0104 05       		.uleb128 0x5
+ 179 0105 03       		.byte	0x3
+ 180 0106 00000000 		.4byte	DFB_1_cfsm
+ 181 010a 07       		.uleb128 0x7
+ 182 010b E9000000 		.4byte	0xe9
+ 183 010f 08       		.uleb128 0x8
+ 184 0110 83010000 		.4byte	.LASF18
+ 185 0114 01       		.byte	0x1
+ 186 0115 13       		.byte	0x13
+ 187 0116 20010000 		.4byte	0x120
+ 188 011a 05       		.uleb128 0x5
+ 189 011b 03       		.byte	0x3
+ 190 011c 00000000 		.4byte	DFB_1_acu
+ 191 0120 07       		.uleb128 0x7
+ 192 0121 92000000 		.4byte	0x92
+ 193 0125 00       		.byte	0
+ 194              		.section	.debug_abbrev,"",%progbits
+ 195              	.Ldebug_abbrev0:
+ 196 0000 01       		.uleb128 0x1
+ 197 0001 11       		.uleb128 0x11
+ 198 0002 01       		.byte	0x1
+ 199 0003 25       		.uleb128 0x25
+ 200 0004 0E       		.uleb128 0xe
+ 201 0005 13       		.uleb128 0x13
+ 202 0006 0B       		.uleb128 0xb
+ 203 0007 03       		.uleb128 0x3
+ 204 0008 0E       		.uleb128 0xe
+ 205 0009 1B       		.uleb128 0x1b
+ 206 000a 0E       		.uleb128 0xe
+ 207 000b 10       		.uleb128 0x10
+ 208 000c 17       		.uleb128 0x17
+ 209 000d 00       		.byte	0
+ 210 000e 00       		.byte	0
+ 211 000f 02       		.uleb128 0x2
+ 212 0010 24       		.uleb128 0x24
+ 213 0011 00       		.byte	0
+ 214 0012 0B       		.uleb128 0xb
+ 215 0013 0B       		.uleb128 0xb
+ 216 0014 3E       		.uleb128 0x3e
+ 217 0015 0B       		.uleb128 0xb
+ 218 0016 03       		.uleb128 0x3
+ 219 0017 0E       		.uleb128 0xe
+ 220 0018 00       		.byte	0
+ 221 0019 00       		.byte	0
+ 222 001a 03       		.uleb128 0x3
+ 223 001b 24       		.uleb128 0x24
+ 224 001c 00       		.byte	0
+ 225 001d 0B       		.uleb128 0xb
+ 226 001e 0B       		.uleb128 0xb
+ 227 001f 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 5
+
+
+ 228 0020 0B       		.uleb128 0xb
+ 229 0021 03       		.uleb128 0x3
+ 230 0022 08       		.uleb128 0x8
+ 231 0023 00       		.byte	0
+ 232 0024 00       		.byte	0
+ 233 0025 04       		.uleb128 0x4
+ 234 0026 16       		.uleb128 0x16
+ 235 0027 00       		.byte	0
+ 236 0028 03       		.uleb128 0x3
+ 237 0029 0E       		.uleb128 0xe
+ 238 002a 3A       		.uleb128 0x3a
+ 239 002b 0B       		.uleb128 0xb
+ 240 002c 3B       		.uleb128 0x3b
+ 241 002d 05       		.uleb128 0x5
+ 242 002e 49       		.uleb128 0x49
+ 243 002f 13       		.uleb128 0x13
+ 244 0030 00       		.byte	0
+ 245 0031 00       		.byte	0
+ 246 0032 05       		.uleb128 0x5
+ 247 0033 01       		.uleb128 0x1
+ 248 0034 01       		.byte	0x1
+ 249 0035 49       		.uleb128 0x49
+ 250 0036 13       		.uleb128 0x13
+ 251 0037 01       		.uleb128 0x1
+ 252 0038 13       		.uleb128 0x13
+ 253 0039 00       		.byte	0
+ 254 003a 00       		.byte	0
+ 255 003b 06       		.uleb128 0x6
+ 256 003c 21       		.uleb128 0x21
+ 257 003d 00       		.byte	0
+ 258 003e 49       		.uleb128 0x49
+ 259 003f 13       		.uleb128 0x13
+ 260 0040 2F       		.uleb128 0x2f
+ 261 0041 0B       		.uleb128 0xb
+ 262 0042 00       		.byte	0
+ 263 0043 00       		.byte	0
+ 264 0044 07       		.uleb128 0x7
+ 265 0045 26       		.uleb128 0x26
+ 266 0046 00       		.byte	0
+ 267 0047 49       		.uleb128 0x49
+ 268 0048 13       		.uleb128 0x13
+ 269 0049 00       		.byte	0
+ 270 004a 00       		.byte	0
+ 271 004b 08       		.uleb128 0x8
+ 272 004c 34       		.uleb128 0x34
+ 273 004d 00       		.byte	0
+ 274 004e 03       		.uleb128 0x3
+ 275 004f 0E       		.uleb128 0xe
+ 276 0050 3A       		.uleb128 0x3a
+ 277 0051 0B       		.uleb128 0xb
+ 278 0052 3B       		.uleb128 0x3b
+ 279 0053 0B       		.uleb128 0xb
+ 280 0054 49       		.uleb128 0x49
+ 281 0055 13       		.uleb128 0x13
+ 282 0056 3F       		.uleb128 0x3f
+ 283 0057 19       		.uleb128 0x19
+ 284 0058 02       		.uleb128 0x2
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 6
+
+
+ 285 0059 18       		.uleb128 0x18
+ 286 005a 00       		.byte	0
+ 287 005b 00       		.byte	0
+ 288 005c 00       		.byte	0
+ 289              		.section	.debug_aranges,"",%progbits
+ 290 0000 14000000 		.4byte	0x14
+ 291 0004 0200     		.2byte	0x2
+ 292 0006 00000000 		.4byte	.Ldebug_info0
+ 293 000a 04       		.byte	0x4
+ 294 000b 00       		.byte	0
+ 295 000c 0000     		.2byte	0
+ 296 000e 0000     		.2byte	0
+ 297 0010 00000000 		.4byte	0
+ 298 0014 00000000 		.4byte	0
+ 299              		.section	.debug_line,"",%progbits
+ 300              	.Ldebug_line0:
+ 301 0000 51000000 		.section	.debug_str,"MS",%progbits,1
+ 301      02004B00 
+ 301      00000201 
+ 301      FB0E0D00 
+ 301      01010101 
+ 302              	.LASF6:
+ 303 0000 6C6F6E67 		.ascii	"long long int\000"
+ 303      206C6F6E 
+ 303      6720696E 
+ 303      7400
+ 304              	.LASF22:
+ 305 000e 75696E74 		.ascii	"uint32\000"
+ 305      333200
+ 306              	.LASF8:
+ 307 0015 756E7369 		.ascii	"unsigned int\000"
+ 307      676E6564 
+ 307      20696E74 
+ 307      00
+ 308              	.LASF14:
+ 309 0022 4446425F 		.ascii	"DFB_1_control\000"
+ 309      315F636F 
+ 309      6E74726F 
+ 309      6C00
+ 310              	.LASF15:
+ 311 0030 4446425F 		.ascii	"DFB_1_data_a\000"
+ 311      315F6461 
+ 311      74615F61 
+ 311      00
+ 312              	.LASF16:
+ 313 003d 4446425F 		.ascii	"DFB_1_data_b\000"
+ 313      315F6461 
+ 313      74615F62 
+ 313      00
+ 314              	.LASF19:
+ 315 004a 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 315      43313120 
+ 315      352E342E 
+ 315      31203230 
+ 315      31363036 
+ 316 007d 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 316      20726576 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 7
+
+
+ 316      6973696F 
+ 316      6E203233 
+ 316      37373135 
+ 317 00b0 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 317      66756E63 
+ 317      74696F6E 
+ 317      2D736563 
+ 317      74696F6E 
+ 318              	.LASF5:
+ 319 00d8 6C6F6E67 		.ascii	"long unsigned int\000"
+ 319      20756E73 
+ 319      69676E65 
+ 319      6420696E 
+ 319      7400
+ 320              	.LASF7:
+ 321 00ea 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 321      206C6F6E 
+ 321      6720756E 
+ 321      7369676E 
+ 321      65642069 
+ 322              	.LASF9:
+ 323 0101 666C6F61 		.ascii	"float\000"
+ 323      7400
+ 324              	.LASF21:
+ 325 0107 433A5C41 		.ascii	"C:\\Academics\\SA\\Lab 1\\microphone\\Design01.cyds"
+ 325      63616465 
+ 325      6D696373 
+ 325      5C53415C 
+ 325      4C616220 
+ 326 0135 6E00     		.ascii	"n\000"
+ 327              	.LASF1:
+ 328 0137 756E7369 		.ascii	"unsigned char\000"
+ 328      676E6564 
+ 328      20636861 
+ 328      7200
+ 329              	.LASF11:
+ 330 0145 63686172 		.ascii	"char\000"
+ 330      00
+ 331              	.LASF4:
+ 332 014a 6C6F6E67 		.ascii	"long int\000"
+ 332      20696E74 
+ 332      00
+ 333              	.LASF2:
+ 334 0153 73686F72 		.ascii	"short int\000"
+ 334      7420696E 
+ 334      7400
+ 335              	.LASF10:
+ 336 015d 646F7562 		.ascii	"double\000"
+ 336      6C6500
+ 337              	.LASF3:
+ 338 0164 73686F72 		.ascii	"short unsigned int\000"
+ 338      7420756E 
+ 338      7369676E 
+ 338      65642069 
+ 338      6E7400
+ 339              	.LASF0:
+ 340 0177 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccLvSnCo.s 			page 8
+
+
+ 340      65642063 
+ 340      68617200 
+ 341              	.LASF18:
+ 342 0183 4446425F 		.ascii	"DFB_1_acu\000"
+ 342      315F6163 
+ 342      7500
+ 343              	.LASF12:
+ 344 018d 6C6F6E67 		.ascii	"long double\000"
+ 344      20646F75 
+ 344      626C6500 
+ 345              	.LASF20:
+ 346 0199 47656E65 		.ascii	"Generated_Source\\PSoC5\\DFB_1_RAM_Data.c\000"
+ 346      72617465 
+ 346      645F536F 
+ 346      75726365 
+ 346      5C50536F 
+ 347              	.LASF17:
+ 348 01c1 4446425F 		.ascii	"DFB_1_cfsm\000"
+ 348      315F6366 
+ 348      736D00
+ 349              	.LASF13:
+ 350 01cc 73697A65 		.ascii	"sizetype\000"
+ 350      74797065 
+ 350      00
+ 351              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

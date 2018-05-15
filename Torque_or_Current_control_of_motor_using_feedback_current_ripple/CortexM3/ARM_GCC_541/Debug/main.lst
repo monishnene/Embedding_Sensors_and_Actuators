@@ -1,0 +1,2704 @@
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	__aeabi_i2d
+  20              		.global	__aeabi_ddiv
+  21              		.global	__aeabi_d2uiz
+  22              		.global	__aeabi_dmul
+  23              		.global	__aeabi_dadd
+  24              		.section	.text.isr_2_Interrupt,"ax",%progbits
+  25              		.align	2
+  26              		.global	isr_2_Interrupt
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	isr_2_Interrupt, %function
+  30              	isr_2_Interrupt:
+  31              	.LFB65:
+  32              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * ECEN 5053 -  Lab 4
+   4:main.c        ****  * Nagraj and Monish Nene
+   5:main.c        ****  *
+   6:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   7:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   8:main.c        ****  *
+   9:main.c        ****  * ========================================
+  10:main.c        **** */
+  11:main.c        **** #include "project.h"
+  12:main.c        **** 
+  13:main.c        **** #define COUNTER_TICK_RATE 10000 // 10 kHz //Counter_2 count pin clock setting
+  14:main.c        **** #define COUNTSPERREVOFGEAR 300 //64 COUNTER PER REV X 18.75 GEAR RATIO / 4 PULSES OF ENCODER 
+  15:main.c        **** #define SECONDS 60
+  16:main.c        **** #define DEMO 4
+  17:main.c        **** #define resistance 2.7
+  18:main.c        **** 
+  19:main.c        ****  uint8 ADC_Count_Output = 0,source_voltage;
+  20:main.c        ****     uint8 ADC_2_Count_Output=0,current=0,current_ref=100,ADC_2_Count_Output_1=0,ADC_2_Count_Output_
+  21:main.c        ****     int16 quadcountnew = 0;
+  22:main.c        ****     int16 quadcount = 0;
+  23:main.c        ****     int8 quadcountprevious = 0,error_prev,error_new,error,ierror=0;    
+  24:main.c        ****     int32 loop = 0;
+  25:main.c        ****     uint16 time = 180,period;  //mS - time to toggle pin P0_0 - the duration of the for loop - from
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 2
+
+
+  26:main.c        ****     int16 emfrpm = 0;
+  27:main.c        ****     int32 speedref = 40,mode=1,rpm;
+  28:main.c        ****     uint8 inertia=128,prev_inertia;
+  29:main.c        ****     
+  30:main.c        **** void LCD() // LCD Display
+  31:main.c        **** {    
+  32:main.c        ****            
+  33:main.c        ****         LCD_Char_1_Position(0,0);
+  34:main.c        ****         LCD_Char_1_PrintString("                ");
+  35:main.c        ****         LCD_Char_1_Position(0,0);
+  36:main.c        ****         LCD_Char_1_PrintString("DC MOTOR SPEED");
+  37:main.c        ****         LCD_Char_1_Position(0,9);
+  38:main.c        ****         LCD_Char_1_PrintString("                ");
+  39:main.c        ****         LCD_Char_1_Position(0,9);
+  40:main.c        ****         LCD_Char_1_PrintString("LAB5");
+  41:main.c        ****         return;
+  42:main.c        **** }
+  43:main.c        **** 
+  44:main.c        **** void LCDvalue(int value) // LCD Display Degree
+  45:main.c        **** {   
+  46:main.c        ****         {
+  47:main.c        ****         LCD_Char_1_Position(1,0);
+  48:main.c        ****         LCD_Char_1_PrintString("               ");
+  49:main.c        ****         LCD_Char_1_Position(1,0);
+  50:main.c        ****         LCD_Char_1_PrintString("PWM=");
+  51:main.c        ****         LCD_Char_1_PrintU32Number(value);
+  52:main.c        ****         } 
+  53:main.c        ****         return;
+  54:main.c        **** }
+  55:main.c        ****  CY_ISR(isr_2_Interrupt)
+  56:main.c        **** {   PWM_1_STATUS;
+  33              		.loc 1 56 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 0, uses_anonymous_args = 0
+  37 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  38              		.cfi_def_cfa_offset 24
+  39              		.cfi_offset 3, -24
+  40              		.cfi_offset 4, -20
+  41              		.cfi_offset 5, -16
+  42              		.cfi_offset 6, -12
+  43              		.cfi_offset 7, -8
+  44              		.cfi_offset 14, -4
+  45              		.loc 1 56 0
+  46 0002 2D4B     		ldr	r3, .L5+16
+  47 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  57:main.c        ****     p0_0_Write(!p0_0_Read());    
+  48              		.loc 1 57 0
+  49 0006 FFF7FEFF 		bl	p0_0_Read
+  50              	.LVL0:
+  51 000a B0FA80F0 		clz	r0, r0
+  52 000e 4009     		lsrs	r0, r0, #5
+  53 0010 FFF7FEFF 		bl	p0_0_Write
+  54              	.LVL1:
+  58:main.c        ****     CyDelayUs(20);
+  55              		.loc 1 58 0
+  56 0014 1420     		movs	r0, #20
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 3
+
+
+  57 0016 FFF7FEFF 		bl	CyDelayUs
+  58              	.LVL2:
+  59:main.c        ****     source_voltage = ADC_SAR_1_GetResult8();
+  59              		.loc 1 59 0
+  60 001a FFF7FEFF 		bl	ADC_SAR_1_GetResult8
+  61              	.LVL3:
+  62 001e C0B2     		uxtb	r0, r0
+  63 0020 264B     		ldr	r3, .L5+20
+  64 0022 1870     		strb	r0, [r3]
+  60:main.c        ****     current = (source_voltage*2048)/(255.0 * 2.7);
+  65              		.loc 1 60 0
+  66 0024 C002     		lsls	r0, r0, #11
+  67 0026 FFF7FEFF 		bl	__aeabi_i2d
+  68              	.LVL4:
+  69 002a 1FA3     		adr	r3, .L5
+  70 002c D3E90023 		ldrd	r2, [r3]
+  71 0030 FFF7FEFF 		bl	__aeabi_ddiv
+  72              	.LVL5:
+  73 0034 FFF7FEFF 		bl	__aeabi_d2uiz
+  74              	.LVL6:
+  75 0038 C5B2     		uxtb	r5, r0
+  76 003a 214B     		ldr	r3, .L5+24
+  77 003c 1D70     		strb	r5, [r3]
+  61:main.c        ****     //delay 3 sec
+  62:main.c        ****     ierror = current_ref - current;
+  78              		.loc 1 62 0
+  79 003e 214C     		ldr	r4, .L5+28
+  80 0040 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+  81 0042 401B     		subs	r0, r0, r5
+  82 0044 40B2     		sxtb	r0, r0
+  83 0046 5870     		strb	r0, [r3, #1]
+  63:main.c        ****     inertia = inertia + 0.2 * ierror;
+  84              		.loc 1 63 0
+  85 0048 FFF7FEFF 		bl	__aeabi_i2d
+  86              	.LVL7:
+  87 004c 18A3     		adr	r3, .L5+8
+  88 004e D3E90023 		ldrd	r2, [r3]
+  89 0052 FFF7FEFF 		bl	__aeabi_dmul
+  90              	.LVL8:
+  91 0056 0646     		mov	r6, r0
+  92 0058 0F46     		mov	r7, r1
+  93 005a 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+  94 005c FFF7FEFF 		bl	__aeabi_i2d
+  95              	.LVL9:
+  96 0060 3246     		mov	r2, r6
+  97 0062 3B46     		mov	r3, r7
+  98 0064 FFF7FEFF 		bl	__aeabi_dadd
+  99              	.LVL10:
+ 100 0068 FFF7FEFF 		bl	__aeabi_d2uiz
+ 101              	.LVL11:
+ 102 006c 6070     		strb	r0, [r4, #1]
+  64:main.c        ****     VDAC8_1_SetValue(current);
+ 103              		.loc 1 64 0
+ 104 006e 2846     		mov	r0, r5
+ 105 0070 FFF7FEFF 		bl	VDAC8_1_SetValue
+ 106              	.LVL12:
+  65:main.c        ****     VDAC8_2_SetValue(current_ref);
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 4
+
+
+ 107              		.loc 1 65 0
+ 108 0074 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 109 0076 FFF7FEFF 		bl	VDAC8_2_SetValue
+ 110              	.LVL13:
+  66:main.c        ****     PWM_1_WriteCompare(inertia); 
+ 111              		.loc 1 66 0
+ 112 007a 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+ 113 007c FFF7FEFF 		bl	PWM_1_WriteCompare
+ 114              	.LVL14:
+  67:main.c        ****     if(inertia > 200)//handling math overflow
+ 115              		.loc 1 67 0
+ 116 0080 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+ 117 0082 C82B     		cmp	r3, #200
+ 118 0084 03D9     		bls	.L2
+  68:main.c        ****         {inertia=prev_inertia;}
+ 119              		.loc 1 68 0
+ 120 0086 104B     		ldr	r3, .L5+32
+ 121 0088 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 122 008a 6270     		strb	r2, [r4, #1]
+ 123 008c 05E0     		b	.L3
+ 124              	.L2:
+  69:main.c        ****     else if (inertia < 50)
+ 125              		.loc 1 69 0
+ 126 008e 312B     		cmp	r3, #49
+ 127 0090 03D8     		bhi	.L3
+  70:main.c        ****         {inertia=prev_inertia;}
+ 128              		.loc 1 70 0
+ 129 0092 0D4B     		ldr	r3, .L5+32
+ 130 0094 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 131 0096 0B4B     		ldr	r3, .L5+28
+ 132 0098 5A70     		strb	r2, [r3, #1]
+ 133              	.L3:
+  71:main.c        ****      prev_inertia=inertia;
+ 134              		.loc 1 71 0
+ 135 009a 0A4B     		ldr	r3, .L5+28
+ 136 009c 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 137 009e 0A4B     		ldr	r3, .L5+32
+ 138 00a0 1A70     		strb	r2, [r3]
+ 139 00a2 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 140              	.L6:
+ 141 00a4 AFF30080 		.align	3
+ 142              	.L5:
+ 143 00a8 00000000 		.word	0
+ 144 00ac 00848540 		.word	1082491904
+ 145 00b0 9A999999 		.word	-1717986918
+ 146 00b4 9999C93F 		.word	1070176665
+ 147 00b8 65650040 		.word	1073767781
+ 148 00bc 00000000 		.word	source_voltage
+ 149 00c0 00000000 		.word	.LANCHOR0
+ 150 00c4 00000000 		.word	.LANCHOR1
+ 151 00c8 00000000 		.word	prev_inertia
+ 152              		.cfi_endproc
+ 153              	.LFE65:
+ 154              		.size	isr_2_Interrupt, .-isr_2_Interrupt
+ 155              		.section	.text.LCD,"ax",%progbits
+ 156              		.align	2
+ 157              		.global	LCD
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 5
+
+
+ 158              		.thumb
+ 159              		.thumb_func
+ 160              		.type	LCD, %function
+ 161              	LCD:
+ 162              	.LFB63:
+  31:main.c        ****            
+ 163              		.loc 1 31 0
+ 164              		.cfi_startproc
+ 165              		@ args = 0, pretend = 0, frame = 0
+ 166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 167 0000 10B5     		push	{r4, lr}
+ 168              		.cfi_def_cfa_offset 8
+ 169              		.cfi_offset 4, -8
+ 170              		.cfi_offset 14, -4
+  33:main.c        ****         LCD_Char_1_PrintString("                ");
+ 171              		.loc 1 33 0
+ 172 0002 0021     		movs	r1, #0
+ 173 0004 0846     		mov	r0, r1
+ 174 0006 FFF7FEFF 		bl	LCD_Char_1_Position
+ 175              	.LVL15:
+  34:main.c        ****         LCD_Char_1_Position(0,0);
+ 176              		.loc 1 34 0
+ 177 000a 0D4C     		ldr	r4, .L9
+ 178 000c 2046     		mov	r0, r4
+ 179 000e FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 180              	.LVL16:
+  35:main.c        ****         LCD_Char_1_PrintString("DC MOTOR SPEED");
+ 181              		.loc 1 35 0
+ 182 0012 0021     		movs	r1, #0
+ 183 0014 0846     		mov	r0, r1
+ 184 0016 FFF7FEFF 		bl	LCD_Char_1_Position
+ 185              	.LVL17:
+  36:main.c        ****         LCD_Char_1_Position(0,9);
+ 186              		.loc 1 36 0
+ 187 001a 0A48     		ldr	r0, .L9+4
+ 188 001c FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 189              	.LVL18:
+  37:main.c        ****         LCD_Char_1_PrintString("                ");
+ 190              		.loc 1 37 0
+ 191 0020 0921     		movs	r1, #9
+ 192 0022 0020     		movs	r0, #0
+ 193 0024 FFF7FEFF 		bl	LCD_Char_1_Position
+ 194              	.LVL19:
+  38:main.c        ****         LCD_Char_1_Position(0,9);
+ 195              		.loc 1 38 0
+ 196 0028 2046     		mov	r0, r4
+ 197 002a FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 198              	.LVL20:
+  39:main.c        ****         LCD_Char_1_PrintString("LAB5");
+ 199              		.loc 1 39 0
+ 200 002e 0921     		movs	r1, #9
+ 201 0030 0020     		movs	r0, #0
+ 202 0032 FFF7FEFF 		bl	LCD_Char_1_Position
+ 203              	.LVL21:
+  40:main.c        ****         return;
+ 204              		.loc 1 40 0
+ 205 0036 0448     		ldr	r0, .L9+8
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 6
+
+
+ 206 0038 FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 207              	.LVL22:
+ 208 003c 10BD     		pop	{r4, pc}
+ 209              	.L10:
+ 210 003e 00BF     		.align	2
+ 211              	.L9:
+ 212 0040 00000000 		.word	.LC0
+ 213 0044 14000000 		.word	.LC1
+ 214 0048 24000000 		.word	.LC2
+ 215              		.cfi_endproc
+ 216              	.LFE63:
+ 217              		.size	LCD, .-LCD
+ 218              		.section	.text.LCDvalue,"ax",%progbits
+ 219              		.align	2
+ 220              		.global	LCDvalue
+ 221              		.thumb
+ 222              		.thumb_func
+ 223              		.type	LCDvalue, %function
+ 224              	LCDvalue:
+ 225              	.LFB64:
+  45:main.c        ****         {
+ 226              		.loc 1 45 0
+ 227              		.cfi_startproc
+ 228              		@ args = 0, pretend = 0, frame = 0
+ 229              		@ frame_needed = 0, uses_anonymous_args = 0
+ 230              	.LVL23:
+ 231 0000 10B5     		push	{r4, lr}
+ 232              		.cfi_def_cfa_offset 8
+ 233              		.cfi_offset 4, -8
+ 234              		.cfi_offset 14, -4
+ 235 0002 0446     		mov	r4, r0
+  47:main.c        ****         LCD_Char_1_PrintString("               ");
+ 236              		.loc 1 47 0
+ 237 0004 0021     		movs	r1, #0
+ 238 0006 0120     		movs	r0, #1
+ 239              	.LVL24:
+ 240 0008 FFF7FEFF 		bl	LCD_Char_1_Position
+ 241              	.LVL25:
+  48:main.c        ****         LCD_Char_1_Position(1,0);
+ 242              		.loc 1 48 0
+ 243 000c 0648     		ldr	r0, .L13
+ 244 000e FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 245              	.LVL26:
+  49:main.c        ****         LCD_Char_1_PrintString("PWM=");
+ 246              		.loc 1 49 0
+ 247 0012 0021     		movs	r1, #0
+ 248 0014 0120     		movs	r0, #1
+ 249 0016 FFF7FEFF 		bl	LCD_Char_1_Position
+ 250              	.LVL27:
+  50:main.c        ****         LCD_Char_1_PrintU32Number(value);
+ 251              		.loc 1 50 0
+ 252 001a 0448     		ldr	r0, .L13+4
+ 253 001c FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 254              	.LVL28:
+  51:main.c        ****         } 
+ 255              		.loc 1 51 0
+ 256 0020 2046     		mov	r0, r4
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 7
+
+
+ 257 0022 FFF7FEFF 		bl	LCD_Char_1_PrintU32Number
+ 258              	.LVL29:
+ 259 0026 10BD     		pop	{r4, pc}
+ 260              	.LVL30:
+ 261              	.L14:
+ 262              		.align	2
+ 263              	.L13:
+ 264 0028 2C000000 		.word	.LC3
+ 265 002c 3C000000 		.word	.LC4
+ 266              		.cfi_endproc
+ 267              	.LFE64:
+ 268              		.size	LCDvalue, .-LCDvalue
+ 269              		.section	.text.main,"ax",%progbits
+ 270              		.align	2
+ 271              		.global	main
+ 272              		.thumb
+ 273              		.thumb_func
+ 274              		.type	main, %function
+ 275              	main:
+ 276              	.LFB66:
+  72:main.c        **** }
+  73:main.c        **** 
+  74:main.c        **** int main()
+  75:main.c        **** {
+ 277              		.loc 1 75 0
+ 278              		.cfi_startproc
+ 279              		@ Volatile: function does not return.
+ 280              		@ args = 0, pretend = 0, frame = 0
+ 281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 282 0000 08B5     		push	{r3, lr}
+ 283              		.cfi_def_cfa_offset 8
+ 284              		.cfi_offset 3, -8
+ 285              		.cfi_offset 14, -4
+  76:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 286              		.loc 1 76 0
+ 287              		.syntax unified
+ 288              	@ 76 "main.c" 1
+ 289 0002 62B6     		CPSIE   i
+ 290              	@ 0 "" 2
+  77:main.c        ****     //int16 threesecsync=100000*3.000/time;
+  78:main.c        ****     LCD_Char_1_Start();
+ 291              		.loc 1 78 0
+ 292              		.thumb
+ 293              		.syntax unified
+ 294 0004 FFF7FEFF 		bl	LCD_Char_1_Start
+ 295              	.LVL31:
+  79:main.c        ****     LCD();
+ 296              		.loc 1 79 0
+ 297 0008 FFF7FEFF 		bl	LCD
+ 298              	.LVL32:
+  80:main.c        ****     CyDelay(1000);     
+ 299              		.loc 1 80 0
+ 300 000c 4FF47A70 		mov	r0, #1000
+ 301 0010 FFF7FEFF 		bl	CyDelay
+ 302              	.LVL33:
+  81:main.c        ****     LCD_Char_1_ClearDisplay();     
+ 303              		.loc 1 81 0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 8
+
+
+ 304 0014 0120     		movs	r0, #1
+ 305 0016 FFF7FEFF 		bl	LCD_Char_1_WriteControl
+ 306              	.LVL34:
+  82:main.c        ****     PWM_1_Start(); //creates a pwm from pot
+ 307              		.loc 1 82 0
+ 308 001a FFF7FEFF 		bl	PWM_1_Start
+ 309              	.LVL35:
+  83:main.c        ****     QuadDec_1_Start();  //count encoder edges
+ 310              		.loc 1 83 0
+ 311 001e FFF7FEFF 		bl	QuadDec_1_Start
+ 312              	.LVL36:
+  84:main.c        ****     ADC_SAR_2_Start();
+ 313              		.loc 1 84 0
+ 314 0022 FFF7FEFF 		bl	ADC_SAR_2_Start
+ 315              	.LVL37:
+  85:main.c        ****     ADC_SAR_2_StartConvert();  
+ 316              		.loc 1 85 0
+ 317 0026 FFF7FEFF 		bl	ADC_SAR_2_StartConvert
+ 318              	.LVL38:
+  86:main.c        ****     ADC_SAR_1_Start();
+ 319              		.loc 1 86 0
+ 320 002a FFF7FEFF 		bl	ADC_SAR_1_Start
+ 321              	.LVL39:
+  87:main.c        ****     ADC_SAR_1_StartConvert();  
+ 322              		.loc 1 87 0
+ 323 002e FFF7FEFF 		bl	ADC_SAR_1_StartConvert
+ 324              	.LVL40:
+  88:main.c        ****     VDAC8_1_Start();
+ 325              		.loc 1 88 0
+ 326 0032 FFF7FEFF 		bl	VDAC8_1_Start
+ 327              	.LVL41:
+  89:main.c        ****     VDAC8_2_Start();  
+ 328              		.loc 1 89 0
+ 329 0036 FFF7FEFF 		bl	VDAC8_2_Start
+ 330              	.LVL42:
+  90:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  91:main.c        ****     isr_1_Start();
+ 331              		.loc 1 91 0
+ 332 003a FFF7FEFF 		bl	isr_1_Start
+ 333              	.LVL43:
+  92:main.c        ****     isr_1_StartEx(isr_2_Interrupt);
+ 334              		.loc 1 92 0
+ 335 003e 4448     		ldr	r0, .L25+8
+ 336 0040 FFF7FEFF 		bl	isr_1_StartEx
+ 337              	.LVL44:
+ 338              	.L21:
+  93:main.c        ****     for(;;)
+  94:main.c        ****     {  
+  95:main.c        ****         PWM_1_WriteCompare(inertia); 
+ 339              		.loc 1 95 0
+ 340 0044 434B     		ldr	r3, .L25+12
+ 341 0046 5878     		ldrb	r0, [r3, #1]	@ zero_extendqisi2
+ 342 0048 FFF7FEFF 		bl	PWM_1_WriteCompare
+ 343              	.LVL45:
+  96:main.c        ****         
+  97:main.c        ****      //PWM_1_WriteCompare(inertia);      
+  98:main.c        ****      loop++;    //  LCDvalue(ADC_Count_Output);
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 9
+
+
+ 344              		.loc 1 98 0
+ 345 004c 424A     		ldr	r2, .L25+16
+ 346 004e 5368     		ldr	r3, [r2, #4]
+ 347 0050 0133     		adds	r3, r3, #1
+ 348 0052 5360     		str	r3, [r2, #4]
+  99:main.c        ****            //creates a PWM signal comparing a counter clock to the ADC counts output.
+ 100:main.c        ****         
+ 101:main.c        ****        // STEP 3 - Speed measurement by encoder
+ 102:main.c        ****        // motor pins green - vssd, blue - vddd, yellow - A P0_1, white - B P0-2
+ 103:main.c        ****        // method 2 - read the time between rising edges
+ 104:main.c        **** 
+ 105:main.c        ****  
+ 106:main.c        ****        /* if (loop % 100000 == 0) 
+ 107:main.c        ****         {        
+ 108:main.c        ****           quadcountnew = QuadDec_1_GetCounter();//returned the edges counted - about 304 per revolu
+ 109:main.c        ****           if(quadcountnew < 0)          
+ 110:main.c        ****           {
+ 111:main.c        ****             quadcountnew *= -1;
+ 112:main.c        ****           }   
+ 113:main.c        **** 
+ 114:main.c        ****         quadcount = quadcountnew - quadcountprevious;//calculate RPM
+ 115:main.c        ****         rpm = (quadcount * 1000 * 60 )/ (300.0 * time) ;    //304 = counts per rev. of gear shaft
+ 116:main.c        ****         //p0_0_Write( ~p0_0_Read() ); //toggle pin to get time from scope            
+ 117:main.c        ****         quadcountprevious = quadcountnew;
+ 118:main.c        ****        
+ 119:main.c        ****         PWM_1_Stop();
+ 120:main.c        ****         p3_7_Write(0);//interrupt the pwm for
+ 121:main.c        ****         p0_0_Write(0);
+ 122:main.c        ****         CyDelayUs(1200);
+ 123:main.c        ****         //the longer the delay, the more pulsing we see on the scope on the drain
+ 124:main.c        ****         //Convert the measured voltage to rpm and display the result on the LCD 
+ 125:main.c        ****         //Step 4 - Speed measurement by Back-EMF
+ 126:main.c        ****         //briefly interrupt the PWM switching on a periodic basis so that you can measure the Back-
+ 127:main.c        ****         ADC_2_Count_Output = ADC_SAR_2_GetResult8();
+ 128:main.c        ****         ADC_2_Count_Output_5 = 255 - ADC_2_Count_Output;   
+ 129:main.c        ****         average =(ADC_2_Count_Output_5+ADC_2_Count_Output_4)/2.0;
+ 130:main.c        ****         ADC_2_Count_Output_4=average;
+ 131:main.c        ****         PWM_1_Start();
+ 132:main.c        ****         p0_0_Write(1);
+ 133:main.c        ****         VDAC8_1_Start();
+ 134:main.c        ****         VDAC8_2_Start();
+ 135:main.c        ****         //calculate RPM from EMF voltage
+ 136:main.c        ****         emfrpm = 0.8858 * average + 7.0034;
+ 137:main.c        ****         
+ 138:main.c        ****         //3 sec mode change
+ 139:main.c        ****         if(mode==1)
+ 140:main.c        ****         {speedref=40;}
+ 141:main.c        ****         if(mode==2)
+ 142:main.c        ****         {speedref=80;}
+ 143:main.c        ****         if(mode==3)
+ 144:main.c        ****         {speedref=120;}
+ 145:main.c        ****         
+ 146:main.c        ****         //Feedback section
+ 147:main.c        ****         //error = speedref - rpm;
+ 148:main.c        ****         error = speedref - emfrpm;
+ 149:main.c        ****         //error = (error_new + error_prev)/2;
+ 150:main.c        ****         //error_prev = error_new;
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 10
+
+
+ 151:main.c        ****         inertia = inertia + error;
+ 152:main.c        ****         if(inertia>255|inertia<0)//handling math overflow
+ 153:main.c        ****         {inertia=100;}
+ 154:main.c        ****         VDAC8_1_SetValue(speedref);
+ 155:main.c        ****         VDAC8_2_SetValue(emfrpm);
+ 156:main.c        ****         if(loop % 500000 == 0)    
+ 157:main.c        ****             {
+ 158:main.c        ****             LCD_Char_1_Position(0,0);
+ 159:main.c        ****             LCD_Char_1_PrintString("Shaftrpm:            ");     
+ 160:main.c        ****             LCD_Char_1_Position(0,9);        
+ 161:main.c        ****             LCD_Char_1_PrintU32Number(rpm);    
+ 162:main.c        ****             LCD_Char_1_Position(1,0);
+ 163:main.c        ****             LCD_Char_1_PrintString("emfrpm:            ");     
+ 164:main.c        ****             LCD_Char_1_Position(1,7);        
+ 165:main.c        ****             LCD_Char_1_PrintU32Number(emfrpm);  
+ 166:main.c        ****             LCD_Char_1_Position(0,12);
+ 167:main.c        ****             LCD_Char_1_PrintString("e:");     
+ 168:main.c        ****             LCD_Char_1_Position(0,14);        
+ 169:main.c        ****             LCD_Char_1_PrintInt8(error);   
+ 170:main.c        ****             LCD_Char_1_Position(1,12);
+ 171:main.c        ****             LCD_Char_1_PrintString("m: ");     
+ 172:main.c        ****             LCD_Char_1_Position(1,14);        
+ 173:main.c        ****             LCD_Char_1_PrintNumber(mode);
+ 174:main.c        ****             }    
+ 175:main.c        ****         }
+ 176:main.c        ****         //delay 3 sec
+ 177:main.c        ****          if (loop % 1600000 == 0) 
+ 178:main.c        ****         {
+ 179:main.c        ****         loop=0;    
+ 180:main.c        ****         if(mode==3)
+ 181:main.c        ****         {mode=1;}
+ 182:main.c        ****         else
+ 183:main.c        ****         {mode++;}
+ 184:main.c        ****         }
+ 185:main.c        ****     }*/    
+ 186:main.c        ****     if(p3_7_Read()==1) 
+ 349              		.loc 1 186 0
+ 350 0054 FFF7FEFF 		bl	p3_7_Read
+ 351              	.LVL46:
+ 352 0058 0128     		cmp	r0, #1
+ 353 005a 12D1     		bne	.L17
+ 187:main.c        ****     {
+ 188:main.c        ****         //interrupt the pwm for
+ 189:main.c        ****     /*PWM_1_Stop();
+ 190:main.c        ****        if(ierror<0)
+ 191:main.c        ****         p3_7_Write(0);//interrupt the pwm for
+ 192:main.c        ****        if(ierror>0)
+ 193:main.c        ****         p3_7_Write(1);
+ 194:main.c        ****        CyDelayUs(1200);
+ 195:main.c        ****     PWM_1_Start();
+ 196:main.c        ****     */   
+ 197:main.c        ****     PWM_1_Stop();
+ 354              		.loc 1 197 0
+ 355 005c FFF7FEFF 		bl	PWM_1_Stop
+ 356              	.LVL47:
+ 198:main.c        ****     if(current_ref > current)
+ 357              		.loc 1 198 0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 11
+
+
+ 358 0060 3C4B     		ldr	r3, .L25+12
+ 359 0062 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 360 0064 3C4B     		ldr	r3, .L25+16
+ 361 0066 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 362 0068 9A42     		cmp	r2, r3
+ 363 006a 04D9     		bls	.L18
+ 199:main.c        ****     {inertia ++;}
+ 364              		.loc 1 199 0
+ 365 006c 394A     		ldr	r2, .L25+12
+ 366 006e 5378     		ldrb	r3, [r2, #1]	@ zero_extendqisi2
+ 367 0070 0133     		adds	r3, r3, #1
+ 368 0072 5370     		strb	r3, [r2, #1]
+ 369 0074 03E0     		b	.L19
+ 370              	.L18:
+ 200:main.c        ****     else
+ 201:main.c        ****     {inertia--;}
+ 371              		.loc 1 201 0
+ 372 0076 374A     		ldr	r2, .L25+12
+ 373 0078 5378     		ldrb	r3, [r2, #1]	@ zero_extendqisi2
+ 374 007a 013B     		subs	r3, r3, #1
+ 375 007c 5370     		strb	r3, [r2, #1]
+ 376              	.L19:
+ 202:main.c        ****     PWM_1_Start();
+ 377              		.loc 1 202 0
+ 378 007e FFF7FEFF 		bl	PWM_1_Start
+ 379              	.LVL48:
+ 380              	.L17:
+ 203:main.c        ****     }
+ 204:main.c        ****     if (loop % 100000 == 0) 
+ 381              		.loc 1 204 0
+ 382 0082 354B     		ldr	r3, .L25+16
+ 383 0084 5A68     		ldr	r2, [r3, #4]
+ 384 0086 354B     		ldr	r3, .L25+20
+ 385 0088 83FB0231 		smull	r3, r1, r3, r2
+ 386 008c D317     		asrs	r3, r2, #31
+ 387 008e C3EB6133 		rsb	r3, r3, r1, asr #13
+ 388 0092 3349     		ldr	r1, .L25+24
+ 389 0094 01FB1323 		mls	r3, r1, r3, r2
+ 390 0098 002B     		cmp	r3, #0
+ 391 009a 37D1     		bne	.L20
+ 205:main.c        ****     {LCD_Char_1_Position(1,0);
+ 392              		.loc 1 205 0
+ 393 009c 0021     		movs	r1, #0
+ 394 009e 0120     		movs	r0, #1
+ 395 00a0 FFF7FEFF 		bl	LCD_Char_1_Position
+ 396              	.LVL49:
+ 206:main.c        ****             LCD_Char_1_PrintString("current:        ");     
+ 397              		.loc 1 206 0
+ 398 00a4 2F48     		ldr	r0, .L25+28
+ 399 00a6 FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 400              	.LVL50:
+ 207:main.c        ****             LCD_Char_1_Position(1,8);        
+ 401              		.loc 1 207 0
+ 402 00aa 0821     		movs	r1, #8
+ 403 00ac 0120     		movs	r0, #1
+ 404 00ae FFF7FEFF 		bl	LCD_Char_1_Position
+ 405              	.LVL51:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 12
+
+
+ 208:main.c        ****             LCD_Char_1_PrintU32Number(current);    
+ 406              		.loc 1 208 0
+ 407 00b2 294B     		ldr	r3, .L25+16
+ 408 00b4 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 409 00b6 FFF7FEFF 		bl	LCD_Char_1_PrintU32Number
+ 410              	.LVL52:
+ 209:main.c        ****             LCD_Char_1_Position(0,0);
+ 411              		.loc 1 209 0
+ 412 00ba 0021     		movs	r1, #0
+ 413 00bc 0846     		mov	r0, r1
+ 414 00be FFF7FEFF 		bl	LCD_Char_1_Position
+ 415              	.LVL53:
+ 210:main.c        ****             LCD_Char_1_PrintString("ref:     ");     
+ 416              		.loc 1 210 0
+ 417 00c2 2948     		ldr	r0, .L25+32
+ 418 00c4 FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 419              	.LVL54:
+ 211:main.c        ****             LCD_Char_1_Position(0,4);        
+ 420              		.loc 1 211 0
+ 421 00c8 0421     		movs	r1, #4
+ 422 00ca 0020     		movs	r0, #0
+ 423 00cc FFF7FEFF 		bl	LCD_Char_1_Position
+ 424              	.LVL55:
+ 212:main.c        ****             LCD_Char_1_PrintU32Number(current_ref);  
+ 425              		.loc 1 212 0
+ 426 00d0 204C     		ldr	r4, .L25+12
+ 427 00d2 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 428 00d4 FFF7FEFF 		bl	LCD_Char_1_PrintU32Number
+ 429              	.LVL56:
+ 213:main.c        ****             LCD_Char_1_Position(0,8);
+ 430              		.loc 1 213 0
+ 431 00d8 0821     		movs	r1, #8
+ 432 00da 0020     		movs	r0, #0
+ 433 00dc FFF7FEFF 		bl	LCD_Char_1_Position
+ 434              	.LVL57:
+ 214:main.c        ****             LCD_Char_1_PrintString("duty:   ");     
+ 435              		.loc 1 214 0
+ 436 00e0 2248     		ldr	r0, .L25+36
+ 437 00e2 FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 438              	.LVL58:
+ 215:main.c        ****             LCD_Char_1_Position(0,13);        
+ 439              		.loc 1 215 0
+ 440 00e6 0D21     		movs	r1, #13
+ 441 00e8 0020     		movs	r0, #0
+ 442 00ea FFF7FEFF 		bl	LCD_Char_1_Position
+ 443              	.LVL59:
+ 216:main.c        ****             LCD_Char_1_PrintU32Number((100*inertia/255.0));
+ 444              		.loc 1 216 0
+ 445 00ee 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+ 446 00f0 6420     		movs	r0, #100
+ 447 00f2 00FB03F0 		mul	r0, r0, r3
+ 448 00f6 FFF7FEFF 		bl	__aeabi_i2d
+ 449              	.LVL60:
+ 450 00fa 13A3     		adr	r3, .L25
+ 451 00fc D3E90023 		ldrd	r2, [r3]
+ 452 0100 FFF7FEFF 		bl	__aeabi_ddiv
+ 453              	.LVL61:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 13
+
+
+ 454 0104 FFF7FEFF 		bl	__aeabi_d2uiz
+ 455              	.LVL62:
+ 456 0108 FFF7FEFF 		bl	LCD_Char_1_PrintU32Number
+ 457              	.LVL63:
+ 458              	.L20:
+ 217:main.c        ****             /*LCD_Char_1_Position(1,11);
+ 218:main.c        ****             LCD_Char_1_PrintString("e:   ");     
+ 219:main.c        ****             LCD_Char_1_Position(1,13);        
+ 220:main.c        ****             LCD_Char_1_PrintU32Number((100*inertia/255.0));*/
+ 221:main.c        ****      } 
+ 222:main.c        ****      if (loop % 450000 == 0) 
+ 459              		.loc 1 222 0
+ 460 010c 124B     		ldr	r3, .L25+16
+ 461 010e 5A68     		ldr	r2, [r3, #4]
+ 462 0110 174B     		ldr	r3, .L25+40
+ 463 0112 83FB0231 		smull	r3, r1, r3, r2
+ 464 0116 D317     		asrs	r3, r2, #31
+ 465 0118 C3EB6143 		rsb	r3, r3, r1, asr #17
+ 466 011c 1549     		ldr	r1, .L25+44
+ 467 011e 01FB1323 		mls	r3, r1, r3, r2
+ 468 0122 002B     		cmp	r3, #0
+ 469 0124 8ED1     		bne	.L21
+ 223:main.c        ****      {
+ 224:main.c        ****      loop=0;    
+ 470              		.loc 1 224 0
+ 471 0126 0022     		movs	r2, #0
+ 472 0128 0B4B     		ldr	r3, .L25+16
+ 473 012a 5A60     		str	r2, [r3, #4]
+ 225:main.c        ****      if(current_ref==100)
+ 474              		.loc 1 225 0
+ 475 012c 094B     		ldr	r3, .L25+12
+ 476 012e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 477 0130 642B     		cmp	r3, #100
+ 478 0132 03D1     		bne	.L22
+ 226:main.c        ****      {current_ref=200;}
+ 479              		.loc 1 226 0
+ 480 0134 C822     		movs	r2, #200
+ 481 0136 074B     		ldr	r3, .L25+12
+ 482 0138 1A70     		strb	r2, [r3]
+ 483 013a 83E7     		b	.L21
+ 484              	.L22:
+ 227:main.c        ****       else
+ 228:main.c        ****         {current_ref=100;}
+ 485              		.loc 1 228 0
+ 486 013c 6422     		movs	r2, #100
+ 487 013e 054B     		ldr	r3, .L25+12
+ 488 0140 1A70     		strb	r2, [r3]
+ 489 0142 7FE7     		b	.L21
+ 490              	.L26:
+ 491 0144 AFF30080 		.align	3
+ 492              	.L25:
+ 493 0148 00000000 		.word	0
+ 494 014c 00E06F40 		.word	1081073664
+ 495 0150 00000000 		.word	isr_2_Interrupt
+ 496 0154 00000000 		.word	.LANCHOR1
+ 497 0158 00000000 		.word	.LANCHOR0
+ 498 015c 89B5F814 		.word	351843721
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 14
+
+
+ 499 0160 A0860100 		.word	100000
+ 500 0164 44000000 		.word	.LC5
+ 501 0168 58000000 		.word	.LC6
+ 502 016c 64000000 		.word	.LC7
+ 503 0170 59BE904A 		.word	1250999897
+ 504 0174 D0DD0600 		.word	450000
+ 505              		.cfi_endproc
+ 506              	.LFE66:
+ 507              		.size	main, .-main
+ 508              		.comm	prev_inertia,1,1
+ 509              		.global	inertia
+ 510              		.comm	rpm,4,4
+ 511              		.global	mode
+ 512              		.global	speedref
+ 513              		.global	emfrpm
+ 514              		.comm	period,2,2
+ 515              		.global	time
+ 516              		.global	loop
+ 517              		.global	ierror
+ 518              		.comm	error,1,1
+ 519              		.comm	error_new,1,1
+ 520              		.comm	error_prev,1,1
+ 521              		.global	quadcountprevious
+ 522              		.global	quadcount
+ 523              		.global	quadcountnew
+ 524              		.global	ADC_2_Count_Output_4
+ 525              		.global	ADC_2_Count_Output_5
+ 526              		.global	ADC_2_Count_Output_3
+ 527              		.global	ADC_2_Count_Output_2
+ 528              		.global	ADC_2_Count_Output_1
+ 529              		.global	current_ref
+ 530              		.global	current
+ 531              		.global	ADC_2_Count_Output
+ 532              		.comm	source_voltage,1,1
+ 533              		.global	ADC_Count_Output
+ 534              		.data
+ 535              		.align	2
+ 536              		.set	.LANCHOR1,. + 0
+ 537              		.type	current_ref, %object
+ 538              		.size	current_ref, 1
+ 539              	current_ref:
+ 540 0000 64       		.byte	100
+ 541              		.type	inertia, %object
+ 542              		.size	inertia, 1
+ 543              	inertia:
+ 544 0001 80       		.byte	-128
+ 545 0002 0000     		.space	2
+ 546              		.type	mode, %object
+ 547              		.size	mode, 4
+ 548              	mode:
+ 549 0004 01000000 		.word	1
+ 550              		.type	speedref, %object
+ 551              		.size	speedref, 4
+ 552              	speedref:
+ 553 0008 28000000 		.word	40
+ 554              		.type	time, %object
+ 555              		.size	time, 2
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 15
+
+
+ 556              	time:
+ 557 000c B400     		.short	180
+ 558              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 559              		.align	2
+ 560              	.LC0:
+ 561 0000 20202020 		.ascii	"                \000"
+ 561      20202020 
+ 561      20202020 
+ 561      20202020 
+ 561      00
+ 562 0011 000000   		.space	3
+ 563              	.LC1:
+ 564 0014 4443204D 		.ascii	"DC MOTOR SPEED\000"
+ 564      4F544F52 
+ 564      20535045 
+ 564      454400
+ 565 0023 00       		.space	1
+ 566              	.LC2:
+ 567 0024 4C414235 		.ascii	"LAB5\000"
+ 567      00
+ 568 0029 000000   		.space	3
+ 569              	.LC3:
+ 570 002c 20202020 		.ascii	"               \000"
+ 570      20202020 
+ 570      20202020 
+ 570      20202000 
+ 571              	.LC4:
+ 572 003c 50574D3D 		.ascii	"PWM=\000"
+ 572      00
+ 573 0041 000000   		.space	3
+ 574              	.LC5:
+ 575 0044 63757272 		.ascii	"current:        \000"
+ 575      656E743A 
+ 575      20202020 
+ 575      20202020 
+ 575      00
+ 576 0055 000000   		.space	3
+ 577              	.LC6:
+ 578 0058 7265663A 		.ascii	"ref:     \000"
+ 578      20202020 
+ 578      2000
+ 579 0062 0000     		.space	2
+ 580              	.LC7:
+ 581 0064 64757479 		.ascii	"duty:   \000"
+ 581      3A202020 
+ 581      00
+ 582              		.bss
+ 583              		.align	2
+ 584              		.set	.LANCHOR0,. + 0
+ 585              		.type	current, %object
+ 586              		.size	current, 1
+ 587              	current:
+ 588 0000 00       		.space	1
+ 589              		.type	ierror, %object
+ 590              		.size	ierror, 1
+ 591              	ierror:
+ 592 0001 00       		.space	1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 16
+
+
+ 593 0002 0000     		.space	2
+ 594              		.type	loop, %object
+ 595              		.size	loop, 4
+ 596              	loop:
+ 597 0004 00000000 		.space	4
+ 598              		.type	emfrpm, %object
+ 599              		.size	emfrpm, 2
+ 600              	emfrpm:
+ 601 0008 0000     		.space	2
+ 602              		.type	quadcountprevious, %object
+ 603              		.size	quadcountprevious, 1
+ 604              	quadcountprevious:
+ 605 000a 00       		.space	1
+ 606 000b 00       		.space	1
+ 607              		.type	quadcount, %object
+ 608              		.size	quadcount, 2
+ 609              	quadcount:
+ 610 000c 0000     		.space	2
+ 611              		.type	quadcountnew, %object
+ 612              		.size	quadcountnew, 2
+ 613              	quadcountnew:
+ 614 000e 0000     		.space	2
+ 615              		.type	ADC_2_Count_Output_4, %object
+ 616              		.size	ADC_2_Count_Output_4, 1
+ 617              	ADC_2_Count_Output_4:
+ 618 0010 00       		.space	1
+ 619              		.type	ADC_2_Count_Output_5, %object
+ 620              		.size	ADC_2_Count_Output_5, 1
+ 621              	ADC_2_Count_Output_5:
+ 622 0011 00       		.space	1
+ 623              		.type	ADC_2_Count_Output_3, %object
+ 624              		.size	ADC_2_Count_Output_3, 1
+ 625              	ADC_2_Count_Output_3:
+ 626 0012 00       		.space	1
+ 627              		.type	ADC_2_Count_Output_2, %object
+ 628              		.size	ADC_2_Count_Output_2, 1
+ 629              	ADC_2_Count_Output_2:
+ 630 0013 00       		.space	1
+ 631              		.type	ADC_2_Count_Output_1, %object
+ 632              		.size	ADC_2_Count_Output_1, 1
+ 633              	ADC_2_Count_Output_1:
+ 634 0014 00       		.space	1
+ 635              		.type	ADC_2_Count_Output, %object
+ 636              		.size	ADC_2_Count_Output, 1
+ 637              	ADC_2_Count_Output:
+ 638 0015 00       		.space	1
+ 639              		.type	ADC_Count_Output, %object
+ 640              		.size	ADC_Count_Output, 1
+ 641              	ADC_Count_Output:
+ 642 0016 00       		.space	1
+ 643              		.text
+ 644              	.Letext0:
+ 645              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.1\\psoc creator\\import\\gnu\\arm\\5.4.
+ 646              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.1\\psoc creator\\import\\gnu\\arm\\5.4.
+ 647              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 648              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 649              		.file 6 "Generated_Source\\PSoC5/p0_0.h"
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 17
+
+
+ 650              		.file 7 "Generated_Source\\PSoC5/CyLib.h"
+ 651              		.file 8 "Generated_Source\\PSoC5/ADC_SAR_1.h"
+ 652              		.file 9 "Generated_Source\\PSoC5/VDAC8_1.h"
+ 653              		.file 10 "Generated_Source\\PSoC5/VDAC8_2.h"
+ 654              		.file 11 "Generated_Source\\PSoC5/PWM_1.h"
+ 655              		.file 12 "Generated_Source\\PSoC5/LCD_Char_1.h"
+ 656              		.file 13 "Generated_Source\\PSoC5/QuadDec_1.h"
+ 657              		.file 14 "Generated_Source\\PSoC5/ADC_SAR_2.h"
+ 658              		.file 15 "Generated_Source\\PSoC5/isr_1.h"
+ 659              		.file 16 "Generated_Source\\PSoC5/p3_7.h"
+ 660              		.section	.debug_info,"",%progbits
+ 661              	.Ldebug_info0:
+ 662 0000 61070000 		.4byte	0x761
+ 663 0004 0400     		.2byte	0x4
+ 664 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 665 000a 04       		.byte	0x4
+ 666 000b 01       		.uleb128 0x1
+ 667 000c 1B040000 		.4byte	.LASF75
+ 668 0010 0C       		.byte	0xc
+ 669 0011 30030000 		.4byte	.LASF76
+ 670 0015 B8030000 		.4byte	.LASF77
+ 671 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 672 001d 00000000 		.4byte	0
+ 673 0021 00000000 		.4byte	.Ldebug_line0
+ 674 0025 02       		.uleb128 0x2
+ 675 0026 01       		.byte	0x1
+ 676 0027 06       		.byte	0x6
+ 677 0028 2E010000 		.4byte	.LASF0
+ 678 002c 02       		.uleb128 0x2
+ 679 002d 01       		.byte	0x1
+ 680 002e 08       		.byte	0x8
+ 681 002f FF010000 		.4byte	.LASF1
+ 682 0033 02       		.uleb128 0x2
+ 683 0034 02       		.byte	0x2
+ 684 0035 05       		.byte	0x5
+ 685 0036 3C000000 		.4byte	.LASF2
+ 686 003a 02       		.uleb128 0x2
+ 687 003b 02       		.byte	0x2
+ 688 003c 07       		.byte	0x7
+ 689 003d B6020000 		.4byte	.LASF3
+ 690 0041 03       		.uleb128 0x3
+ 691 0042 88030000 		.4byte	.LASF9
+ 692 0046 02       		.byte	0x2
+ 693 0047 3F       		.byte	0x3f
+ 694 0048 4C000000 		.4byte	0x4c
+ 695 004c 02       		.uleb128 0x2
+ 696 004d 04       		.byte	0x4
+ 697 004e 05       		.byte	0x5
+ 698 004f 71010000 		.4byte	.LASF4
+ 699 0053 02       		.uleb128 0x2
+ 700 0054 04       		.byte	0x4
+ 701 0055 07       		.byte	0x7
+ 702 0056 3C030000 		.4byte	.LASF5
+ 703 005a 02       		.uleb128 0x2
+ 704 005b 08       		.byte	0x8
+ 705 005c 05       		.byte	0x5
+ 706 005d 46010000 		.4byte	.LASF6
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 18
+
+
+ 707 0061 02       		.uleb128 0x2
+ 708 0062 08       		.byte	0x8
+ 709 0063 07       		.byte	0x7
+ 710 0064 50020000 		.4byte	.LASF7
+ 711 0068 04       		.uleb128 0x4
+ 712 0069 04       		.byte	0x4
+ 713 006a 05       		.byte	0x5
+ 714 006b 696E7400 		.ascii	"int\000"
+ 715 006f 02       		.uleb128 0x2
+ 716 0070 04       		.byte	0x4
+ 717 0071 07       		.byte	0x7
+ 718 0072 75020000 		.4byte	.LASF8
+ 719 0076 03       		.uleb128 0x3
+ 720 0077 07030000 		.4byte	.LASF10
+ 721 007b 03       		.byte	0x3
+ 722 007c 2C       		.byte	0x2c
+ 723 007d 41000000 		.4byte	0x41
+ 724 0081 05       		.uleb128 0x5
+ 725 0082 B6000000 		.4byte	.LASF11
+ 726 0086 04       		.byte	0x4
+ 727 0087 9201     		.2byte	0x192
+ 728 0089 2C000000 		.4byte	0x2c
+ 729 008d 05       		.uleb128 0x5
+ 730 008e A9000000 		.4byte	.LASF12
+ 731 0092 04       		.byte	0x4
+ 732 0093 9301     		.2byte	0x193
+ 733 0095 3A000000 		.4byte	0x3a
+ 734 0099 05       		.uleb128 0x5
+ 735 009a 5D010000 		.4byte	.LASF13
+ 736 009e 04       		.byte	0x4
+ 737 009f 9501     		.2byte	0x195
+ 738 00a1 25000000 		.4byte	0x25
+ 739 00a5 05       		.uleb128 0x5
+ 740 00a6 B0000000 		.4byte	.LASF14
+ 741 00aa 04       		.byte	0x4
+ 742 00ab 9601     		.2byte	0x196
+ 743 00ad 33000000 		.4byte	0x33
+ 744 00b1 05       		.uleb128 0x5
+ 745 00b2 40010000 		.4byte	.LASF15
+ 746 00b6 04       		.byte	0x4
+ 747 00b7 9701     		.2byte	0x197
+ 748 00b9 4C000000 		.4byte	0x4c
+ 749 00bd 02       		.uleb128 0x2
+ 750 00be 04       		.byte	0x4
+ 751 00bf 04       		.byte	0x4
+ 752 00c0 3A010000 		.4byte	.LASF16
+ 753 00c4 02       		.uleb128 0x2
+ 754 00c5 08       		.byte	0x8
+ 755 00c6 04       		.byte	0x4
+ 756 00c7 B1030000 		.4byte	.LASF17
+ 757 00cb 02       		.uleb128 0x2
+ 758 00cc 01       		.byte	0x1
+ 759 00cd 08       		.byte	0x8
+ 760 00ce C9020000 		.4byte	.LASF18
+ 761 00d2 05       		.uleb128 0x5
+ 762 00d3 37030000 		.4byte	.LASF19
+ 763 00d7 04       		.byte	0x4
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 19
+
+
+ 764 00d8 3C02     		.2byte	0x23c
+ 765 00da DE000000 		.4byte	0xde
+ 766 00de 06       		.uleb128 0x6
+ 767 00df 81000000 		.4byte	0x81
+ 768 00e3 02       		.uleb128 0x2
+ 769 00e4 08       		.byte	0x8
+ 770 00e5 04       		.byte	0x4
+ 771 00e6 E9010000 		.4byte	.LASF20
+ 772 00ea 02       		.uleb128 0x2
+ 773 00eb 04       		.byte	0x4
+ 774 00ec 07       		.byte	0x7
+ 775 00ed 62000000 		.4byte	.LASF21
+ 776 00f1 07       		.uleb128 0x7
+ 777 00f2 1C000000 		.4byte	.LASF22
+ 778 00f6 01       		.byte	0x1
+ 779 00f7 37       		.byte	0x37
+ 780 00f8 00000000 		.4byte	.LFB65
+ 781 00fc CC000000 		.4byte	.LFE65-.LFB65
+ 782 0100 01       		.uleb128 0x1
+ 783 0101 9C       		.byte	0x9c
+ 784 0102 5B010000 		.4byte	0x15b
+ 785 0106 08       		.uleb128 0x8
+ 786 0107 0A000000 		.4byte	.LVL0
+ 787 010b 51060000 		.4byte	0x651
+ 788 010f 08       		.uleb128 0x8
+ 789 0110 14000000 		.4byte	.LVL1
+ 790 0114 5C060000 		.4byte	0x65c
+ 791 0118 09       		.uleb128 0x9
+ 792 0119 1A000000 		.4byte	.LVL2
+ 793 011d 67060000 		.4byte	0x667
+ 794 0121 2B010000 		.4byte	0x12b
+ 795 0125 0A       		.uleb128 0xa
+ 796 0126 01       		.uleb128 0x1
+ 797 0127 50       		.byte	0x50
+ 798 0128 01       		.uleb128 0x1
+ 799 0129 44       		.byte	0x44
+ 800 012a 00       		.byte	0
+ 801 012b 08       		.uleb128 0x8
+ 802 012c 1E000000 		.4byte	.LVL3
+ 803 0130 72060000 		.4byte	0x672
+ 804 0134 09       		.uleb128 0x9
+ 805 0135 74000000 		.4byte	.LVL12
+ 806 0139 7D060000 		.4byte	0x67d
+ 807 013d 48010000 		.4byte	0x148
+ 808 0141 0A       		.uleb128 0xa
+ 809 0142 01       		.uleb128 0x1
+ 810 0143 50       		.byte	0x50
+ 811 0144 02       		.uleb128 0x2
+ 812 0145 75       		.byte	0x75
+ 813 0146 00       		.sleb128 0
+ 814 0147 00       		.byte	0
+ 815 0148 08       		.uleb128 0x8
+ 816 0149 7A000000 		.4byte	.LVL13
+ 817 014d 88060000 		.4byte	0x688
+ 818 0151 08       		.uleb128 0x8
+ 819 0152 80000000 		.4byte	.LVL14
+ 820 0156 93060000 		.4byte	0x693
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 20
+
+
+ 821 015a 00       		.byte	0
+ 822 015b 0B       		.uleb128 0xb
+ 823 015c 4C434400 		.ascii	"LCD\000"
+ 824 0160 01       		.byte	0x1
+ 825 0161 1E       		.byte	0x1e
+ 826 0162 00000000 		.4byte	.LFB63
+ 827 0166 4C000000 		.4byte	.LFE63-.LFB63
+ 828 016a 01       		.uleb128 0x1
+ 829 016b 9C       		.byte	0x9c
+ 830 016c 23020000 		.4byte	0x223
+ 831 0170 09       		.uleb128 0x9
+ 832 0171 0A000000 		.4byte	.LVL15
+ 833 0175 9E060000 		.4byte	0x69e
+ 834 0179 88010000 		.4byte	0x188
+ 835 017d 0A       		.uleb128 0xa
+ 836 017e 01       		.uleb128 0x1
+ 837 017f 50       		.byte	0x50
+ 838 0180 01       		.uleb128 0x1
+ 839 0181 30       		.byte	0x30
+ 840 0182 0A       		.uleb128 0xa
+ 841 0183 01       		.uleb128 0x1
+ 842 0184 51       		.byte	0x51
+ 843 0185 01       		.uleb128 0x1
+ 844 0186 30       		.byte	0x30
+ 845 0187 00       		.byte	0
+ 846 0188 09       		.uleb128 0x9
+ 847 0189 12000000 		.4byte	.LVL16
+ 848 018d A9060000 		.4byte	0x6a9
+ 849 0191 9C010000 		.4byte	0x19c
+ 850 0195 0A       		.uleb128 0xa
+ 851 0196 01       		.uleb128 0x1
+ 852 0197 50       		.byte	0x50
+ 853 0198 02       		.uleb128 0x2
+ 854 0199 74       		.byte	0x74
+ 855 019a 00       		.sleb128 0
+ 856 019b 00       		.byte	0
+ 857 019c 09       		.uleb128 0x9
+ 858 019d 1A000000 		.4byte	.LVL17
+ 859 01a1 9E060000 		.4byte	0x69e
+ 860 01a5 B4010000 		.4byte	0x1b4
+ 861 01a9 0A       		.uleb128 0xa
+ 862 01aa 01       		.uleb128 0x1
+ 863 01ab 50       		.byte	0x50
+ 864 01ac 01       		.uleb128 0x1
+ 865 01ad 30       		.byte	0x30
+ 866 01ae 0A       		.uleb128 0xa
+ 867 01af 01       		.uleb128 0x1
+ 868 01b0 51       		.byte	0x51
+ 869 01b1 01       		.uleb128 0x1
+ 870 01b2 30       		.byte	0x30
+ 871 01b3 00       		.byte	0
+ 872 01b4 09       		.uleb128 0x9
+ 873 01b5 20000000 		.4byte	.LVL18
+ 874 01b9 A9060000 		.4byte	0x6a9
+ 875 01bd CB010000 		.4byte	0x1cb
+ 876 01c1 0A       		.uleb128 0xa
+ 877 01c2 01       		.uleb128 0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 21
+
+
+ 878 01c3 50       		.byte	0x50
+ 879 01c4 05       		.uleb128 0x5
+ 880 01c5 03       		.byte	0x3
+ 881 01c6 14000000 		.4byte	.LC1
+ 882 01ca 00       		.byte	0
+ 883 01cb 09       		.uleb128 0x9
+ 884 01cc 28000000 		.4byte	.LVL19
+ 885 01d0 9E060000 		.4byte	0x69e
+ 886 01d4 E3010000 		.4byte	0x1e3
+ 887 01d8 0A       		.uleb128 0xa
+ 888 01d9 01       		.uleb128 0x1
+ 889 01da 50       		.byte	0x50
+ 890 01db 01       		.uleb128 0x1
+ 891 01dc 30       		.byte	0x30
+ 892 01dd 0A       		.uleb128 0xa
+ 893 01de 01       		.uleb128 0x1
+ 894 01df 51       		.byte	0x51
+ 895 01e0 01       		.uleb128 0x1
+ 896 01e1 39       		.byte	0x39
+ 897 01e2 00       		.byte	0
+ 898 01e3 09       		.uleb128 0x9
+ 899 01e4 2E000000 		.4byte	.LVL20
+ 900 01e8 A9060000 		.4byte	0x6a9
+ 901 01ec F7010000 		.4byte	0x1f7
+ 902 01f0 0A       		.uleb128 0xa
+ 903 01f1 01       		.uleb128 0x1
+ 904 01f2 50       		.byte	0x50
+ 905 01f3 02       		.uleb128 0x2
+ 906 01f4 74       		.byte	0x74
+ 907 01f5 00       		.sleb128 0
+ 908 01f6 00       		.byte	0
+ 909 01f7 09       		.uleb128 0x9
+ 910 01f8 36000000 		.4byte	.LVL21
+ 911 01fc 9E060000 		.4byte	0x69e
+ 912 0200 0F020000 		.4byte	0x20f
+ 913 0204 0A       		.uleb128 0xa
+ 914 0205 01       		.uleb128 0x1
+ 915 0206 50       		.byte	0x50
+ 916 0207 01       		.uleb128 0x1
+ 917 0208 30       		.byte	0x30
+ 918 0209 0A       		.uleb128 0xa
+ 919 020a 01       		.uleb128 0x1
+ 920 020b 51       		.byte	0x51
+ 921 020c 01       		.uleb128 0x1
+ 922 020d 39       		.byte	0x39
+ 923 020e 00       		.byte	0
+ 924 020f 0C       		.uleb128 0xc
+ 925 0210 3C000000 		.4byte	.LVL22
+ 926 0214 A9060000 		.4byte	0x6a9
+ 927 0218 0A       		.uleb128 0xa
+ 928 0219 01       		.uleb128 0x1
+ 929 021a 50       		.byte	0x50
+ 930 021b 05       		.uleb128 0x5
+ 931 021c 03       		.byte	0x3
+ 932 021d 24000000 		.4byte	.LC2
+ 933 0221 00       		.byte	0
+ 934 0222 00       		.byte	0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 22
+
+
+ 935 0223 0D       		.uleb128 0xd
+ 936 0224 54010000 		.4byte	.LASF23
+ 937 0228 01       		.byte	0x1
+ 938 0229 2C       		.byte	0x2c
+ 939 022a 00000000 		.4byte	.LFB64
+ 940 022e 30000000 		.4byte	.LFE64-.LFB64
+ 941 0232 01       		.uleb128 0x1
+ 942 0233 9C       		.byte	0x9c
+ 943 0234 B6020000 		.4byte	0x2b6
+ 944 0238 0E       		.uleb128 0xe
+ 945 0239 96000000 		.4byte	.LASF78
+ 946 023d 01       		.byte	0x1
+ 947 023e 2C       		.byte	0x2c
+ 948 023f 68000000 		.4byte	0x68
+ 949 0243 00000000 		.4byte	.LLST0
+ 950 0247 09       		.uleb128 0x9
+ 951 0248 0C000000 		.4byte	.LVL25
+ 952 024c 9E060000 		.4byte	0x69e
+ 953 0250 5F020000 		.4byte	0x25f
+ 954 0254 0A       		.uleb128 0xa
+ 955 0255 01       		.uleb128 0x1
+ 956 0256 50       		.byte	0x50
+ 957 0257 01       		.uleb128 0x1
+ 958 0258 31       		.byte	0x31
+ 959 0259 0A       		.uleb128 0xa
+ 960 025a 01       		.uleb128 0x1
+ 961 025b 51       		.byte	0x51
+ 962 025c 01       		.uleb128 0x1
+ 963 025d 30       		.byte	0x30
+ 964 025e 00       		.byte	0
+ 965 025f 09       		.uleb128 0x9
+ 966 0260 12000000 		.4byte	.LVL26
+ 967 0264 A9060000 		.4byte	0x6a9
+ 968 0268 76020000 		.4byte	0x276
+ 969 026c 0A       		.uleb128 0xa
+ 970 026d 01       		.uleb128 0x1
+ 971 026e 50       		.byte	0x50
+ 972 026f 05       		.uleb128 0x5
+ 973 0270 03       		.byte	0x3
+ 974 0271 2C000000 		.4byte	.LC3
+ 975 0275 00       		.byte	0
+ 976 0276 09       		.uleb128 0x9
+ 977 0277 1A000000 		.4byte	.LVL27
+ 978 027b 9E060000 		.4byte	0x69e
+ 979 027f 8E020000 		.4byte	0x28e
+ 980 0283 0A       		.uleb128 0xa
+ 981 0284 01       		.uleb128 0x1
+ 982 0285 50       		.byte	0x50
+ 983 0286 01       		.uleb128 0x1
+ 984 0287 31       		.byte	0x31
+ 985 0288 0A       		.uleb128 0xa
+ 986 0289 01       		.uleb128 0x1
+ 987 028a 51       		.byte	0x51
+ 988 028b 01       		.uleb128 0x1
+ 989 028c 30       		.byte	0x30
+ 990 028d 00       		.byte	0
+ 991 028e 09       		.uleb128 0x9
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 23
+
+
+ 992 028f 20000000 		.4byte	.LVL28
+ 993 0293 A9060000 		.4byte	0x6a9
+ 994 0297 A5020000 		.4byte	0x2a5
+ 995 029b 0A       		.uleb128 0xa
+ 996 029c 01       		.uleb128 0x1
+ 997 029d 50       		.byte	0x50
+ 998 029e 05       		.uleb128 0x5
+ 999 029f 03       		.byte	0x3
+ 1000 02a0 3C000000 		.4byte	.LC4
+ 1001 02a4 00       		.byte	0
+ 1002 02a5 0C       		.uleb128 0xc
+ 1003 02a6 26000000 		.4byte	.LVL29
+ 1004 02aa B4060000 		.4byte	0x6b4
+ 1005 02ae 0A       		.uleb128 0xa
+ 1006 02af 01       		.uleb128 0x1
+ 1007 02b0 50       		.byte	0x50
+ 1008 02b1 02       		.uleb128 0x2
+ 1009 02b2 74       		.byte	0x74
+ 1010 02b3 00       		.sleb128 0
+ 1011 02b4 00       		.byte	0
+ 1012 02b5 00       		.byte	0
+ 1013 02b6 0F       		.uleb128 0xf
+ 1014 02b7 6B000000 		.4byte	.LASF79
+ 1015 02bb 01       		.byte	0x1
+ 1016 02bc 4A       		.byte	0x4a
+ 1017 02bd 68000000 		.4byte	0x68
+ 1018 02c1 00000000 		.4byte	.LFB66
+ 1019 02c5 78010000 		.4byte	.LFE66-.LFB66
+ 1020 02c9 01       		.uleb128 0x1
+ 1021 02ca 9C       		.byte	0x9c
+ 1022 02cb 86040000 		.4byte	0x486
+ 1023 02cf 08       		.uleb128 0x8
+ 1024 02d0 08000000 		.4byte	.LVL31
+ 1025 02d4 BF060000 		.4byte	0x6bf
+ 1026 02d8 08       		.uleb128 0x8
+ 1027 02d9 0C000000 		.4byte	.LVL32
+ 1028 02dd 5B010000 		.4byte	0x15b
+ 1029 02e1 09       		.uleb128 0x9
+ 1030 02e2 14000000 		.4byte	.LVL33
+ 1031 02e6 CA060000 		.4byte	0x6ca
+ 1032 02ea F6020000 		.4byte	0x2f6
+ 1033 02ee 0A       		.uleb128 0xa
+ 1034 02ef 01       		.uleb128 0x1
+ 1035 02f0 50       		.byte	0x50
+ 1036 02f1 03       		.uleb128 0x3
+ 1037 02f2 0A       		.byte	0xa
+ 1038 02f3 E803     		.2byte	0x3e8
+ 1039 02f5 00       		.byte	0
+ 1040 02f6 09       		.uleb128 0x9
+ 1041 02f7 1A000000 		.4byte	.LVL34
+ 1042 02fb D5060000 		.4byte	0x6d5
+ 1043 02ff 09030000 		.4byte	0x309
+ 1044 0303 0A       		.uleb128 0xa
+ 1045 0304 01       		.uleb128 0x1
+ 1046 0305 50       		.byte	0x50
+ 1047 0306 01       		.uleb128 0x1
+ 1048 0307 31       		.byte	0x31
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 24
+
+
+ 1049 0308 00       		.byte	0
+ 1050 0309 08       		.uleb128 0x8
+ 1051 030a 1E000000 		.4byte	.LVL35
+ 1052 030e E0060000 		.4byte	0x6e0
+ 1053 0312 08       		.uleb128 0x8
+ 1054 0313 22000000 		.4byte	.LVL36
+ 1055 0317 EB060000 		.4byte	0x6eb
+ 1056 031b 08       		.uleb128 0x8
+ 1057 031c 26000000 		.4byte	.LVL37
+ 1058 0320 F6060000 		.4byte	0x6f6
+ 1059 0324 08       		.uleb128 0x8
+ 1060 0325 2A000000 		.4byte	.LVL38
+ 1061 0329 01070000 		.4byte	0x701
+ 1062 032d 08       		.uleb128 0x8
+ 1063 032e 2E000000 		.4byte	.LVL39
+ 1064 0332 0C070000 		.4byte	0x70c
+ 1065 0336 08       		.uleb128 0x8
+ 1066 0337 32000000 		.4byte	.LVL40
+ 1067 033b 17070000 		.4byte	0x717
+ 1068 033f 08       		.uleb128 0x8
+ 1069 0340 36000000 		.4byte	.LVL41
+ 1070 0344 22070000 		.4byte	0x722
+ 1071 0348 08       		.uleb128 0x8
+ 1072 0349 3A000000 		.4byte	.LVL42
+ 1073 034d 2D070000 		.4byte	0x72d
+ 1074 0351 08       		.uleb128 0x8
+ 1075 0352 3E000000 		.4byte	.LVL43
+ 1076 0356 38070000 		.4byte	0x738
+ 1077 035a 09       		.uleb128 0x9
+ 1078 035b 44000000 		.4byte	.LVL44
+ 1079 035f 43070000 		.4byte	0x743
+ 1080 0363 71030000 		.4byte	0x371
+ 1081 0367 0A       		.uleb128 0xa
+ 1082 0368 01       		.uleb128 0x1
+ 1083 0369 50       		.byte	0x50
+ 1084 036a 05       		.uleb128 0x5
+ 1085 036b 03       		.byte	0x3
+ 1086 036c 00000000 		.4byte	isr_2_Interrupt
+ 1087 0370 00       		.byte	0
+ 1088 0371 08       		.uleb128 0x8
+ 1089 0372 4C000000 		.4byte	.LVL45
+ 1090 0376 93060000 		.4byte	0x693
+ 1091 037a 08       		.uleb128 0x8
+ 1092 037b 58000000 		.4byte	.LVL46
+ 1093 037f 4E070000 		.4byte	0x74e
+ 1094 0383 08       		.uleb128 0x8
+ 1095 0384 60000000 		.4byte	.LVL47
+ 1096 0388 59070000 		.4byte	0x759
+ 1097 038c 08       		.uleb128 0x8
+ 1098 038d 82000000 		.4byte	.LVL48
+ 1099 0391 E0060000 		.4byte	0x6e0
+ 1100 0395 09       		.uleb128 0x9
+ 1101 0396 A4000000 		.4byte	.LVL49
+ 1102 039a 9E060000 		.4byte	0x69e
+ 1103 039e AD030000 		.4byte	0x3ad
+ 1104 03a2 0A       		.uleb128 0xa
+ 1105 03a3 01       		.uleb128 0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 25
+
+
+ 1106 03a4 50       		.byte	0x50
+ 1107 03a5 01       		.uleb128 0x1
+ 1108 03a6 31       		.byte	0x31
+ 1109 03a7 0A       		.uleb128 0xa
+ 1110 03a8 01       		.uleb128 0x1
+ 1111 03a9 51       		.byte	0x51
+ 1112 03aa 01       		.uleb128 0x1
+ 1113 03ab 30       		.byte	0x30
+ 1114 03ac 00       		.byte	0
+ 1115 03ad 09       		.uleb128 0x9
+ 1116 03ae AA000000 		.4byte	.LVL50
+ 1117 03b2 A9060000 		.4byte	0x6a9
+ 1118 03b6 C4030000 		.4byte	0x3c4
+ 1119 03ba 0A       		.uleb128 0xa
+ 1120 03bb 01       		.uleb128 0x1
+ 1121 03bc 50       		.byte	0x50
+ 1122 03bd 05       		.uleb128 0x5
+ 1123 03be 03       		.byte	0x3
+ 1124 03bf 44000000 		.4byte	.LC5
+ 1125 03c3 00       		.byte	0
+ 1126 03c4 09       		.uleb128 0x9
+ 1127 03c5 B2000000 		.4byte	.LVL51
+ 1128 03c9 9E060000 		.4byte	0x69e
+ 1129 03cd DC030000 		.4byte	0x3dc
+ 1130 03d1 0A       		.uleb128 0xa
+ 1131 03d2 01       		.uleb128 0x1
+ 1132 03d3 50       		.byte	0x50
+ 1133 03d4 01       		.uleb128 0x1
+ 1134 03d5 31       		.byte	0x31
+ 1135 03d6 0A       		.uleb128 0xa
+ 1136 03d7 01       		.uleb128 0x1
+ 1137 03d8 51       		.byte	0x51
+ 1138 03d9 01       		.uleb128 0x1
+ 1139 03da 38       		.byte	0x38
+ 1140 03db 00       		.byte	0
+ 1141 03dc 08       		.uleb128 0x8
+ 1142 03dd BA000000 		.4byte	.LVL52
+ 1143 03e1 B4060000 		.4byte	0x6b4
+ 1144 03e5 09       		.uleb128 0x9
+ 1145 03e6 C2000000 		.4byte	.LVL53
+ 1146 03ea 9E060000 		.4byte	0x69e
+ 1147 03ee FD030000 		.4byte	0x3fd
+ 1148 03f2 0A       		.uleb128 0xa
+ 1149 03f3 01       		.uleb128 0x1
+ 1150 03f4 50       		.byte	0x50
+ 1151 03f5 01       		.uleb128 0x1
+ 1152 03f6 30       		.byte	0x30
+ 1153 03f7 0A       		.uleb128 0xa
+ 1154 03f8 01       		.uleb128 0x1
+ 1155 03f9 51       		.byte	0x51
+ 1156 03fa 01       		.uleb128 0x1
+ 1157 03fb 30       		.byte	0x30
+ 1158 03fc 00       		.byte	0
+ 1159 03fd 09       		.uleb128 0x9
+ 1160 03fe C8000000 		.4byte	.LVL54
+ 1161 0402 A9060000 		.4byte	0x6a9
+ 1162 0406 14040000 		.4byte	0x414
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 26
+
+
+ 1163 040a 0A       		.uleb128 0xa
+ 1164 040b 01       		.uleb128 0x1
+ 1165 040c 50       		.byte	0x50
+ 1166 040d 05       		.uleb128 0x5
+ 1167 040e 03       		.byte	0x3
+ 1168 040f 58000000 		.4byte	.LC6
+ 1169 0413 00       		.byte	0
+ 1170 0414 09       		.uleb128 0x9
+ 1171 0415 D0000000 		.4byte	.LVL55
+ 1172 0419 9E060000 		.4byte	0x69e
+ 1173 041d 2C040000 		.4byte	0x42c
+ 1174 0421 0A       		.uleb128 0xa
+ 1175 0422 01       		.uleb128 0x1
+ 1176 0423 50       		.byte	0x50
+ 1177 0424 01       		.uleb128 0x1
+ 1178 0425 30       		.byte	0x30
+ 1179 0426 0A       		.uleb128 0xa
+ 1180 0427 01       		.uleb128 0x1
+ 1181 0428 51       		.byte	0x51
+ 1182 0429 01       		.uleb128 0x1
+ 1183 042a 34       		.byte	0x34
+ 1184 042b 00       		.byte	0
+ 1185 042c 08       		.uleb128 0x8
+ 1186 042d D8000000 		.4byte	.LVL56
+ 1187 0431 B4060000 		.4byte	0x6b4
+ 1188 0435 09       		.uleb128 0x9
+ 1189 0436 E0000000 		.4byte	.LVL57
+ 1190 043a 9E060000 		.4byte	0x69e
+ 1191 043e 4D040000 		.4byte	0x44d
+ 1192 0442 0A       		.uleb128 0xa
+ 1193 0443 01       		.uleb128 0x1
+ 1194 0444 50       		.byte	0x50
+ 1195 0445 01       		.uleb128 0x1
+ 1196 0446 30       		.byte	0x30
+ 1197 0447 0A       		.uleb128 0xa
+ 1198 0448 01       		.uleb128 0x1
+ 1199 0449 51       		.byte	0x51
+ 1200 044a 01       		.uleb128 0x1
+ 1201 044b 38       		.byte	0x38
+ 1202 044c 00       		.byte	0
+ 1203 044d 09       		.uleb128 0x9
+ 1204 044e E6000000 		.4byte	.LVL58
+ 1205 0452 A9060000 		.4byte	0x6a9
+ 1206 0456 64040000 		.4byte	0x464
+ 1207 045a 0A       		.uleb128 0xa
+ 1208 045b 01       		.uleb128 0x1
+ 1209 045c 50       		.byte	0x50
+ 1210 045d 05       		.uleb128 0x5
+ 1211 045e 03       		.byte	0x3
+ 1212 045f 64000000 		.4byte	.LC7
+ 1213 0463 00       		.byte	0
+ 1214 0464 09       		.uleb128 0x9
+ 1215 0465 EE000000 		.4byte	.LVL59
+ 1216 0469 9E060000 		.4byte	0x69e
+ 1217 046d 7C040000 		.4byte	0x47c
+ 1218 0471 0A       		.uleb128 0xa
+ 1219 0472 01       		.uleb128 0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 27
+
+
+ 1220 0473 50       		.byte	0x50
+ 1221 0474 01       		.uleb128 0x1
+ 1222 0475 30       		.byte	0x30
+ 1223 0476 0A       		.uleb128 0xa
+ 1224 0477 01       		.uleb128 0x1
+ 1225 0478 51       		.byte	0x51
+ 1226 0479 01       		.uleb128 0x1
+ 1227 047a 3D       		.byte	0x3d
+ 1228 047b 00       		.byte	0
+ 1229 047c 08       		.uleb128 0x8
+ 1230 047d 0C010000 		.4byte	.LVL63
+ 1231 0481 B4060000 		.4byte	0x6b4
+ 1232 0485 00       		.byte	0
+ 1233 0486 10       		.uleb128 0x10
+ 1234 0487 0E040000 		.4byte	.LASF24
+ 1235 048b 05       		.byte	0x5
+ 1236 048c 1207     		.2byte	0x712
+ 1237 048e 92040000 		.4byte	0x492
+ 1238 0492 06       		.uleb128 0x6
+ 1239 0493 76000000 		.4byte	0x76
+ 1240 0497 11       		.uleb128 0x11
+ 1241 0498 9A020000 		.4byte	.LASF25
+ 1242 049c 01       		.byte	0x1
+ 1243 049d 13       		.byte	0x13
+ 1244 049e 81000000 		.4byte	0x81
+ 1245 04a2 05       		.uleb128 0x5
+ 1246 04a3 03       		.byte	0x3
+ 1247 04a4 00000000 		.4byte	ADC_Count_Output
+ 1248 04a8 11       		.uleb128 0x11
+ 1249 04a9 62010000 		.4byte	.LASF26
+ 1250 04ad 01       		.byte	0x1
+ 1251 04ae 13       		.byte	0x13
+ 1252 04af 81000000 		.4byte	0x81
+ 1253 04b3 05       		.uleb128 0x5
+ 1254 04b4 03       		.byte	0x3
+ 1255 04b5 00000000 		.4byte	source_voltage
+ 1256 04b9 11       		.uleb128 0x11
+ 1257 04ba 82020000 		.4byte	.LASF27
+ 1258 04be 01       		.byte	0x1
+ 1259 04bf 14       		.byte	0x14
+ 1260 04c0 81000000 		.4byte	0x81
+ 1261 04c4 05       		.uleb128 0x5
+ 1262 04c5 03       		.byte	0x3
+ 1263 04c6 00000000 		.4byte	ADC_2_Count_Output
+ 1264 04ca 11       		.uleb128 0x11
+ 1265 04cb A9030000 		.4byte	.LASF28
+ 1266 04cf 01       		.byte	0x1
+ 1267 04d0 14       		.byte	0x14
+ 1268 04d1 81000000 		.4byte	0x81
+ 1269 04d5 05       		.uleb128 0x5
+ 1270 04d6 03       		.byte	0x3
+ 1271 04d7 00000000 		.4byte	current
+ 1272 04db 11       		.uleb128 0x11
+ 1273 04dc 92030000 		.4byte	.LASF29
+ 1274 04e0 01       		.byte	0x1
+ 1275 04e1 14       		.byte	0x14
+ 1276 04e2 81000000 		.4byte	0x81
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 28
+
+
+ 1277 04e6 05       		.uleb128 0x5
+ 1278 04e7 03       		.byte	0x3
+ 1279 04e8 00000000 		.4byte	current_ref
+ 1280 04ec 11       		.uleb128 0x11
+ 1281 04ed BC000000 		.4byte	.LASF30
+ 1282 04f1 01       		.byte	0x1
+ 1283 04f2 14       		.byte	0x14
+ 1284 04f3 81000000 		.4byte	0x81
+ 1285 04f7 05       		.uleb128 0x5
+ 1286 04f8 03       		.byte	0x3
+ 1287 04f9 00000000 		.4byte	ADC_2_Count_Output_1
+ 1288 04fd 11       		.uleb128 0x11
+ 1289 04fe D1000000 		.4byte	.LASF31
+ 1290 0502 01       		.byte	0x1
+ 1291 0503 14       		.byte	0x14
+ 1292 0504 81000000 		.4byte	0x81
+ 1293 0508 05       		.uleb128 0x5
+ 1294 0509 03       		.byte	0x3
+ 1295 050a 00000000 		.4byte	ADC_2_Count_Output_2
+ 1296 050e 11       		.uleb128 0x11
+ 1297 050f E6000000 		.4byte	.LASF32
+ 1298 0513 01       		.byte	0x1
+ 1299 0514 14       		.byte	0x14
+ 1300 0515 81000000 		.4byte	0x81
+ 1301 0519 05       		.uleb128 0x5
+ 1302 051a 03       		.byte	0x3
+ 1303 051b 00000000 		.4byte	ADC_2_Count_Output_3
+ 1304 051f 11       		.uleb128 0x11
+ 1305 0520 10010000 		.4byte	.LASF33
+ 1306 0524 01       		.byte	0x1
+ 1307 0525 14       		.byte	0x14
+ 1308 0526 81000000 		.4byte	0x81
+ 1309 052a 05       		.uleb128 0x5
+ 1310 052b 03       		.byte	0x3
+ 1311 052c 00000000 		.4byte	ADC_2_Count_Output_5
+ 1312 0530 11       		.uleb128 0x11
+ 1313 0531 FB000000 		.4byte	.LASF34
+ 1314 0535 01       		.byte	0x1
+ 1315 0536 14       		.byte	0x14
+ 1316 0537 81000000 		.4byte	0x81
+ 1317 053b 05       		.uleb128 0x5
+ 1318 053c 03       		.byte	0x3
+ 1319 053d 00000000 		.4byte	ADC_2_Count_Output_4
+ 1320 0541 11       		.uleb128 0x11
+ 1321 0542 17030000 		.4byte	.LASF35
+ 1322 0546 01       		.byte	0x1
+ 1323 0547 15       		.byte	0x15
+ 1324 0548 A5000000 		.4byte	0xa5
+ 1325 054c 05       		.uleb128 0x5
+ 1326 054d 03       		.byte	0x3
+ 1327 054e 00000000 		.4byte	quadcountnew
+ 1328 0552 11       		.uleb128 0x11
+ 1329 0553 46000000 		.4byte	.LASF36
+ 1330 0557 01       		.byte	0x1
+ 1331 0558 16       		.byte	0x16
+ 1332 0559 A5000000 		.4byte	0xa5
+ 1333 055d 05       		.uleb128 0x5
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 29
+
+
+ 1334 055e 03       		.byte	0x3
+ 1335 055f 00000000 		.4byte	quadcount
+ 1336 0563 11       		.uleb128 0x11
+ 1337 0564 50000000 		.4byte	.LASF37
+ 1338 0568 01       		.byte	0x1
+ 1339 0569 17       		.byte	0x17
+ 1340 056a 99000000 		.4byte	0x99
+ 1341 056e 05       		.uleb128 0x5
+ 1342 056f 03       		.byte	0x3
+ 1343 0570 00000000 		.4byte	quadcountprevious
+ 1344 0574 11       		.uleb128 0x11
+ 1345 0575 AB020000 		.4byte	.LASF38
+ 1346 0579 01       		.byte	0x1
+ 1347 057a 17       		.byte	0x17
+ 1348 057b 99000000 		.4byte	0x99
+ 1349 057f 05       		.uleb128 0x5
+ 1350 0580 03       		.byte	0x3
+ 1351 0581 00000000 		.4byte	error_prev
+ 1352 0585 11       		.uleb128 0x11
+ 1353 0586 7E030000 		.4byte	.LASF39
+ 1354 058a 01       		.byte	0x1
+ 1355 058b 17       		.byte	0x17
+ 1356 058c 99000000 		.4byte	0x99
+ 1357 0590 05       		.uleb128 0x5
+ 1358 0591 03       		.byte	0x3
+ 1359 0592 00000000 		.4byte	error_new
+ 1360 0596 11       		.uleb128 0x11
+ 1361 0597 A3030000 		.4byte	.LASF40
+ 1362 059b 01       		.byte	0x1
+ 1363 059c 17       		.byte	0x17
+ 1364 059d 99000000 		.4byte	0x99
+ 1365 05a1 05       		.uleb128 0x5
+ 1366 05a2 03       		.byte	0x3
+ 1367 05a3 00000000 		.4byte	error
+ 1368 05a7 11       		.uleb128 0x11
+ 1369 05a8 B1040000 		.4byte	.LASF41
+ 1370 05ac 01       		.byte	0x1
+ 1371 05ad 17       		.byte	0x17
+ 1372 05ae 99000000 		.4byte	0x99
+ 1373 05b2 05       		.uleb128 0x5
+ 1374 05b3 03       		.byte	0x3
+ 1375 05b4 00000000 		.4byte	ierror
+ 1376 05b8 11       		.uleb128 0x11
+ 1377 05b9 9E030000 		.4byte	.LASF42
+ 1378 05bd 01       		.byte	0x1
+ 1379 05be 18       		.byte	0x18
+ 1380 05bf B1000000 		.4byte	0xb1
+ 1381 05c3 05       		.uleb128 0x5
+ 1382 05c4 03       		.byte	0x3
+ 1383 05c5 00000000 		.4byte	loop
+ 1384 05c9 11       		.uleb128 0x11
+ 1385 05ca 95020000 		.4byte	.LASF43
+ 1386 05ce 01       		.byte	0x1
+ 1387 05cf 19       		.byte	0x19
+ 1388 05d0 8D000000 		.4byte	0x8d
+ 1389 05d4 05       		.uleb128 0x5
+ 1390 05d5 03       		.byte	0x3
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 30
+
+
+ 1391 05d6 00000000 		.4byte	time
+ 1392 05da 11       		.uleb128 0x11
+ 1393 05db 8F010000 		.4byte	.LASF44
+ 1394 05df 01       		.byte	0x1
+ 1395 05e0 19       		.byte	0x19
+ 1396 05e1 8D000000 		.4byte	0x8d
+ 1397 05e5 05       		.uleb128 0x5
+ 1398 05e6 03       		.byte	0x3
+ 1399 05e7 00000000 		.4byte	period
+ 1400 05eb 11       		.uleb128 0x11
+ 1401 05ec CF010000 		.4byte	.LASF45
+ 1402 05f0 01       		.byte	0x1
+ 1403 05f1 1A       		.byte	0x1a
+ 1404 05f2 A5000000 		.4byte	0xa5
+ 1405 05f6 05       		.uleb128 0x5
+ 1406 05f7 03       		.byte	0x3
+ 1407 05f8 00000000 		.4byte	emfrpm
+ 1408 05fc 11       		.uleb128 0x11
+ 1409 05fd 25010000 		.4byte	.LASF46
+ 1410 0601 01       		.byte	0x1
+ 1411 0602 1B       		.byte	0x1b
+ 1412 0603 B1000000 		.4byte	0xb1
+ 1413 0607 05       		.uleb128 0x5
+ 1414 0608 03       		.byte	0x3
+ 1415 0609 00000000 		.4byte	speedref
+ 1416 060d 11       		.uleb128 0x11
+ 1417 060e 70000000 		.4byte	.LASF47
+ 1418 0612 01       		.byte	0x1
+ 1419 0613 1B       		.byte	0x1b
+ 1420 0614 B1000000 		.4byte	0xb1
+ 1421 0618 05       		.uleb128 0x5
+ 1422 0619 03       		.byte	0x3
+ 1423 061a 00000000 		.4byte	mode
+ 1424 061e 12       		.uleb128 0x12
+ 1425 061f 72706D00 		.ascii	"rpm\000"
+ 1426 0623 01       		.byte	0x1
+ 1427 0624 1B       		.byte	0x1b
+ 1428 0625 B1000000 		.4byte	0xb1
+ 1429 0629 05       		.uleb128 0x5
+ 1430 062a 03       		.byte	0x3
+ 1431 062b 00000000 		.4byte	rpm
+ 1432 062f 11       		.uleb128 0x11
+ 1433 0630 0F030000 		.4byte	.LASF48
+ 1434 0634 01       		.byte	0x1
+ 1435 0635 1C       		.byte	0x1c
+ 1436 0636 81000000 		.4byte	0x81
+ 1437 063a 05       		.uleb128 0x5
+ 1438 063b 03       		.byte	0x3
+ 1439 063c 00000000 		.4byte	inertia
+ 1440 0640 11       		.uleb128 0x11
+ 1441 0641 9C000000 		.4byte	.LASF49
+ 1442 0645 01       		.byte	0x1
+ 1443 0646 1C       		.byte	0x1c
+ 1444 0647 81000000 		.4byte	0x81
+ 1445 064b 05       		.uleb128 0x5
+ 1446 064c 03       		.byte	0x3
+ 1447 064d 00000000 		.4byte	prev_inertia
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 31
+
+
+ 1448 0651 13       		.uleb128 0x13
+ 1449 0652 2E020000 		.4byte	.LASF50
+ 1450 0656 2E020000 		.4byte	.LASF50
+ 1451 065a 06       		.byte	0x6
+ 1452 065b 29       		.byte	0x29
+ 1453 065c 13       		.uleb128 0x13
+ 1454 065d 4E030000 		.4byte	.LASF51
+ 1455 0661 4E030000 		.4byte	.LASF51
+ 1456 0665 06       		.byte	0x6
+ 1457 0666 26       		.byte	0x26
+ 1458 0667 13       		.uleb128 0x13
+ 1459 0668 F5010000 		.4byte	.LASF52
+ 1460 066c F5010000 		.4byte	.LASF52
+ 1461 0670 07       		.byte	0x7
+ 1462 0671 77       		.byte	0x77
+ 1463 0672 13       		.uleb128 0x13
+ 1464 0673 7A010000 		.4byte	.LASF53
+ 1465 0677 7A010000 		.4byte	.LASF53
+ 1466 067b 08       		.byte	0x8
+ 1467 067c 3A       		.byte	0x3a
+ 1468 067d 13       		.uleb128 0x13
+ 1469 067e 96010000 		.4byte	.LASF54
+ 1470 0682 96010000 		.4byte	.LASF54
+ 1471 0686 09       		.byte	0x9
+ 1472 0687 37       		.byte	0x37
+ 1473 0688 13       		.uleb128 0x13
+ 1474 0689 6D030000 		.4byte	.LASF55
+ 1475 068d 6D030000 		.4byte	.LASF55
+ 1476 0691 0A       		.byte	0xa
+ 1477 0692 37       		.byte	0x37
+ 1478 0693 13       		.uleb128 0x13
+ 1479 0694 D6010000 		.4byte	.LASF56
+ 1480 0698 D6010000 		.4byte	.LASF56
+ 1481 069c 0B       		.byte	0xb
+ 1482 069d C3       		.byte	0xc3
+ 1483 069e 13       		.uleb128 0x13
+ 1484 069f 59030000 		.4byte	.LASF57
+ 1485 06a3 59030000 		.4byte	.LASF57
+ 1486 06a7 0C       		.byte	0xc
+ 1487 06a8 3D       		.byte	0x3d
+ 1488 06a9 13       		.uleb128 0x13
+ 1489 06aa CE020000 		.4byte	.LASF58
+ 1490 06ae CE020000 		.4byte	.LASF58
+ 1491 06b2 0C       		.byte	0xc
+ 1492 06b3 3C       		.byte	0x3c
+ 1493 06b4 13       		.uleb128 0x13
+ 1494 06b5 B5010000 		.4byte	.LASF59
+ 1495 06b9 B5010000 		.4byte	.LASF59
+ 1496 06bd 0C       		.byte	0xc
+ 1497 06be 61       		.byte	0x61
+ 1498 06bf 13       		.uleb128 0x13
+ 1499 06c0 85000000 		.4byte	.LASF60
+ 1500 06c4 85000000 		.4byte	.LASF60
+ 1501 06c8 0C       		.byte	0xc
+ 1502 06c9 38       		.byte	0x38
+ 1503 06ca 13       		.uleb128 0x13
+ 1504 06cb A9040000 		.4byte	.LASF61
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 32
+
+
+ 1505 06cf A9040000 		.4byte	.LASF61
+ 1506 06d3 07       		.byte	0x7
+ 1507 06d4 76       		.byte	0x76
+ 1508 06d5 13       		.uleb128 0x13
+ 1509 06d6 38020000 		.4byte	.LASF62
+ 1510 06da 38020000 		.4byte	.LASF62
+ 1511 06de 0C       		.byte	0xc
+ 1512 06df 3A       		.byte	0x3a
+ 1513 06e0 13       		.uleb128 0x13
+ 1514 06e1 10000000 		.4byte	.LASF63
+ 1515 06e5 10000000 		.4byte	.LASF63
+ 1516 06e9 0B       		.byte	0xb
+ 1517 06ea 92       		.byte	0x92
+ 1518 06eb 13       		.uleb128 0x13
+ 1519 06ec 75000000 		.4byte	.LASF64
+ 1520 06f0 75000000 		.4byte	.LASF64
+ 1521 06f4 0D       		.byte	0xd
+ 1522 06f5 48       		.byte	0x48
+ 1523 06f6 13       		.uleb128 0x13
+ 1524 06f7 2C000000 		.4byte	.LASF65
+ 1525 06fb 2C000000 		.4byte	.LASF65
+ 1526 06ff 0E       		.byte	0xe
+ 1527 0700 34       		.byte	0x34
+ 1528 0701 13       		.uleb128 0x13
+ 1529 0702 17020000 		.4byte	.LASF66
+ 1530 0706 17020000 		.4byte	.LASF66
+ 1531 070a 0E       		.byte	0xe
+ 1532 070b D1       		.byte	0xd1
+ 1533 070c 13       		.uleb128 0x13
+ 1534 070d 00000000 		.4byte	.LASF67
+ 1535 0711 00000000 		.4byte	.LASF67
+ 1536 0715 08       		.byte	0x8
+ 1537 0716 34       		.byte	0x34
+ 1538 0717 13       		.uleb128 0x13
+ 1539 0718 F0020000 		.4byte	.LASF68
+ 1540 071c F0020000 		.4byte	.LASF68
+ 1541 0720 08       		.byte	0x8
+ 1542 0721 D1       		.byte	0xd1
+ 1543 0722 13       		.uleb128 0x13
+ 1544 0723 B8040000 		.4byte	.LASF69
+ 1545 0727 B8040000 		.4byte	.LASF69
+ 1546 072b 09       		.byte	0x9
+ 1547 072c 33       		.byte	0x33
+ 1548 072d 13       		.uleb128 0x13
+ 1549 072e 67020000 		.4byte	.LASF70
+ 1550 0732 67020000 		.4byte	.LASF70
+ 1551 0736 0A       		.byte	0xa
+ 1552 0737 33       		.byte	0x33
+ 1553 0738 13       		.uleb128 0x13
+ 1554 0739 24030000 		.4byte	.LASF71
+ 1555 073d 24030000 		.4byte	.LASF71
+ 1556 0741 0F       		.byte	0xf
+ 1557 0742 17       		.byte	0x17
+ 1558 0743 13       		.uleb128 0x13
+ 1559 0744 A7010000 		.4byte	.LASF72
+ 1560 0748 A7010000 		.4byte	.LASF72
+ 1561 074c 0F       		.byte	0xf
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 33
+
+
+ 1562 074d 18       		.byte	0x18
+ 1563 074e 13       		.uleb128 0x13
+ 1564 074f 0D020000 		.4byte	.LASF73
+ 1565 0753 0D020000 		.4byte	.LASF73
+ 1566 0757 10       		.byte	0x10
+ 1567 0758 29       		.byte	0x29
+ 1568 0759 13       		.uleb128 0x13
+ 1569 075a E5020000 		.4byte	.LASF74
+ 1570 075e E5020000 		.4byte	.LASF74
+ 1571 0762 0B       		.byte	0xb
+ 1572 0763 93       		.byte	0x93
+ 1573 0764 00       		.byte	0
+ 1574              		.section	.debug_abbrev,"",%progbits
+ 1575              	.Ldebug_abbrev0:
+ 1576 0000 01       		.uleb128 0x1
+ 1577 0001 11       		.uleb128 0x11
+ 1578 0002 01       		.byte	0x1
+ 1579 0003 25       		.uleb128 0x25
+ 1580 0004 0E       		.uleb128 0xe
+ 1581 0005 13       		.uleb128 0x13
+ 1582 0006 0B       		.uleb128 0xb
+ 1583 0007 03       		.uleb128 0x3
+ 1584 0008 0E       		.uleb128 0xe
+ 1585 0009 1B       		.uleb128 0x1b
+ 1586 000a 0E       		.uleb128 0xe
+ 1587 000b 55       		.uleb128 0x55
+ 1588 000c 17       		.uleb128 0x17
+ 1589 000d 11       		.uleb128 0x11
+ 1590 000e 01       		.uleb128 0x1
+ 1591 000f 10       		.uleb128 0x10
+ 1592 0010 17       		.uleb128 0x17
+ 1593 0011 00       		.byte	0
+ 1594 0012 00       		.byte	0
+ 1595 0013 02       		.uleb128 0x2
+ 1596 0014 24       		.uleb128 0x24
+ 1597 0015 00       		.byte	0
+ 1598 0016 0B       		.uleb128 0xb
+ 1599 0017 0B       		.uleb128 0xb
+ 1600 0018 3E       		.uleb128 0x3e
+ 1601 0019 0B       		.uleb128 0xb
+ 1602 001a 03       		.uleb128 0x3
+ 1603 001b 0E       		.uleb128 0xe
+ 1604 001c 00       		.byte	0
+ 1605 001d 00       		.byte	0
+ 1606 001e 03       		.uleb128 0x3
+ 1607 001f 16       		.uleb128 0x16
+ 1608 0020 00       		.byte	0
+ 1609 0021 03       		.uleb128 0x3
+ 1610 0022 0E       		.uleb128 0xe
+ 1611 0023 3A       		.uleb128 0x3a
+ 1612 0024 0B       		.uleb128 0xb
+ 1613 0025 3B       		.uleb128 0x3b
+ 1614 0026 0B       		.uleb128 0xb
+ 1615 0027 49       		.uleb128 0x49
+ 1616 0028 13       		.uleb128 0x13
+ 1617 0029 00       		.byte	0
+ 1618 002a 00       		.byte	0
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 34
+
+
+ 1619 002b 04       		.uleb128 0x4
+ 1620 002c 24       		.uleb128 0x24
+ 1621 002d 00       		.byte	0
+ 1622 002e 0B       		.uleb128 0xb
+ 1623 002f 0B       		.uleb128 0xb
+ 1624 0030 3E       		.uleb128 0x3e
+ 1625 0031 0B       		.uleb128 0xb
+ 1626 0032 03       		.uleb128 0x3
+ 1627 0033 08       		.uleb128 0x8
+ 1628 0034 00       		.byte	0
+ 1629 0035 00       		.byte	0
+ 1630 0036 05       		.uleb128 0x5
+ 1631 0037 16       		.uleb128 0x16
+ 1632 0038 00       		.byte	0
+ 1633 0039 03       		.uleb128 0x3
+ 1634 003a 0E       		.uleb128 0xe
+ 1635 003b 3A       		.uleb128 0x3a
+ 1636 003c 0B       		.uleb128 0xb
+ 1637 003d 3B       		.uleb128 0x3b
+ 1638 003e 05       		.uleb128 0x5
+ 1639 003f 49       		.uleb128 0x49
+ 1640 0040 13       		.uleb128 0x13
+ 1641 0041 00       		.byte	0
+ 1642 0042 00       		.byte	0
+ 1643 0043 06       		.uleb128 0x6
+ 1644 0044 35       		.uleb128 0x35
+ 1645 0045 00       		.byte	0
+ 1646 0046 49       		.uleb128 0x49
+ 1647 0047 13       		.uleb128 0x13
+ 1648 0048 00       		.byte	0
+ 1649 0049 00       		.byte	0
+ 1650 004a 07       		.uleb128 0x7
+ 1651 004b 2E       		.uleb128 0x2e
+ 1652 004c 01       		.byte	0x1
+ 1653 004d 3F       		.uleb128 0x3f
+ 1654 004e 19       		.uleb128 0x19
+ 1655 004f 03       		.uleb128 0x3
+ 1656 0050 0E       		.uleb128 0xe
+ 1657 0051 3A       		.uleb128 0x3a
+ 1658 0052 0B       		.uleb128 0xb
+ 1659 0053 3B       		.uleb128 0x3b
+ 1660 0054 0B       		.uleb128 0xb
+ 1661 0055 27       		.uleb128 0x27
+ 1662 0056 19       		.uleb128 0x19
+ 1663 0057 11       		.uleb128 0x11
+ 1664 0058 01       		.uleb128 0x1
+ 1665 0059 12       		.uleb128 0x12
+ 1666 005a 06       		.uleb128 0x6
+ 1667 005b 40       		.uleb128 0x40
+ 1668 005c 18       		.uleb128 0x18
+ 1669 005d 9642     		.uleb128 0x2116
+ 1670 005f 19       		.uleb128 0x19
+ 1671 0060 01       		.uleb128 0x1
+ 1672 0061 13       		.uleb128 0x13
+ 1673 0062 00       		.byte	0
+ 1674 0063 00       		.byte	0
+ 1675 0064 08       		.uleb128 0x8
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 35
+
+
+ 1676 0065 898201   		.uleb128 0x4109
+ 1677 0068 00       		.byte	0
+ 1678 0069 11       		.uleb128 0x11
+ 1679 006a 01       		.uleb128 0x1
+ 1680 006b 31       		.uleb128 0x31
+ 1681 006c 13       		.uleb128 0x13
+ 1682 006d 00       		.byte	0
+ 1683 006e 00       		.byte	0
+ 1684 006f 09       		.uleb128 0x9
+ 1685 0070 898201   		.uleb128 0x4109
+ 1686 0073 01       		.byte	0x1
+ 1687 0074 11       		.uleb128 0x11
+ 1688 0075 01       		.uleb128 0x1
+ 1689 0076 31       		.uleb128 0x31
+ 1690 0077 13       		.uleb128 0x13
+ 1691 0078 01       		.uleb128 0x1
+ 1692 0079 13       		.uleb128 0x13
+ 1693 007a 00       		.byte	0
+ 1694 007b 00       		.byte	0
+ 1695 007c 0A       		.uleb128 0xa
+ 1696 007d 8A8201   		.uleb128 0x410a
+ 1697 0080 00       		.byte	0
+ 1698 0081 02       		.uleb128 0x2
+ 1699 0082 18       		.uleb128 0x18
+ 1700 0083 9142     		.uleb128 0x2111
+ 1701 0085 18       		.uleb128 0x18
+ 1702 0086 00       		.byte	0
+ 1703 0087 00       		.byte	0
+ 1704 0088 0B       		.uleb128 0xb
+ 1705 0089 2E       		.uleb128 0x2e
+ 1706 008a 01       		.byte	0x1
+ 1707 008b 3F       		.uleb128 0x3f
+ 1708 008c 19       		.uleb128 0x19
+ 1709 008d 03       		.uleb128 0x3
+ 1710 008e 08       		.uleb128 0x8
+ 1711 008f 3A       		.uleb128 0x3a
+ 1712 0090 0B       		.uleb128 0xb
+ 1713 0091 3B       		.uleb128 0x3b
+ 1714 0092 0B       		.uleb128 0xb
+ 1715 0093 11       		.uleb128 0x11
+ 1716 0094 01       		.uleb128 0x1
+ 1717 0095 12       		.uleb128 0x12
+ 1718 0096 06       		.uleb128 0x6
+ 1719 0097 40       		.uleb128 0x40
+ 1720 0098 18       		.uleb128 0x18
+ 1721 0099 9742     		.uleb128 0x2117
+ 1722 009b 19       		.uleb128 0x19
+ 1723 009c 01       		.uleb128 0x1
+ 1724 009d 13       		.uleb128 0x13
+ 1725 009e 00       		.byte	0
+ 1726 009f 00       		.byte	0
+ 1727 00a0 0C       		.uleb128 0xc
+ 1728 00a1 898201   		.uleb128 0x4109
+ 1729 00a4 01       		.byte	0x1
+ 1730 00a5 11       		.uleb128 0x11
+ 1731 00a6 01       		.uleb128 0x1
+ 1732 00a7 31       		.uleb128 0x31
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 36
+
+
+ 1733 00a8 13       		.uleb128 0x13
+ 1734 00a9 00       		.byte	0
+ 1735 00aa 00       		.byte	0
+ 1736 00ab 0D       		.uleb128 0xd
+ 1737 00ac 2E       		.uleb128 0x2e
+ 1738 00ad 01       		.byte	0x1
+ 1739 00ae 3F       		.uleb128 0x3f
+ 1740 00af 19       		.uleb128 0x19
+ 1741 00b0 03       		.uleb128 0x3
+ 1742 00b1 0E       		.uleb128 0xe
+ 1743 00b2 3A       		.uleb128 0x3a
+ 1744 00b3 0B       		.uleb128 0xb
+ 1745 00b4 3B       		.uleb128 0x3b
+ 1746 00b5 0B       		.uleb128 0xb
+ 1747 00b6 27       		.uleb128 0x27
+ 1748 00b7 19       		.uleb128 0x19
+ 1749 00b8 11       		.uleb128 0x11
+ 1750 00b9 01       		.uleb128 0x1
+ 1751 00ba 12       		.uleb128 0x12
+ 1752 00bb 06       		.uleb128 0x6
+ 1753 00bc 40       		.uleb128 0x40
+ 1754 00bd 18       		.uleb128 0x18
+ 1755 00be 9742     		.uleb128 0x2117
+ 1756 00c0 19       		.uleb128 0x19
+ 1757 00c1 01       		.uleb128 0x1
+ 1758 00c2 13       		.uleb128 0x13
+ 1759 00c3 00       		.byte	0
+ 1760 00c4 00       		.byte	0
+ 1761 00c5 0E       		.uleb128 0xe
+ 1762 00c6 05       		.uleb128 0x5
+ 1763 00c7 00       		.byte	0
+ 1764 00c8 03       		.uleb128 0x3
+ 1765 00c9 0E       		.uleb128 0xe
+ 1766 00ca 3A       		.uleb128 0x3a
+ 1767 00cb 0B       		.uleb128 0xb
+ 1768 00cc 3B       		.uleb128 0x3b
+ 1769 00cd 0B       		.uleb128 0xb
+ 1770 00ce 49       		.uleb128 0x49
+ 1771 00cf 13       		.uleb128 0x13
+ 1772 00d0 02       		.uleb128 0x2
+ 1773 00d1 17       		.uleb128 0x17
+ 1774 00d2 00       		.byte	0
+ 1775 00d3 00       		.byte	0
+ 1776 00d4 0F       		.uleb128 0xf
+ 1777 00d5 2E       		.uleb128 0x2e
+ 1778 00d6 01       		.byte	0x1
+ 1779 00d7 3F       		.uleb128 0x3f
+ 1780 00d8 19       		.uleb128 0x19
+ 1781 00d9 03       		.uleb128 0x3
+ 1782 00da 0E       		.uleb128 0xe
+ 1783 00db 3A       		.uleb128 0x3a
+ 1784 00dc 0B       		.uleb128 0xb
+ 1785 00dd 3B       		.uleb128 0x3b
+ 1786 00de 0B       		.uleb128 0xb
+ 1787 00df 49       		.uleb128 0x49
+ 1788 00e0 13       		.uleb128 0x13
+ 1789 00e1 8701     		.uleb128 0x87
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 37
+
+
+ 1790 00e3 19       		.uleb128 0x19
+ 1791 00e4 11       		.uleb128 0x11
+ 1792 00e5 01       		.uleb128 0x1
+ 1793 00e6 12       		.uleb128 0x12
+ 1794 00e7 06       		.uleb128 0x6
+ 1795 00e8 40       		.uleb128 0x40
+ 1796 00e9 18       		.uleb128 0x18
+ 1797 00ea 9642     		.uleb128 0x2116
+ 1798 00ec 19       		.uleb128 0x19
+ 1799 00ed 01       		.uleb128 0x1
+ 1800 00ee 13       		.uleb128 0x13
+ 1801 00ef 00       		.byte	0
+ 1802 00f0 00       		.byte	0
+ 1803 00f1 10       		.uleb128 0x10
+ 1804 00f2 34       		.uleb128 0x34
+ 1805 00f3 00       		.byte	0
+ 1806 00f4 03       		.uleb128 0x3
+ 1807 00f5 0E       		.uleb128 0xe
+ 1808 00f6 3A       		.uleb128 0x3a
+ 1809 00f7 0B       		.uleb128 0xb
+ 1810 00f8 3B       		.uleb128 0x3b
+ 1811 00f9 05       		.uleb128 0x5
+ 1812 00fa 49       		.uleb128 0x49
+ 1813 00fb 13       		.uleb128 0x13
+ 1814 00fc 3F       		.uleb128 0x3f
+ 1815 00fd 19       		.uleb128 0x19
+ 1816 00fe 3C       		.uleb128 0x3c
+ 1817 00ff 19       		.uleb128 0x19
+ 1818 0100 00       		.byte	0
+ 1819 0101 00       		.byte	0
+ 1820 0102 11       		.uleb128 0x11
+ 1821 0103 34       		.uleb128 0x34
+ 1822 0104 00       		.byte	0
+ 1823 0105 03       		.uleb128 0x3
+ 1824 0106 0E       		.uleb128 0xe
+ 1825 0107 3A       		.uleb128 0x3a
+ 1826 0108 0B       		.uleb128 0xb
+ 1827 0109 3B       		.uleb128 0x3b
+ 1828 010a 0B       		.uleb128 0xb
+ 1829 010b 49       		.uleb128 0x49
+ 1830 010c 13       		.uleb128 0x13
+ 1831 010d 3F       		.uleb128 0x3f
+ 1832 010e 19       		.uleb128 0x19
+ 1833 010f 02       		.uleb128 0x2
+ 1834 0110 18       		.uleb128 0x18
+ 1835 0111 00       		.byte	0
+ 1836 0112 00       		.byte	0
+ 1837 0113 12       		.uleb128 0x12
+ 1838 0114 34       		.uleb128 0x34
+ 1839 0115 00       		.byte	0
+ 1840 0116 03       		.uleb128 0x3
+ 1841 0117 08       		.uleb128 0x8
+ 1842 0118 3A       		.uleb128 0x3a
+ 1843 0119 0B       		.uleb128 0xb
+ 1844 011a 3B       		.uleb128 0x3b
+ 1845 011b 0B       		.uleb128 0xb
+ 1846 011c 49       		.uleb128 0x49
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 38
+
+
+ 1847 011d 13       		.uleb128 0x13
+ 1848 011e 3F       		.uleb128 0x3f
+ 1849 011f 19       		.uleb128 0x19
+ 1850 0120 02       		.uleb128 0x2
+ 1851 0121 18       		.uleb128 0x18
+ 1852 0122 00       		.byte	0
+ 1853 0123 00       		.byte	0
+ 1854 0124 13       		.uleb128 0x13
+ 1855 0125 2E       		.uleb128 0x2e
+ 1856 0126 00       		.byte	0
+ 1857 0127 3F       		.uleb128 0x3f
+ 1858 0128 19       		.uleb128 0x19
+ 1859 0129 3C       		.uleb128 0x3c
+ 1860 012a 19       		.uleb128 0x19
+ 1861 012b 6E       		.uleb128 0x6e
+ 1862 012c 0E       		.uleb128 0xe
+ 1863 012d 03       		.uleb128 0x3
+ 1864 012e 0E       		.uleb128 0xe
+ 1865 012f 3A       		.uleb128 0x3a
+ 1866 0130 0B       		.uleb128 0xb
+ 1867 0131 3B       		.uleb128 0x3b
+ 1868 0132 0B       		.uleb128 0xb
+ 1869 0133 00       		.byte	0
+ 1870 0134 00       		.byte	0
+ 1871 0135 00       		.byte	0
+ 1872              		.section	.debug_loc,"",%progbits
+ 1873              	.Ldebug_loc0:
+ 1874              	.LLST0:
+ 1875 0000 00000000 		.4byte	.LVL23
+ 1876 0004 08000000 		.4byte	.LVL24
+ 1877 0008 0100     		.2byte	0x1
+ 1878 000a 50       		.byte	0x50
+ 1879 000b 08000000 		.4byte	.LVL24
+ 1880 000f 28000000 		.4byte	.LVL30
+ 1881 0013 0100     		.2byte	0x1
+ 1882 0015 54       		.byte	0x54
+ 1883 0016 28000000 		.4byte	.LVL30
+ 1884 001a 30000000 		.4byte	.LFE64
+ 1885 001e 0400     		.2byte	0x4
+ 1886 0020 F3       		.byte	0xf3
+ 1887 0021 01       		.uleb128 0x1
+ 1888 0022 50       		.byte	0x50
+ 1889 0023 9F       		.byte	0x9f
+ 1890 0024 00000000 		.4byte	0
+ 1891 0028 00000000 		.4byte	0
+ 1892              		.section	.debug_aranges,"",%progbits
+ 1893 0000 34000000 		.4byte	0x34
+ 1894 0004 0200     		.2byte	0x2
+ 1895 0006 00000000 		.4byte	.Ldebug_info0
+ 1896 000a 04       		.byte	0x4
+ 1897 000b 00       		.byte	0
+ 1898 000c 0000     		.2byte	0
+ 1899 000e 0000     		.2byte	0
+ 1900 0010 00000000 		.4byte	.LFB65
+ 1901 0014 CC000000 		.4byte	.LFE65-.LFB65
+ 1902 0018 00000000 		.4byte	.LFB63
+ 1903 001c 4C000000 		.4byte	.LFE63-.LFB63
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 39
+
+
+ 1904 0020 00000000 		.4byte	.LFB64
+ 1905 0024 30000000 		.4byte	.LFE64-.LFB64
+ 1906 0028 00000000 		.4byte	.LFB66
+ 1907 002c 78010000 		.4byte	.LFE66-.LFB66
+ 1908 0030 00000000 		.4byte	0
+ 1909 0034 00000000 		.4byte	0
+ 1910              		.section	.debug_ranges,"",%progbits
+ 1911              	.Ldebug_ranges0:
+ 1912 0000 00000000 		.4byte	.LFB65
+ 1913 0004 CC000000 		.4byte	.LFE65
+ 1914 0008 00000000 		.4byte	.LFB63
+ 1915 000c 4C000000 		.4byte	.LFE63
+ 1916 0010 00000000 		.4byte	.LFB64
+ 1917 0014 30000000 		.4byte	.LFE64
+ 1918 0018 00000000 		.4byte	.LFB66
+ 1919 001c 78010000 		.4byte	.LFE66
+ 1920 0020 00000000 		.4byte	0
+ 1921 0024 00000000 		.4byte	0
+ 1922              		.section	.debug_line,"",%progbits
+ 1923              	.Ldebug_line0:
+ 1924 0000 66020000 		.section	.debug_str,"MS",%progbits,1
+ 1924      0200D801 
+ 1924      00000201 
+ 1924      FB0E0D00 
+ 1924      01010101 
+ 1925              	.LASF67:
+ 1926 0000 4144435F 		.ascii	"ADC_SAR_1_Start\000"
+ 1926      5341525F 
+ 1926      315F5374 
+ 1926      61727400 
+ 1927              	.LASF63:
+ 1928 0010 50574D5F 		.ascii	"PWM_1_Start\000"
+ 1928      315F5374 
+ 1928      61727400 
+ 1929              	.LASF22:
+ 1930 001c 6973725F 		.ascii	"isr_2_Interrupt\000"
+ 1930      325F496E 
+ 1930      74657272 
+ 1930      75707400 
+ 1931              	.LASF65:
+ 1932 002c 4144435F 		.ascii	"ADC_SAR_2_Start\000"
+ 1932      5341525F 
+ 1932      325F5374 
+ 1932      61727400 
+ 1933              	.LASF2:
+ 1934 003c 73686F72 		.ascii	"short int\000"
+ 1934      7420696E 
+ 1934      7400
+ 1935              	.LASF36:
+ 1936 0046 71756164 		.ascii	"quadcount\000"
+ 1936      636F756E 
+ 1936      7400
+ 1937              	.LASF37:
+ 1938 0050 71756164 		.ascii	"quadcountprevious\000"
+ 1938      636F756E 
+ 1938      74707265 
+ 1938      76696F75 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 40
+
+
+ 1938      7300
+ 1939              	.LASF21:
+ 1940 0062 73697A65 		.ascii	"sizetype\000"
+ 1940      74797065 
+ 1940      00
+ 1941              	.LASF79:
+ 1942 006b 6D61696E 		.ascii	"main\000"
+ 1942      00
+ 1943              	.LASF47:
+ 1944 0070 6D6F6465 		.ascii	"mode\000"
+ 1944      00
+ 1945              	.LASF64:
+ 1946 0075 51756164 		.ascii	"QuadDec_1_Start\000"
+ 1946      4465635F 
+ 1946      315F5374 
+ 1946      61727400 
+ 1947              	.LASF60:
+ 1948 0085 4C43445F 		.ascii	"LCD_Char_1_Start\000"
+ 1948      43686172 
+ 1948      5F315F53 
+ 1948      74617274 
+ 1948      00
+ 1949              	.LASF78:
+ 1950 0096 76616C75 		.ascii	"value\000"
+ 1950      6500
+ 1951              	.LASF49:
+ 1952 009c 70726576 		.ascii	"prev_inertia\000"
+ 1952      5F696E65 
+ 1952      72746961 
+ 1952      00
+ 1953              	.LASF12:
+ 1954 00a9 75696E74 		.ascii	"uint16\000"
+ 1954      313600
+ 1955              	.LASF14:
+ 1956 00b0 696E7431 		.ascii	"int16\000"
+ 1956      3600
+ 1957              	.LASF11:
+ 1958 00b6 75696E74 		.ascii	"uint8\000"
+ 1958      3800
+ 1959              	.LASF30:
+ 1960 00bc 4144435F 		.ascii	"ADC_2_Count_Output_1\000"
+ 1960      325F436F 
+ 1960      756E745F 
+ 1960      4F757470 
+ 1960      75745F31 
+ 1961              	.LASF31:
+ 1962 00d1 4144435F 		.ascii	"ADC_2_Count_Output_2\000"
+ 1962      325F436F 
+ 1962      756E745F 
+ 1962      4F757470 
+ 1962      75745F32 
+ 1963              	.LASF32:
+ 1964 00e6 4144435F 		.ascii	"ADC_2_Count_Output_3\000"
+ 1964      325F436F 
+ 1964      756E745F 
+ 1964      4F757470 
+ 1964      75745F33 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 41
+
+
+ 1965              	.LASF34:
+ 1966 00fb 4144435F 		.ascii	"ADC_2_Count_Output_4\000"
+ 1966      325F436F 
+ 1966      756E745F 
+ 1966      4F757470 
+ 1966      75745F34 
+ 1967              	.LASF33:
+ 1968 0110 4144435F 		.ascii	"ADC_2_Count_Output_5\000"
+ 1968      325F436F 
+ 1968      756E745F 
+ 1968      4F757470 
+ 1968      75745F35 
+ 1969              	.LASF46:
+ 1970 0125 73706565 		.ascii	"speedref\000"
+ 1970      64726566 
+ 1970      00
+ 1971              	.LASF0:
+ 1972 012e 7369676E 		.ascii	"signed char\000"
+ 1972      65642063 
+ 1972      68617200 
+ 1973              	.LASF16:
+ 1974 013a 666C6F61 		.ascii	"float\000"
+ 1974      7400
+ 1975              	.LASF15:
+ 1976 0140 696E7433 		.ascii	"int32\000"
+ 1976      3200
+ 1977              	.LASF6:
+ 1978 0146 6C6F6E67 		.ascii	"long long int\000"
+ 1978      206C6F6E 
+ 1978      6720696E 
+ 1978      7400
+ 1979              	.LASF23:
+ 1980 0154 4C434476 		.ascii	"LCDvalue\000"
+ 1980      616C7565 
+ 1980      00
+ 1981              	.LASF13:
+ 1982 015d 696E7438 		.ascii	"int8\000"
+ 1982      00
+ 1983              	.LASF26:
+ 1984 0162 736F7572 		.ascii	"source_voltage\000"
+ 1984      63655F76 
+ 1984      6F6C7461 
+ 1984      676500
+ 1985              	.LASF4:
+ 1986 0171 6C6F6E67 		.ascii	"long int\000"
+ 1986      20696E74 
+ 1986      00
+ 1987              	.LASF53:
+ 1988 017a 4144435F 		.ascii	"ADC_SAR_1_GetResult8\000"
+ 1988      5341525F 
+ 1988      315F4765 
+ 1988      74526573 
+ 1988      756C7438 
+ 1989              	.LASF44:
+ 1990 018f 70657269 		.ascii	"period\000"
+ 1990      6F6400
+ 1991              	.LASF54:
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 42
+
+
+ 1992 0196 56444143 		.ascii	"VDAC8_1_SetValue\000"
+ 1992      385F315F 
+ 1992      53657456 
+ 1992      616C7565 
+ 1992      00
+ 1993              	.LASF72:
+ 1994 01a7 6973725F 		.ascii	"isr_1_StartEx\000"
+ 1994      315F5374 
+ 1994      61727445 
+ 1994      7800
+ 1995              	.LASF59:
+ 1996 01b5 4C43445F 		.ascii	"LCD_Char_1_PrintU32Number\000"
+ 1996      43686172 
+ 1996      5F315F50 
+ 1996      72696E74 
+ 1996      5533324E 
+ 1997              	.LASF45:
+ 1998 01cf 656D6672 		.ascii	"emfrpm\000"
+ 1998      706D00
+ 1999              	.LASF56:
+ 2000 01d6 50574D5F 		.ascii	"PWM_1_WriteCompare\000"
+ 2000      315F5772 
+ 2000      69746543 
+ 2000      6F6D7061 
+ 2000      726500
+ 2001              	.LASF20:
+ 2002 01e9 6C6F6E67 		.ascii	"long double\000"
+ 2002      20646F75 
+ 2002      626C6500 
+ 2003              	.LASF52:
+ 2004 01f5 43794465 		.ascii	"CyDelayUs\000"
+ 2004      6C617955 
+ 2004      7300
+ 2005              	.LASF1:
+ 2006 01ff 756E7369 		.ascii	"unsigned char\000"
+ 2006      676E6564 
+ 2006      20636861 
+ 2006      7200
+ 2007              	.LASF73:
+ 2008 020d 70335F37 		.ascii	"p3_7_Read\000"
+ 2008      5F526561 
+ 2008      6400
+ 2009              	.LASF66:
+ 2010 0217 4144435F 		.ascii	"ADC_SAR_2_StartConvert\000"
+ 2010      5341525F 
+ 2010      325F5374 
+ 2010      61727443 
+ 2010      6F6E7665 
+ 2011              	.LASF50:
+ 2012 022e 70305F30 		.ascii	"p0_0_Read\000"
+ 2012      5F526561 
+ 2012      6400
+ 2013              	.LASF62:
+ 2014 0238 4C43445F 		.ascii	"LCD_Char_1_WriteControl\000"
+ 2014      43686172 
+ 2014      5F315F57 
+ 2014      72697465 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 43
+
+
+ 2014      436F6E74 
+ 2015              	.LASF7:
+ 2016 0250 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2016      206C6F6E 
+ 2016      6720756E 
+ 2016      7369676E 
+ 2016      65642069 
+ 2017              	.LASF70:
+ 2018 0267 56444143 		.ascii	"VDAC8_2_Start\000"
+ 2018      385F325F 
+ 2018      53746172 
+ 2018      7400
+ 2019              	.LASF8:
+ 2020 0275 756E7369 		.ascii	"unsigned int\000"
+ 2020      676E6564 
+ 2020      20696E74 
+ 2020      00
+ 2021              	.LASF27:
+ 2022 0282 4144435F 		.ascii	"ADC_2_Count_Output\000"
+ 2022      325F436F 
+ 2022      756E745F 
+ 2022      4F757470 
+ 2022      757400
+ 2023              	.LASF43:
+ 2024 0295 74696D65 		.ascii	"time\000"
+ 2024      00
+ 2025              	.LASF25:
+ 2026 029a 4144435F 		.ascii	"ADC_Count_Output\000"
+ 2026      436F756E 
+ 2026      745F4F75 
+ 2026      74707574 
+ 2026      00
+ 2027              	.LASF38:
+ 2028 02ab 6572726F 		.ascii	"error_prev\000"
+ 2028      725F7072 
+ 2028      657600
+ 2029              	.LASF3:
+ 2030 02b6 73686F72 		.ascii	"short unsigned int\000"
+ 2030      7420756E 
+ 2030      7369676E 
+ 2030      65642069 
+ 2030      6E7400
+ 2031              	.LASF18:
+ 2032 02c9 63686172 		.ascii	"char\000"
+ 2032      00
+ 2033              	.LASF58:
+ 2034 02ce 4C43445F 		.ascii	"LCD_Char_1_PrintString\000"
+ 2034      43686172 
+ 2034      5F315F50 
+ 2034      72696E74 
+ 2034      53747269 
+ 2035              	.LASF74:
+ 2036 02e5 50574D5F 		.ascii	"PWM_1_Stop\000"
+ 2036      315F5374 
+ 2036      6F7000
+ 2037              	.LASF68:
+ 2038 02f0 4144435F 		.ascii	"ADC_SAR_1_StartConvert\000"
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 44
+
+
+ 2038      5341525F 
+ 2038      315F5374 
+ 2038      61727443 
+ 2038      6F6E7665 
+ 2039              	.LASF10:
+ 2040 0307 696E7433 		.ascii	"int32_t\000"
+ 2040      325F7400 
+ 2041              	.LASF48:
+ 2042 030f 696E6572 		.ascii	"inertia\000"
+ 2042      74696100 
+ 2043              	.LASF35:
+ 2044 0317 71756164 		.ascii	"quadcountnew\000"
+ 2044      636F756E 
+ 2044      746E6577 
+ 2044      00
+ 2045              	.LASF71:
+ 2046 0324 6973725F 		.ascii	"isr_1_Start\000"
+ 2046      315F5374 
+ 2046      61727400 
+ 2047              	.LASF76:
+ 2048 0330 6D61696E 		.ascii	"main.c\000"
+ 2048      2E6300
+ 2049              	.LASF19:
+ 2050 0337 72656738 		.ascii	"reg8\000"
+ 2050      00
+ 2051              	.LASF5:
+ 2052 033c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2052      20756E73 
+ 2052      69676E65 
+ 2052      6420696E 
+ 2052      7400
+ 2053              	.LASF51:
+ 2054 034e 70305F30 		.ascii	"p0_0_Write\000"
+ 2054      5F577269 
+ 2054      746500
+ 2055              	.LASF57:
+ 2056 0359 4C43445F 		.ascii	"LCD_Char_1_Position\000"
+ 2056      43686172 
+ 2056      5F315F50 
+ 2056      6F736974 
+ 2056      696F6E00 
+ 2057              	.LASF55:
+ 2058 036d 56444143 		.ascii	"VDAC8_2_SetValue\000"
+ 2058      385F325F 
+ 2058      53657456 
+ 2058      616C7565 
+ 2058      00
+ 2059              	.LASF39:
+ 2060 037e 6572726F 		.ascii	"error_new\000"
+ 2060      725F6E65 
+ 2060      7700
+ 2061              	.LASF9:
+ 2062 0388 5F5F696E 		.ascii	"__int32_t\000"
+ 2062      7433325F 
+ 2062      7400
+ 2063              	.LASF29:
+ 2064 0392 63757272 		.ascii	"current_ref\000"
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 45
+
+
+ 2064      656E745F 
+ 2064      72656600 
+ 2065              	.LASF42:
+ 2066 039e 6C6F6F70 		.ascii	"loop\000"
+ 2066      00
+ 2067              	.LASF40:
+ 2068 03a3 6572726F 		.ascii	"error\000"
+ 2068      7200
+ 2069              	.LASF28:
+ 2070 03a9 63757272 		.ascii	"current\000"
+ 2070      656E7400 
+ 2071              	.LASF17:
+ 2072 03b1 646F7562 		.ascii	"double\000"
+ 2072      6C6500
+ 2073              	.LASF77:
+ 2074 03b8 433A5C55 		.ascii	"C:\\Users\\monis\\Documents\\Academics\\SA\\Lab 5\\"
+ 2074      73657273 
+ 2074      5C6D6F6E 
+ 2074      69735C44 
+ 2074      6F63756D 
+ 2075 03e4 4D6F746F 		.ascii	"Motorspeedcontrol\\Motorspeedcontrol.cydsn\000"
+ 2075      72737065 
+ 2075      6564636F 
+ 2075      6E74726F 
+ 2075      6C5C4D6F 
+ 2076              	.LASF24:
+ 2077 040e 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2077      52784275 
+ 2077      66666572 
+ 2077      00
+ 2078              	.LASF75:
+ 2079 041b 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2079      43313120 
+ 2079      352E342E 
+ 2079      31203230 
+ 2079      31363036 
+ 2080 044e 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2080      20726576 
+ 2080      6973696F 
+ 2080      6E203233 
+ 2080      37373135 
+ 2081 0481 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2081      66756E63 
+ 2081      74696F6E 
+ 2081      2D736563 
+ 2081      74696F6E 
+ 2082              	.LASF61:
+ 2083 04a9 43794465 		.ascii	"CyDelay\000"
+ 2083      6C617900 
+ 2084              	.LASF41:
+ 2085 04b1 69657272 		.ascii	"ierror\000"
+ 2085      6F7200
+ 2086              	.LASF69:
+ 2087 04b8 56444143 		.ascii	"VDAC8_1_Start\000"
+ 2087      385F315F 
+ 2087      53746172 
+ 2087      7400
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccX88cJk.s 			page 46
+
+
+ 2088              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

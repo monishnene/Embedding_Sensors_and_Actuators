@@ -1,0 +1,6 @@
+C:\Users\monis\Documents\Academics\SA\Lab 1\microphone\Design01.cydsn\Design01.cyprj|fb58b665-c4f6-4f88-a5a4-02f372134cd3
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|385462c5-8a81-4d03-aa19-4aae13ac415f
+C:\Users\monis\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|f3b24887-9901-448b-8182-8cda7e4d673f
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|c57abc9c-272b-434f-bcc6-46b5716766fd
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|0f26e7cb-ec09-4a33-9805-2a1c168cb041
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|bf71abd9-1db8-41bc-8450-2ebf64628714

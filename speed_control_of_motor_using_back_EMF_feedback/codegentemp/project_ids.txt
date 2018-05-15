@@ -1,0 +1,6 @@
+C:\Users\monis\Documents\Academics\SA\Lab 4\LAB4.Bundle01\DCBRUSHLESSMOTOR.cydsn\DCBRUSHLESSMOTOR.cyprj|280b8bea-628f-4a90-b994-843addeb13e6
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|3b3aa028-f472-4d9f-9d97-4abebc26809a
+C:\Users\monis\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|6c489d5c-b38a-4736-835c-2b0951360af9
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|021f6b13-15a9-4eb4-95b6-a1cf122fac03
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|6e2e4cfd-a11f-4bfa-acc5-65f697d63287
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|5b9ddba9-2e41-454f-87cb-54276d077e5d

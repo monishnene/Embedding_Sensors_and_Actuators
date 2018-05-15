@@ -1,0 +1,6 @@
+C:\Users\monis\Documents\Academics\SA\Lab 5\Motorspeedcontrol\Motorspeedcontrol.cydsn\Motorspeedcontrol.cyprj|48fca099-5a76-43f5-b0bb-38cabb79139a
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|53be32fe-f7fb-4ded-9453-b6e542adef59
+C:\Users\monis\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|4a39bb31-bc25-460d-af25-3df984e6935f
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|2e623daf-dc31-4bc0-8232-95e22a561bfa
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|fbd65b2d-6a8e-4d50-b3d5-2f3e25027d1d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|bc0eaa12-84ed-4a85-b279-48e9734b310d

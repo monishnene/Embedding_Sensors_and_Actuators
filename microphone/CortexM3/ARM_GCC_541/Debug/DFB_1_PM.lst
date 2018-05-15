@@ -1,0 +1,1293 @@
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"DFB_1_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.DFB_1_SaveConfig,"ax",%progbits
+  20              		.align	2
+  21              		.global	DFB_1_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	DFB_1_SaveConfig, %function
+  25              	DFB_1_SaveConfig:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\DFB_1_PM.c"
+   1:Generated_Source\PSoC5/DFB_1_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/DFB_1_PM.c **** * File Name: DFB_1_PM.c
+   3:Generated_Source\PSoC5/DFB_1_PM.c **** * Version 1.40
+   4:Generated_Source\PSoC5/DFB_1_PM.c **** *
+   5:Generated_Source\PSoC5/DFB_1_PM.c **** * Description:
+   6:Generated_Source\PSoC5/DFB_1_PM.c **** *  This file contains the setup, control and status commands to support
+   7:Generated_Source\PSoC5/DFB_1_PM.c **** *  component operations in low power mode.
+   8:Generated_Source\PSoC5/DFB_1_PM.c **** *
+   9:Generated_Source\PSoC5/DFB_1_PM.c **** * Note:
+  10:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  11:Generated_Source\PSoC5/DFB_1_PM.c **** ********************************************************************************
+  12:Generated_Source\PSoC5/DFB_1_PM.c **** * Copyright 2011-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/DFB_1_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:Generated_Source\PSoC5/DFB_1_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:Generated_Source\PSoC5/DFB_1_PM.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/DFB_1_PM.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  18:Generated_Source\PSoC5/DFB_1_PM.c **** #include "DFB_1.h"
+  19:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  20:Generated_Source\PSoC5/DFB_1_PM.c **** static DFB_1_BACKUP_STRUCT DFB_1_backup = { 0u };
+  21:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  22:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  23:Generated_Source\PSoC5/DFB_1_PM.c **** /*******************************************************************************
+  24:Generated_Source\PSoC5/DFB_1_PM.c **** * Function Name: DFB_1_SaveConfig
+  25:Generated_Source\PSoC5/DFB_1_PM.c **** ********************************************************************************
+  26:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  27:Generated_Source\PSoC5/DFB_1_PM.c **** * Summary:
+  28:Generated_Source\PSoC5/DFB_1_PM.c **** *  Saves the user configuration of the DFB non-retention registers. This routine
+  29:Generated_Source\PSoC5/DFB_1_PM.c **** *  is called by DFB_Sleep() to save the component configuration before entering
+  30:Generated_Source\PSoC5/DFB_1_PM.c **** *  sleep.
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 2
+
+
+  31:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  32:Generated_Source\PSoC5/DFB_1_PM.c **** * Parameters:
+  33:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+  34:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  35:Generated_Source\PSoC5/DFB_1_PM.c **** * Return:
+  36:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+  37:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  38:Generated_Source\PSoC5/DFB_1_PM.c **** *******************************************************************************/
+  39:Generated_Source\PSoC5/DFB_1_PM.c **** void DFB_1_SaveConfig(void) 
+  40:Generated_Source\PSoC5/DFB_1_PM.c **** {
+  28              		.loc 1 40 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33 0000 10B4     		push	{r4}
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 4, -4
+  36              	.LVL0:
+  41:Generated_Source\PSoC5/DFB_1_PM.c ****     uint8 count;
+  42:Generated_Source\PSoC5/DFB_1_PM.c ****     uint8 i = 0u;
+  43:Generated_Source\PSoC5/DFB_1_PM.c **** 	
+  44:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_backup.sr = DFB_1_SR_REG;
+  37              		.loc 1 44 0
+  38 0002 0F4B     		ldr	r3, .L5
+  39 0004 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  40 0006 0F4B     		ldr	r3, .L5+4
+  41 0008 9A70     		strb	r2, [r3, #2]
+  45:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_backup.sem = DFB_1_SEM_REG;
+  42              		.loc 1 45 0
+  43 000a 0F4A     		ldr	r2, .L5+8
+  44 000c 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+  45 000e DA70     		strb	r2, [r3, #3]
+  46              	.LVL1:
+  42:Generated_Source\PSoC5/DFB_1_PM.c **** 	
+  47              		.loc 1 42 0
+  48 0010 0022     		movs	r2, #0
+  46:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  47:Generated_Source\PSoC5/DFB_1_PM.c ****     /* ACU RAM */
+  48:Generated_Source\PSoC5/DFB_1_PM.c ****     count = DFB_1_ACU_RAM_SIZE_CUR;
+  49              		.loc 1 48 0
+  50 0012 0123     		movs	r3, #1
+  49:Generated_Source\PSoC5/DFB_1_PM.c ****     while (count > 0u)
+  51              		.loc 1 49 0
+  52 0014 0CE0     		b	.L2
+  53              	.LVL2:
+  54              	.L3:
+  50:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+  51:Generated_Source\PSoC5/DFB_1_PM.c ****         DFB_1_backup.acu[i] = CY_GET_REG32(& DFB_1_ACU_RAM_PTR[i]);
+  55              		.loc 1 51 0
+  56 0016 9100     		lsls	r1, r2, #2
+  57 0018 01F18040 		add	r0, r1, #1073741824
+  58 001c 00F54740 		add	r0, r0, #50944
+  59 0020 0068     		ldr	r0, [r0]
+  60 0022 084C     		ldr	r4, .L5+4
+  61 0024 2144     		add	r1, r1, r4
+  62 0026 4860     		str	r0, [r1, #4]
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 3
+
+
+  52:Generated_Source\PSoC5/DFB_1_PM.c ****         count--;
+  63              		.loc 1 52 0
+  64 0028 013B     		subs	r3, r3, #1
+  65              	.LVL3:
+  66 002a DBB2     		uxtb	r3, r3
+  67              	.LVL4:
+  53:Generated_Source\PSoC5/DFB_1_PM.c ****         i++;
+  68              		.loc 1 53 0
+  69 002c 0132     		adds	r2, r2, #1
+  70              	.LVL5:
+  71 002e D2B2     		uxtb	r2, r2
+  72              	.LVL6:
+  73              	.L2:
+  49:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+  74              		.loc 1 49 0
+  75 0030 002B     		cmp	r3, #0
+  76 0032 F0D1     		bne	.L3
+  54:Generated_Source\PSoC5/DFB_1_PM.c ****     }
+  55:Generated_Source\PSoC5/DFB_1_PM.c **** 	
+  56:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Take DFB RAM off the bus */
+  57:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_RAM_DIR_REG = DFB_1_RAM_DIR_DFB;
+  77              		.loc 1 57 0
+  78 0034 0022     		movs	r2, #0
+  79              	.LVL7:
+  80 0036 054B     		ldr	r3, .L5+12
+  81              	.LVL8:
+  82 0038 1A70     		strb	r2, [r3]
+  58:Generated_Source\PSoC5/DFB_1_PM.c **** }
+  83              		.loc 1 58 0
+  84 003a 10BC     		pop	{r4}
+  85              		.cfi_restore 4
+  86              		.cfi_def_cfa_offset 0
+  87 003c 7047     		bx	lr
+  88              	.L6:
+  89 003e 00BF     		.align	2
+  90              	.L5:
+  91 0040 84C70040 		.word	1073792900
+  92 0044 00000000 		.word	.LANCHOR0
+  93 0048 90C70040 		.word	1073792912
+  94 004c 8CC70040 		.word	1073792908
+  95              		.cfi_endproc
+  96              	.LFE0:
+  97              		.size	DFB_1_SaveConfig, .-DFB_1_SaveConfig
+  98              		.section	.text.DFB_1_RestoreConfig,"ax",%progbits
+  99              		.align	2
+ 100              		.global	DFB_1_RestoreConfig
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.type	DFB_1_RestoreConfig, %function
+ 104              	DFB_1_RestoreConfig:
+ 105              	.LFB1:
+  59:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  60:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  61:Generated_Source\PSoC5/DFB_1_PM.c **** /*******************************************************************************
+  62:Generated_Source\PSoC5/DFB_1_PM.c **** * Function Name: DFB_1_RestoreConfig
+  63:Generated_Source\PSoC5/DFB_1_PM.c **** ********************************************************************************
+  64:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 4
+
+
+  65:Generated_Source\PSoC5/DFB_1_PM.c **** * Summary:
+  66:Generated_Source\PSoC5/DFB_1_PM.c **** *  Restores the user configuration of the DFB non-retention registers. This
+  67:Generated_Source\PSoC5/DFB_1_PM.c **** *  routine is called by DFB_Wakeup() to restore the component configuration when
+  68:Generated_Source\PSoC5/DFB_1_PM.c **** *  exiting sleep.
+  69:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  70:Generated_Source\PSoC5/DFB_1_PM.c **** * Parameters:
+  71:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+  72:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  73:Generated_Source\PSoC5/DFB_1_PM.c **** * Return:
+  74:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+  75:Generated_Source\PSoC5/DFB_1_PM.c **** *
+  76:Generated_Source\PSoC5/DFB_1_PM.c **** *******************************************************************************/
+  77:Generated_Source\PSoC5/DFB_1_PM.c **** void DFB_1_RestoreConfig(void) 
+  78:Generated_Source\PSoC5/DFB_1_PM.c **** {
+ 106              		.loc 1 78 0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110              		@ link register save eliminated.
+ 111 0000 10B4     		push	{r4}
+ 112              		.cfi_def_cfa_offset 4
+ 113              		.cfi_offset 4, -4
+ 114              	.LVL9:
+  79:Generated_Source\PSoC5/DFB_1_PM.c ****     uint8 count;
+  80:Generated_Source\PSoC5/DFB_1_PM.c ****     uint8 i = 0u;
+  81:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  82:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_SR_REG = DFB_1_backup.sr;
+ 115              		.loc 1 82 0
+ 116 0002 154B     		ldr	r3, .L11
+ 117 0004 9978     		ldrb	r1, [r3, #2]	@ zero_extendqisi2
+ 118 0006 154A     		ldr	r2, .L11+4
+ 119 0008 1170     		strb	r1, [r2]
+  83:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_SEM_REG = DFB_1_backup.sem;
+ 120              		.loc 1 83 0
+ 121 000a DA78     		ldrb	r2, [r3, #3]	@ zero_extendqisi2
+ 122 000c 144B     		ldr	r3, .L11+8
+ 123 000e 1A70     		strb	r2, [r3]
+  84:Generated_Source\PSoC5/DFB_1_PM.c ****     
+  85:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Power on DFB before initializing the RAMs */
+  86:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_PM_ACT_CFG_REG |= DFB_1_PM_ACT_MSK;
+ 124              		.loc 1 86 0
+ 125 0010 144A     		ldr	r2, .L11+12
+ 126 0012 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 127 0014 43F01003 		orr	r3, r3, #16
+ 128 0018 1370     		strb	r3, [r2]
+  87:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Enables DFB block in Alternate Active (Standby) mode */
+  88:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_PM_STBY_CFG_REG |= DFB_1_PM_STBY_MSK;
+ 129              		.loc 1 88 0
+ 130 001a 1032     		adds	r2, r2, #16
+ 131 001c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 132 001e 43F01003 		orr	r3, r3, #16
+ 133 0022 1370     		strb	r3, [r2]
+  89:Generated_Source\PSoC5/DFB_1_PM.c ****     
+  90:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Put DFB RAM on the bus */
+  91:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_RAM_DIR_REG = DFB_1_RAM_DIR_BUS;
+ 134              		.loc 1 91 0
+ 135 0024 3F22     		movs	r2, #63
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 5
+
+
+ 136 0026 104B     		ldr	r3, .L11+16
+ 137 0028 1A70     		strb	r2, [r3]
+ 138              	.LVL10:
+  80:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 139              		.loc 1 80 0
+ 140 002a 0022     		movs	r2, #0
+  92:Generated_Source\PSoC5/DFB_1_PM.c **** 
+  93:Generated_Source\PSoC5/DFB_1_PM.c ****     /* ACU RAM */
+  94:Generated_Source\PSoC5/DFB_1_PM.c ****     count = DFB_1_ACU_RAM_SIZE_CUR;
+ 141              		.loc 1 94 0
+ 142 002c 0123     		movs	r3, #1
+  95:Generated_Source\PSoC5/DFB_1_PM.c ****     while (count > 0u)
+ 143              		.loc 1 95 0
+ 144 002e 0CE0     		b	.L8
+ 145              	.LVL11:
+ 146              	.L9:
+  96:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+  97:Generated_Source\PSoC5/DFB_1_PM.c ****         CY_SET_REG32(& DFB_1_ACU_RAM_PTR[i], DFB_1_backup.acu[i]);
+ 147              		.loc 1 97 0
+ 148 0030 9100     		lsls	r1, r2, #2
+ 149 0032 01F18040 		add	r0, r1, #1073741824
+ 150 0036 00F54740 		add	r0, r0, #50944
+ 151 003a 074C     		ldr	r4, .L11
+ 152 003c 2144     		add	r1, r1, r4
+ 153 003e 4968     		ldr	r1, [r1, #4]
+ 154 0040 0160     		str	r1, [r0]
+  98:Generated_Source\PSoC5/DFB_1_PM.c ****         count--;
+ 155              		.loc 1 98 0
+ 156 0042 013B     		subs	r3, r3, #1
+ 157              	.LVL12:
+ 158 0044 DBB2     		uxtb	r3, r3
+ 159              	.LVL13:
+  99:Generated_Source\PSoC5/DFB_1_PM.c ****         i++;
+ 160              		.loc 1 99 0
+ 161 0046 0132     		adds	r2, r2, #1
+ 162              	.LVL14:
+ 163 0048 D2B2     		uxtb	r2, r2
+ 164              	.LVL15:
+ 165              	.L8:
+  95:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+ 166              		.loc 1 95 0
+ 167 004a 002B     		cmp	r3, #0
+ 168 004c F0D1     		bne	.L9
+ 100:Generated_Source\PSoC5/DFB_1_PM.c ****     }
+ 101:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 102:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Take DFB RAM off the bus */
+ 103:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_RAM_DIR_REG = DFB_1_RAM_DIR_DFB;
+ 169              		.loc 1 103 0
+ 170 004e 0022     		movs	r2, #0
+ 171              	.LVL16:
+ 172 0050 054B     		ldr	r3, .L11+16
+ 173              	.LVL17:
+ 174 0052 1A70     		strb	r2, [r3]
+ 104:Generated_Source\PSoC5/DFB_1_PM.c **** }
+ 175              		.loc 1 104 0
+ 176 0054 10BC     		pop	{r4}
+ 177              		.cfi_restore 4
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 6
+
+
+ 178              		.cfi_def_cfa_offset 0
+ 179 0056 7047     		bx	lr
+ 180              	.L12:
+ 181              		.align	2
+ 182              	.L11:
+ 183 0058 00000000 		.word	.LANCHOR0
+ 184 005c 84C70040 		.word	1073792900
+ 185 0060 90C70040 		.word	1073792912
+ 186 0064 A6430040 		.word	1073759142
+ 187 0068 8CC70040 		.word	1073792908
+ 188              		.cfi_endproc
+ 189              	.LFE1:
+ 190              		.size	DFB_1_RestoreConfig, .-DFB_1_RestoreConfig
+ 191              		.section	.text.DFB_1_Sleep,"ax",%progbits
+ 192              		.align	2
+ 193              		.global	DFB_1_Sleep
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.type	DFB_1_Sleep, %function
+ 197              	DFB_1_Sleep:
+ 198              	.LFB2:
+ 105:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 106:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 107:Generated_Source\PSoC5/DFB_1_PM.c **** /*******************************************************************************
+ 108:Generated_Source\PSoC5/DFB_1_PM.c **** * Function Name: DFB_1_Sleep
+ 109:Generated_Source\PSoC5/DFB_1_PM.c **** ********************************************************************************
+ 110:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 111:Generated_Source\PSoC5/DFB_1_PM.c **** * Summary:
+ 112:Generated_Source\PSoC5/DFB_1_PM.c **** *  This is the preferred routine to prepare the component for sleep. The
+ 113:Generated_Source\PSoC5/DFB_1_PM.c **** *  DFB_1_Sleep() routine saves the current component state. Then it
+ 114:Generated_Source\PSoC5/DFB_1_PM.c **** *  calls the DFB_Stop() function and calls DFB_1_SaveConfig() to save
+ 115:Generated_Source\PSoC5/DFB_1_PM.c **** *  the hardware configuration. Call the DFB_1_Sleep() function before
+ 116:Generated_Source\PSoC5/DFB_1_PM.c **** *  calling the CyPmSleep() or the CyPmHibernate() function. Refer to the PSoC
+ 117:Generated_Source\PSoC5/DFB_1_PM.c **** *  Creator System Reference Guide for more information about power management
+ 118:Generated_Source\PSoC5/DFB_1_PM.c **** *  functions.
+ 119:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 120:Generated_Source\PSoC5/DFB_1_PM.c **** * Parameters:
+ 121:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+ 122:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 123:Generated_Source\PSoC5/DFB_1_PM.c **** * Return:
+ 124:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+ 125:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 126:Generated_Source\PSoC5/DFB_1_PM.c **** * Reentrant:
+ 127:Generated_Source\PSoC5/DFB_1_PM.c **** *  No.
+ 128:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 129:Generated_Source\PSoC5/DFB_1_PM.c **** *******************************************************************************/
+ 130:Generated_Source\PSoC5/DFB_1_PM.c **** void DFB_1_Sleep(void) 
+ 131:Generated_Source\PSoC5/DFB_1_PM.c **** {
+ 199              		.loc 1 131 0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203 0000 08B5     		push	{r3, lr}
+ 204              		.cfi_def_cfa_offset 8
+ 205              		.cfi_offset 3, -8
+ 206              		.cfi_offset 14, -4
+ 132:Generated_Source\PSoC5/DFB_1_PM.c ****     if (0u != (DFB_1_CR_REG & DFB_1_RUN_MASK))
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 7
+
+
+ 207              		.loc 1 132 0
+ 208 0002 0B4B     		ldr	r3, .L17
+ 209 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 210 0006 13F0010F 		tst	r3, #1
+ 211 000a 03D0     		beq	.L14
+ 133:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+ 134:Generated_Source\PSoC5/DFB_1_PM.c ****         DFB_1_backup.enableState = 1u;
+ 212              		.loc 1 134 0
+ 213 000c 0122     		movs	r2, #1
+ 214 000e 094B     		ldr	r3, .L17+4
+ 215 0010 1A70     		strb	r2, [r3]
+ 216 0012 02E0     		b	.L15
+ 217              	.L14:
+ 135:Generated_Source\PSoC5/DFB_1_PM.c ****     }
+ 136:Generated_Source\PSoC5/DFB_1_PM.c ****     else /* The DFB block is disabled */
+ 137:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+ 138:Generated_Source\PSoC5/DFB_1_PM.c ****         DFB_1_backup.enableState = 0u;
+ 218              		.loc 1 138 0
+ 219 0014 0022     		movs	r2, #0
+ 220 0016 074B     		ldr	r3, .L17+4
+ 221 0018 1A70     		strb	r2, [r3]
+ 222              	.L15:
+ 139:Generated_Source\PSoC5/DFB_1_PM.c ****     }
+ 140:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 141:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Turn off the run bit, and put the DFB RAM on the bus */
+ 142:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_Pause();
+ 223              		.loc 1 142 0
+ 224 001a FFF7FEFF 		bl	DFB_1_Pause
+ 225              	.LVL18:
+ 143:Generated_Source\PSoC5/DFB_1_PM.c ****     
+ 144:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Save the configuration */
+ 145:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_SaveConfig();
+ 226              		.loc 1 145 0
+ 227 001e FFF7FEFF 		bl	DFB_1_SaveConfig
+ 228              	.LVL19:
+ 146:Generated_Source\PSoC5/DFB_1_PM.c ****     
+ 147:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Disables the clock to the entire core of the block */
+ 148:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_CR_REG |= DFB_1_CORECLK_DISABLE;
+ 229              		.loc 1 148 0
+ 230 0022 034A     		ldr	r2, .L17
+ 231 0024 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 232 0026 43F00403 		orr	r3, r3, #4
+ 233 002a 1370     		strb	r3, [r2]
+ 234 002c 08BD     		pop	{r3, pc}
+ 235              	.L18:
+ 236 002e 00BF     		.align	2
+ 237              	.L17:
+ 238 0030 80C70040 		.word	1073792896
+ 239 0034 00000000 		.word	.LANCHOR0
+ 240              		.cfi_endproc
+ 241              	.LFE2:
+ 242              		.size	DFB_1_Sleep, .-DFB_1_Sleep
+ 243              		.section	.text.DFB_1_Wakeup,"ax",%progbits
+ 244              		.align	2
+ 245              		.global	DFB_1_Wakeup
+ 246              		.thumb
+ 247              		.thumb_func
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 8
+
+
+ 248              		.type	DFB_1_Wakeup, %function
+ 249              	DFB_1_Wakeup:
+ 250              	.LFB3:
+ 149:Generated_Source\PSoC5/DFB_1_PM.c **** }
+ 150:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 151:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 152:Generated_Source\PSoC5/DFB_1_PM.c **** /*******************************************************************************
+ 153:Generated_Source\PSoC5/DFB_1_PM.c **** * Function Name: DFB_1_Wakeup
+ 154:Generated_Source\PSoC5/DFB_1_PM.c **** ********************************************************************************
+ 155:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 156:Generated_Source\PSoC5/DFB_1_PM.c **** * Summary:
+ 157:Generated_Source\PSoC5/DFB_1_PM.c **** *  This is the preferred routine to restore the component to the state when
+ 158:Generated_Source\PSoC5/DFB_1_PM.c **** *  DFB_1_Sleep() was called. The DFB_1_Wakeup() function
+ 159:Generated_Source\PSoC5/DFB_1_PM.c **** *  calls the DFB_1_RestoreConfig() function to restore the
+ 160:Generated_Source\PSoC5/DFB_1_PM.c **** *  configuration. If the component was enabled before the
+ 161:Generated_Source\PSoC5/DFB_1_PM.c **** *  DFB_1_Sleep() function was called, the DFB_1_Wakeup()
+ 162:Generated_Source\PSoC5/DFB_1_PM.c **** *  function will also re-enable the component.
+ 163:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 164:Generated_Source\PSoC5/DFB_1_PM.c **** * Parameters:
+ 165:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+ 166:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 167:Generated_Source\PSoC5/DFB_1_PM.c **** * Return:
+ 168:Generated_Source\PSoC5/DFB_1_PM.c **** *  None.
+ 169:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 170:Generated_Source\PSoC5/DFB_1_PM.c **** * Side Effects:
+ 171:Generated_Source\PSoC5/DFB_1_PM.c **** *  Calling the DFB_1_Wakeup() function without first calling the
+ 172:Generated_Source\PSoC5/DFB_1_PM.c **** *  DFB_1_Sleep() or DFB_1_SaveConfig() function may
+ 173:Generated_Source\PSoC5/DFB_1_PM.c **** *  produce unexpected behavior.
+ 174:Generated_Source\PSoC5/DFB_1_PM.c **** *
+ 175:Generated_Source\PSoC5/DFB_1_PM.c **** *******************************************************************************/
+ 176:Generated_Source\PSoC5/DFB_1_PM.c **** void DFB_1_Wakeup(void) 
+ 177:Generated_Source\PSoC5/DFB_1_PM.c **** {
+ 251              		.loc 1 177 0
+ 252              		.cfi_startproc
+ 253              		@ args = 0, pretend = 0, frame = 0
+ 254              		@ frame_needed = 0, uses_anonymous_args = 0
+ 255 0000 08B5     		push	{r3, lr}
+ 256              		.cfi_def_cfa_offset 8
+ 257              		.cfi_offset 3, -8
+ 258              		.cfi_offset 14, -4
+ 178:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_RestoreConfig();
+ 259              		.loc 1 178 0
+ 260 0002 FFF7FEFF 		bl	DFB_1_RestoreConfig
+ 261              	.LVL20:
+ 179:Generated_Source\PSoC5/DFB_1_PM.c **** 
+ 180:Generated_Source\PSoC5/DFB_1_PM.c ****     if (DFB_1_backup.enableState != 0u)
+ 262              		.loc 1 180 0
+ 263 0006 074B     		ldr	r3, .L23
+ 264 0008 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 265 000a 13B1     		cbz	r3, .L20
+ 181:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+ 182:Generated_Source\PSoC5/DFB_1_PM.c ****         /* Enables component's operation */
+ 183:Generated_Source\PSoC5/DFB_1_PM.c ****         DFB_1_Resume();
+ 266              		.loc 1 183 0
+ 267 000c FFF7FEFF 		bl	DFB_1_Resume
+ 268              	.LVL21:
+ 269 0010 02E0     		b	.L21
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 9
+
+
+ 270              	.L20:
+ 184:Generated_Source\PSoC5/DFB_1_PM.c ****     } /* Left Run Bit in off state if component's block was disabled before */
+ 185:Generated_Source\PSoC5/DFB_1_PM.c ****     else
+ 186:Generated_Source\PSoC5/DFB_1_PM.c ****     {
+ 187:Generated_Source\PSoC5/DFB_1_PM.c ****         /* Clears any pending interrupts */
+ 188:Generated_Source\PSoC5/DFB_1_PM.c ****         DFB_1_SR_REG = 0xFFu;
+ 271              		.loc 1 188 0
+ 272 0012 FF22     		movs	r2, #255
+ 273 0014 044B     		ldr	r3, .L23+4
+ 274 0016 1A70     		strb	r2, [r3]
+ 275              	.L21:
+ 189:Generated_Source\PSoC5/DFB_1_PM.c ****     }
+ 190:Generated_Source\PSoC5/DFB_1_PM.c ****     /* Enables the clock to the entire core of the block */
+ 191:Generated_Source\PSoC5/DFB_1_PM.c ****     DFB_1_CR_REG &= (uint8) (~DFB_1_CORECLK_DISABLE);
+ 276              		.loc 1 191 0
+ 277 0018 044A     		ldr	r2, .L23+8
+ 278 001a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 279 001c 03F0FB03 		and	r3, r3, #251
+ 280 0020 1370     		strb	r3, [r2]
+ 281 0022 08BD     		pop	{r3, pc}
+ 282              	.L24:
+ 283              		.align	2
+ 284              	.L23:
+ 285 0024 00000000 		.word	.LANCHOR0
+ 286 0028 84C70040 		.word	1073792900
+ 287 002c 80C70040 		.word	1073792896
+ 288              		.cfi_endproc
+ 289              	.LFE3:
+ 290              		.size	DFB_1_Wakeup, .-DFB_1_Wakeup
+ 291              		.bss
+ 292              		.align	2
+ 293              		.set	.LANCHOR0,. + 0
+ 294              		.type	DFB_1_backup, %object
+ 295              		.size	DFB_1_backup, 8
+ 296              	DFB_1_backup:
+ 297 0000 00000000 		.space	8
+ 297      00000000 
+ 298              		.text
+ 299              	.Letext0:
+ 300              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 301              		.file 3 "Generated_Source\\PSoC5\\DFB_1.h"
+ 302              		.section	.debug_info,"",%progbits
+ 303              	.Ldebug_info0:
+ 304 0000 FE010000 		.4byte	0x1fe
+ 305 0004 0400     		.2byte	0x4
+ 306 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 307 000a 04       		.byte	0x4
+ 308 000b 01       		.uleb128 0x1
+ 309 000c 0D000000 		.4byte	.LASF28
+ 310 0010 0C       		.byte	0xc
+ 311 0011 9B000000 		.4byte	.LASF29
+ 312 0015 A0010000 		.4byte	.LASF30
+ 313 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 314 001d 00000000 		.4byte	0
+ 315 0021 00000000 		.4byte	.Ldebug_line0
+ 316 0025 02       		.uleb128 0x2
+ 317 0026 04       		.byte	0x4
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 10
+
+
+ 318 0027 05       		.byte	0x5
+ 319 0028 696E7400 		.ascii	"int\000"
+ 320 002c 03       		.uleb128 0x3
+ 321 002d 04       		.byte	0x4
+ 322 002e 07       		.byte	0x7
+ 323 002f 54010000 		.4byte	.LASF0
+ 324 0033 03       		.uleb128 0x3
+ 325 0034 08       		.byte	0x8
+ 326 0035 05       		.byte	0x5
+ 327 0036 8D010000 		.4byte	.LASF1
+ 328 003a 03       		.uleb128 0x3
+ 329 003b 08       		.byte	0x8
+ 330 003c 04       		.byte	0x4
+ 331 003d 02020000 		.4byte	.LASF2
+ 332 0041 03       		.uleb128 0x3
+ 333 0042 01       		.byte	0x1
+ 334 0043 06       		.byte	0x6
+ 335 0044 0E020000 		.4byte	.LASF3
+ 336 0048 03       		.uleb128 0x3
+ 337 0049 01       		.byte	0x1
+ 338 004a 08       		.byte	0x8
+ 339 004b FB000000 		.4byte	.LASF4
+ 340 004f 03       		.uleb128 0x3
+ 341 0050 02       		.byte	0x2
+ 342 0051 05       		.byte	0x5
+ 343 0052 DD010000 		.4byte	.LASF5
+ 344 0056 03       		.uleb128 0x3
+ 345 0057 02       		.byte	0x2
+ 346 0058 07       		.byte	0x7
+ 347 0059 1A020000 		.4byte	.LASF6
+ 348 005d 03       		.uleb128 0x3
+ 349 005e 04       		.byte	0x4
+ 350 005f 05       		.byte	0x5
+ 351 0060 F3010000 		.4byte	.LASF7
+ 352 0064 03       		.uleb128 0x3
+ 353 0065 04       		.byte	0x4
+ 354 0066 07       		.byte	0x7
+ 355 0067 1D010000 		.4byte	.LASF8
+ 356 006b 03       		.uleb128 0x3
+ 357 006c 08       		.byte	0x8
+ 358 006d 07       		.byte	0x7
+ 359 006e 61010000 		.4byte	.LASF9
+ 360 0072 03       		.uleb128 0x3
+ 361 0073 04       		.byte	0x4
+ 362 0074 07       		.byte	0x7
+ 363 0075 84010000 		.4byte	.LASF10
+ 364 0079 03       		.uleb128 0x3
+ 365 007a 01       		.byte	0x1
+ 366 007b 08       		.byte	0x8
+ 367 007c 9B010000 		.4byte	.LASF11
+ 368 0080 04       		.uleb128 0x4
+ 369 0081 2F010000 		.4byte	.LASF12
+ 370 0085 02       		.byte	0x2
+ 371 0086 9201     		.2byte	0x192
+ 372 0088 48000000 		.4byte	0x48
+ 373 008c 04       		.uleb128 0x4
+ 374 008d 41010000 		.4byte	.LASF13
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 11
+
+
+ 375 0091 02       		.byte	0x2
+ 376 0092 9401     		.2byte	0x194
+ 377 0094 64000000 		.4byte	0x64
+ 378 0098 03       		.uleb128 0x3
+ 379 0099 04       		.byte	0x4
+ 380 009a 04       		.byte	0x4
+ 381 009b E8000000 		.4byte	.LASF14
+ 382 009f 03       		.uleb128 0x3
+ 383 00a0 08       		.byte	0x8
+ 384 00a1 04       		.byte	0x4
+ 385 00a2 3A010000 		.4byte	.LASF15
+ 386 00a6 04       		.uleb128 0x4
+ 387 00a7 35010000 		.4byte	.LASF16
+ 388 00ab 02       		.byte	0x2
+ 389 00ac 3C02     		.2byte	0x23c
+ 390 00ae B2000000 		.4byte	0xb2
+ 391 00b2 05       		.uleb128 0x5
+ 392 00b3 80000000 		.4byte	0x80
+ 393 00b7 04       		.uleb128 0x4
+ 394 00b8 FC010000 		.4byte	.LASF17
+ 395 00bc 02       		.byte	0x2
+ 396 00bd 3E02     		.2byte	0x23e
+ 397 00bf C3000000 		.4byte	0xc3
+ 398 00c3 05       		.uleb128 0x5
+ 399 00c4 8C000000 		.4byte	0x8c
+ 400 00c8 06       		.uleb128 0x6
+ 401 00c9 08       		.byte	0x8
+ 402 00ca 03       		.byte	0x3
+ 403 00cb 3F       		.byte	0x3f
+ 404 00cc 0B010000 		.4byte	0x10b
+ 405 00d0 07       		.uleb128 0x7
+ 406 00d1 48010000 		.4byte	.LASF18
+ 407 00d5 03       		.byte	0x3
+ 408 00d6 41       		.byte	0x41
+ 409 00d7 80000000 		.4byte	0x80
+ 410 00db 00       		.byte	0
+ 411 00dc 08       		.uleb128 0x8
+ 412 00dd 637200   		.ascii	"cr\000"
+ 413 00e0 03       		.byte	0x3
+ 414 00e1 42       		.byte	0x42
+ 415 00e2 80000000 		.4byte	0x80
+ 416 00e6 01       		.byte	0x1
+ 417 00e7 08       		.uleb128 0x8
+ 418 00e8 737200   		.ascii	"sr\000"
+ 419 00eb 03       		.byte	0x3
+ 420 00ec 43       		.byte	0x43
+ 421 00ed 80000000 		.4byte	0x80
+ 422 00f1 02       		.byte	0x2
+ 423 00f2 08       		.uleb128 0x8
+ 424 00f3 73656D00 		.ascii	"sem\000"
+ 425 00f7 03       		.byte	0x3
+ 426 00f8 44       		.byte	0x44
+ 427 00f9 80000000 		.4byte	0x80
+ 428 00fd 03       		.byte	0x3
+ 429 00fe 08       		.uleb128 0x8
+ 430 00ff 61637500 		.ascii	"acu\000"
+ 431 0103 03       		.byte	0x3
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 12
+
+
+ 432 0104 45       		.byte	0x45
+ 433 0105 0B010000 		.4byte	0x10b
+ 434 0109 04       		.byte	0x4
+ 435 010a 00       		.byte	0
+ 436 010b 09       		.uleb128 0x9
+ 437 010c 8C000000 		.4byte	0x8c
+ 438 0110 1B010000 		.4byte	0x11b
+ 439 0114 0A       		.uleb128 0xa
+ 440 0115 72000000 		.4byte	0x72
+ 441 0119 00       		.byte	0
+ 442 011a 00       		.byte	0
+ 443 011b 0B       		.uleb128 0xb
+ 444 011c C3000000 		.4byte	.LASF19
+ 445 0120 03       		.byte	0x3
+ 446 0121 46       		.byte	0x46
+ 447 0122 C8000000 		.4byte	0xc8
+ 448 0126 0C       		.uleb128 0xc
+ 449 0127 D7000000 		.4byte	.LASF21
+ 450 012b 01       		.byte	0x1
+ 451 012c 27       		.byte	0x27
+ 452 012d 00000000 		.4byte	.LFB0
+ 453 0131 50000000 		.4byte	.LFE0-.LFB0
+ 454 0135 01       		.uleb128 0x1
+ 455 0136 9C       		.byte	0x9c
+ 456 0137 58010000 		.4byte	0x158
+ 457 013b 0D       		.uleb128 0xd
+ 458 013c BD000000 		.4byte	.LASF20
+ 459 0140 01       		.byte	0x1
+ 460 0141 29       		.byte	0x29
+ 461 0142 80000000 		.4byte	0x80
+ 462 0146 00000000 		.4byte	.LLST0
+ 463 014a 0E       		.uleb128 0xe
+ 464 014b 6900     		.ascii	"i\000"
+ 465 014d 01       		.byte	0x1
+ 466 014e 2A       		.byte	0x2a
+ 467 014f 80000000 		.4byte	0x80
+ 468 0153 2A000000 		.4byte	.LLST1
+ 469 0157 00       		.byte	0
+ 470 0158 0C       		.uleb128 0xc
+ 471 0159 09010000 		.4byte	.LASF22
+ 472 015d 01       		.byte	0x1
+ 473 015e 4D       		.byte	0x4d
+ 474 015f 00000000 		.4byte	.LFB1
+ 475 0163 6C000000 		.4byte	.LFE1-.LFB1
+ 476 0167 01       		.uleb128 0x1
+ 477 0168 9C       		.byte	0x9c
+ 478 0169 8A010000 		.4byte	0x18a
+ 479 016d 0D       		.uleb128 0xd
+ 480 016e BD000000 		.4byte	.LASF20
+ 481 0172 01       		.byte	0x1
+ 482 0173 4F       		.byte	0x4f
+ 483 0174 80000000 		.4byte	0x80
+ 484 0178 54000000 		.4byte	.LLST2
+ 485 017c 0E       		.uleb128 0xe
+ 486 017d 6900     		.ascii	"i\000"
+ 487 017f 01       		.byte	0x1
+ 488 0180 50       		.byte	0x50
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 13
+
+
+ 489 0181 80000000 		.4byte	0x80
+ 490 0185 7E000000 		.4byte	.LLST3
+ 491 0189 00       		.byte	0
+ 492 018a 0C       		.uleb128 0xc
+ 493 018b 78010000 		.4byte	.LASF23
+ 494 018f 01       		.byte	0x1
+ 495 0190 82       		.byte	0x82
+ 496 0191 00000000 		.4byte	.LFB2
+ 497 0195 38000000 		.4byte	.LFE2-.LFB2
+ 498 0199 01       		.uleb128 0x1
+ 499 019a 9C       		.byte	0x9c
+ 500 019b B2010000 		.4byte	0x1b2
+ 501 019f 0F       		.uleb128 0xf
+ 502 01a0 1E000000 		.4byte	.LVL18
+ 503 01a4 EB010000 		.4byte	0x1eb
+ 504 01a8 0F       		.uleb128 0xf
+ 505 01a9 22000000 		.4byte	.LVL19
+ 506 01ad 26010000 		.4byte	0x126
+ 507 01b1 00       		.byte	0
+ 508 01b2 0C       		.uleb128 0xc
+ 509 01b3 00000000 		.4byte	.LASF24
+ 510 01b7 01       		.byte	0x1
+ 511 01b8 B0       		.byte	0xb0
+ 512 01b9 00000000 		.4byte	.LFB3
+ 513 01bd 30000000 		.4byte	.LFE3-.LFB3
+ 514 01c1 01       		.uleb128 0x1
+ 515 01c2 9C       		.byte	0x9c
+ 516 01c3 DA010000 		.4byte	0x1da
+ 517 01c7 0F       		.uleb128 0xf
+ 518 01c8 06000000 		.4byte	.LVL20
+ 519 01cc 58010000 		.4byte	0x158
+ 520 01d0 0F       		.uleb128 0xf
+ 521 01d1 10000000 		.4byte	.LVL21
+ 522 01d5 F6010000 		.4byte	0x1f6
+ 523 01d9 00       		.byte	0
+ 524 01da 10       		.uleb128 0x10
+ 525 01db D0010000 		.4byte	.LASF25
+ 526 01df 01       		.byte	0x1
+ 527 01e0 14       		.byte	0x14
+ 528 01e1 1B010000 		.4byte	0x11b
+ 529 01e5 05       		.uleb128 0x5
+ 530 01e6 03       		.byte	0x3
+ 531 01e7 00000000 		.4byte	DFB_1_backup
+ 532 01eb 11       		.uleb128 0x11
+ 533 01ec E7010000 		.4byte	.LASF26
+ 534 01f0 E7010000 		.4byte	.LASF26
+ 535 01f4 03       		.byte	0x3
+ 536 01f5 51       		.byte	0x51
+ 537 01f6 11       		.uleb128 0x11
+ 538 01f7 EE000000 		.4byte	.LASF27
+ 539 01fb EE000000 		.4byte	.LASF27
+ 540 01ff 03       		.byte	0x3
+ 541 0200 52       		.byte	0x52
+ 542 0201 00       		.byte	0
+ 543              		.section	.debug_abbrev,"",%progbits
+ 544              	.Ldebug_abbrev0:
+ 545 0000 01       		.uleb128 0x1
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 14
+
+
+ 546 0001 11       		.uleb128 0x11
+ 547 0002 01       		.byte	0x1
+ 548 0003 25       		.uleb128 0x25
+ 549 0004 0E       		.uleb128 0xe
+ 550 0005 13       		.uleb128 0x13
+ 551 0006 0B       		.uleb128 0xb
+ 552 0007 03       		.uleb128 0x3
+ 553 0008 0E       		.uleb128 0xe
+ 554 0009 1B       		.uleb128 0x1b
+ 555 000a 0E       		.uleb128 0xe
+ 556 000b 55       		.uleb128 0x55
+ 557 000c 17       		.uleb128 0x17
+ 558 000d 11       		.uleb128 0x11
+ 559 000e 01       		.uleb128 0x1
+ 560 000f 10       		.uleb128 0x10
+ 561 0010 17       		.uleb128 0x17
+ 562 0011 00       		.byte	0
+ 563 0012 00       		.byte	0
+ 564 0013 02       		.uleb128 0x2
+ 565 0014 24       		.uleb128 0x24
+ 566 0015 00       		.byte	0
+ 567 0016 0B       		.uleb128 0xb
+ 568 0017 0B       		.uleb128 0xb
+ 569 0018 3E       		.uleb128 0x3e
+ 570 0019 0B       		.uleb128 0xb
+ 571 001a 03       		.uleb128 0x3
+ 572 001b 08       		.uleb128 0x8
+ 573 001c 00       		.byte	0
+ 574 001d 00       		.byte	0
+ 575 001e 03       		.uleb128 0x3
+ 576 001f 24       		.uleb128 0x24
+ 577 0020 00       		.byte	0
+ 578 0021 0B       		.uleb128 0xb
+ 579 0022 0B       		.uleb128 0xb
+ 580 0023 3E       		.uleb128 0x3e
+ 581 0024 0B       		.uleb128 0xb
+ 582 0025 03       		.uleb128 0x3
+ 583 0026 0E       		.uleb128 0xe
+ 584 0027 00       		.byte	0
+ 585 0028 00       		.byte	0
+ 586 0029 04       		.uleb128 0x4
+ 587 002a 16       		.uleb128 0x16
+ 588 002b 00       		.byte	0
+ 589 002c 03       		.uleb128 0x3
+ 590 002d 0E       		.uleb128 0xe
+ 591 002e 3A       		.uleb128 0x3a
+ 592 002f 0B       		.uleb128 0xb
+ 593 0030 3B       		.uleb128 0x3b
+ 594 0031 05       		.uleb128 0x5
+ 595 0032 49       		.uleb128 0x49
+ 596 0033 13       		.uleb128 0x13
+ 597 0034 00       		.byte	0
+ 598 0035 00       		.byte	0
+ 599 0036 05       		.uleb128 0x5
+ 600 0037 35       		.uleb128 0x35
+ 601 0038 00       		.byte	0
+ 602 0039 49       		.uleb128 0x49
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 15
+
+
+ 603 003a 13       		.uleb128 0x13
+ 604 003b 00       		.byte	0
+ 605 003c 00       		.byte	0
+ 606 003d 06       		.uleb128 0x6
+ 607 003e 13       		.uleb128 0x13
+ 608 003f 01       		.byte	0x1
+ 609 0040 0B       		.uleb128 0xb
+ 610 0041 0B       		.uleb128 0xb
+ 611 0042 3A       		.uleb128 0x3a
+ 612 0043 0B       		.uleb128 0xb
+ 613 0044 3B       		.uleb128 0x3b
+ 614 0045 0B       		.uleb128 0xb
+ 615 0046 01       		.uleb128 0x1
+ 616 0047 13       		.uleb128 0x13
+ 617 0048 00       		.byte	0
+ 618 0049 00       		.byte	0
+ 619 004a 07       		.uleb128 0x7
+ 620 004b 0D       		.uleb128 0xd
+ 621 004c 00       		.byte	0
+ 622 004d 03       		.uleb128 0x3
+ 623 004e 0E       		.uleb128 0xe
+ 624 004f 3A       		.uleb128 0x3a
+ 625 0050 0B       		.uleb128 0xb
+ 626 0051 3B       		.uleb128 0x3b
+ 627 0052 0B       		.uleb128 0xb
+ 628 0053 49       		.uleb128 0x49
+ 629 0054 13       		.uleb128 0x13
+ 630 0055 38       		.uleb128 0x38
+ 631 0056 0B       		.uleb128 0xb
+ 632 0057 00       		.byte	0
+ 633 0058 00       		.byte	0
+ 634 0059 08       		.uleb128 0x8
+ 635 005a 0D       		.uleb128 0xd
+ 636 005b 00       		.byte	0
+ 637 005c 03       		.uleb128 0x3
+ 638 005d 08       		.uleb128 0x8
+ 639 005e 3A       		.uleb128 0x3a
+ 640 005f 0B       		.uleb128 0xb
+ 641 0060 3B       		.uleb128 0x3b
+ 642 0061 0B       		.uleb128 0xb
+ 643 0062 49       		.uleb128 0x49
+ 644 0063 13       		.uleb128 0x13
+ 645 0064 38       		.uleb128 0x38
+ 646 0065 0B       		.uleb128 0xb
+ 647 0066 00       		.byte	0
+ 648 0067 00       		.byte	0
+ 649 0068 09       		.uleb128 0x9
+ 650 0069 01       		.uleb128 0x1
+ 651 006a 01       		.byte	0x1
+ 652 006b 49       		.uleb128 0x49
+ 653 006c 13       		.uleb128 0x13
+ 654 006d 01       		.uleb128 0x1
+ 655 006e 13       		.uleb128 0x13
+ 656 006f 00       		.byte	0
+ 657 0070 00       		.byte	0
+ 658 0071 0A       		.uleb128 0xa
+ 659 0072 21       		.uleb128 0x21
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 16
+
+
+ 660 0073 00       		.byte	0
+ 661 0074 49       		.uleb128 0x49
+ 662 0075 13       		.uleb128 0x13
+ 663 0076 2F       		.uleb128 0x2f
+ 664 0077 0B       		.uleb128 0xb
+ 665 0078 00       		.byte	0
+ 666 0079 00       		.byte	0
+ 667 007a 0B       		.uleb128 0xb
+ 668 007b 16       		.uleb128 0x16
+ 669 007c 00       		.byte	0
+ 670 007d 03       		.uleb128 0x3
+ 671 007e 0E       		.uleb128 0xe
+ 672 007f 3A       		.uleb128 0x3a
+ 673 0080 0B       		.uleb128 0xb
+ 674 0081 3B       		.uleb128 0x3b
+ 675 0082 0B       		.uleb128 0xb
+ 676 0083 49       		.uleb128 0x49
+ 677 0084 13       		.uleb128 0x13
+ 678 0085 00       		.byte	0
+ 679 0086 00       		.byte	0
+ 680 0087 0C       		.uleb128 0xc
+ 681 0088 2E       		.uleb128 0x2e
+ 682 0089 01       		.byte	0x1
+ 683 008a 3F       		.uleb128 0x3f
+ 684 008b 19       		.uleb128 0x19
+ 685 008c 03       		.uleb128 0x3
+ 686 008d 0E       		.uleb128 0xe
+ 687 008e 3A       		.uleb128 0x3a
+ 688 008f 0B       		.uleb128 0xb
+ 689 0090 3B       		.uleb128 0x3b
+ 690 0091 0B       		.uleb128 0xb
+ 691 0092 27       		.uleb128 0x27
+ 692 0093 19       		.uleb128 0x19
+ 693 0094 11       		.uleb128 0x11
+ 694 0095 01       		.uleb128 0x1
+ 695 0096 12       		.uleb128 0x12
+ 696 0097 06       		.uleb128 0x6
+ 697 0098 40       		.uleb128 0x40
+ 698 0099 18       		.uleb128 0x18
+ 699 009a 9742     		.uleb128 0x2117
+ 700 009c 19       		.uleb128 0x19
+ 701 009d 01       		.uleb128 0x1
+ 702 009e 13       		.uleb128 0x13
+ 703 009f 00       		.byte	0
+ 704 00a0 00       		.byte	0
+ 705 00a1 0D       		.uleb128 0xd
+ 706 00a2 34       		.uleb128 0x34
+ 707 00a3 00       		.byte	0
+ 708 00a4 03       		.uleb128 0x3
+ 709 00a5 0E       		.uleb128 0xe
+ 710 00a6 3A       		.uleb128 0x3a
+ 711 00a7 0B       		.uleb128 0xb
+ 712 00a8 3B       		.uleb128 0x3b
+ 713 00a9 0B       		.uleb128 0xb
+ 714 00aa 49       		.uleb128 0x49
+ 715 00ab 13       		.uleb128 0x13
+ 716 00ac 02       		.uleb128 0x2
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 17
+
+
+ 717 00ad 17       		.uleb128 0x17
+ 718 00ae 00       		.byte	0
+ 719 00af 00       		.byte	0
+ 720 00b0 0E       		.uleb128 0xe
+ 721 00b1 34       		.uleb128 0x34
+ 722 00b2 00       		.byte	0
+ 723 00b3 03       		.uleb128 0x3
+ 724 00b4 08       		.uleb128 0x8
+ 725 00b5 3A       		.uleb128 0x3a
+ 726 00b6 0B       		.uleb128 0xb
+ 727 00b7 3B       		.uleb128 0x3b
+ 728 00b8 0B       		.uleb128 0xb
+ 729 00b9 49       		.uleb128 0x49
+ 730 00ba 13       		.uleb128 0x13
+ 731 00bb 02       		.uleb128 0x2
+ 732 00bc 17       		.uleb128 0x17
+ 733 00bd 00       		.byte	0
+ 734 00be 00       		.byte	0
+ 735 00bf 0F       		.uleb128 0xf
+ 736 00c0 898201   		.uleb128 0x4109
+ 737 00c3 00       		.byte	0
+ 738 00c4 11       		.uleb128 0x11
+ 739 00c5 01       		.uleb128 0x1
+ 740 00c6 31       		.uleb128 0x31
+ 741 00c7 13       		.uleb128 0x13
+ 742 00c8 00       		.byte	0
+ 743 00c9 00       		.byte	0
+ 744 00ca 10       		.uleb128 0x10
+ 745 00cb 34       		.uleb128 0x34
+ 746 00cc 00       		.byte	0
+ 747 00cd 03       		.uleb128 0x3
+ 748 00ce 0E       		.uleb128 0xe
+ 749 00cf 3A       		.uleb128 0x3a
+ 750 00d0 0B       		.uleb128 0xb
+ 751 00d1 3B       		.uleb128 0x3b
+ 752 00d2 0B       		.uleb128 0xb
+ 753 00d3 49       		.uleb128 0x49
+ 754 00d4 13       		.uleb128 0x13
+ 755 00d5 02       		.uleb128 0x2
+ 756 00d6 18       		.uleb128 0x18
+ 757 00d7 00       		.byte	0
+ 758 00d8 00       		.byte	0
+ 759 00d9 11       		.uleb128 0x11
+ 760 00da 2E       		.uleb128 0x2e
+ 761 00db 00       		.byte	0
+ 762 00dc 3F       		.uleb128 0x3f
+ 763 00dd 19       		.uleb128 0x19
+ 764 00de 3C       		.uleb128 0x3c
+ 765 00df 19       		.uleb128 0x19
+ 766 00e0 6E       		.uleb128 0x6e
+ 767 00e1 0E       		.uleb128 0xe
+ 768 00e2 03       		.uleb128 0x3
+ 769 00e3 0E       		.uleb128 0xe
+ 770 00e4 3A       		.uleb128 0x3a
+ 771 00e5 0B       		.uleb128 0xb
+ 772 00e6 3B       		.uleb128 0x3b
+ 773 00e7 0B       		.uleb128 0xb
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 18
+
+
+ 774 00e8 00       		.byte	0
+ 775 00e9 00       		.byte	0
+ 776 00ea 00       		.byte	0
+ 777              		.section	.debug_loc,"",%progbits
+ 778              	.Ldebug_loc0:
+ 779              	.LLST0:
+ 780 0000 10000000 		.4byte	.LVL1
+ 781 0004 16000000 		.4byte	.LVL2
+ 782 0008 0200     		.2byte	0x2
+ 783 000a 31       		.byte	0x31
+ 784 000b 9F       		.byte	0x9f
+ 785 000c 16000000 		.4byte	.LVL2
+ 786 0010 2A000000 		.4byte	.LVL3
+ 787 0014 0100     		.2byte	0x1
+ 788 0016 53       		.byte	0x53
+ 789 0017 2C000000 		.4byte	.LVL4
+ 790 001b 38000000 		.4byte	.LVL8
+ 791 001f 0100     		.2byte	0x1
+ 792 0021 53       		.byte	0x53
+ 793 0022 00000000 		.4byte	0
+ 794 0026 00000000 		.4byte	0
+ 795              	.LLST1:
+ 796 002a 02000000 		.4byte	.LVL0
+ 797 002e 16000000 		.4byte	.LVL2
+ 798 0032 0200     		.2byte	0x2
+ 799 0034 30       		.byte	0x30
+ 800 0035 9F       		.byte	0x9f
+ 801 0036 16000000 		.4byte	.LVL2
+ 802 003a 2E000000 		.4byte	.LVL5
+ 803 003e 0100     		.2byte	0x1
+ 804 0040 52       		.byte	0x52
+ 805 0041 30000000 		.4byte	.LVL6
+ 806 0045 36000000 		.4byte	.LVL7
+ 807 0049 0100     		.2byte	0x1
+ 808 004b 52       		.byte	0x52
+ 809 004c 00000000 		.4byte	0
+ 810 0050 00000000 		.4byte	0
+ 811              	.LLST2:
+ 812 0054 2A000000 		.4byte	.LVL10
+ 813 0058 30000000 		.4byte	.LVL11
+ 814 005c 0200     		.2byte	0x2
+ 815 005e 31       		.byte	0x31
+ 816 005f 9F       		.byte	0x9f
+ 817 0060 30000000 		.4byte	.LVL11
+ 818 0064 44000000 		.4byte	.LVL12
+ 819 0068 0100     		.2byte	0x1
+ 820 006a 53       		.byte	0x53
+ 821 006b 46000000 		.4byte	.LVL13
+ 822 006f 52000000 		.4byte	.LVL17
+ 823 0073 0100     		.2byte	0x1
+ 824 0075 53       		.byte	0x53
+ 825 0076 00000000 		.4byte	0
+ 826 007a 00000000 		.4byte	0
+ 827              	.LLST3:
+ 828 007e 02000000 		.4byte	.LVL9
+ 829 0082 30000000 		.4byte	.LVL11
+ 830 0086 0200     		.2byte	0x2
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 19
+
+
+ 831 0088 30       		.byte	0x30
+ 832 0089 9F       		.byte	0x9f
+ 833 008a 30000000 		.4byte	.LVL11
+ 834 008e 48000000 		.4byte	.LVL14
+ 835 0092 0100     		.2byte	0x1
+ 836 0094 52       		.byte	0x52
+ 837 0095 4A000000 		.4byte	.LVL15
+ 838 0099 50000000 		.4byte	.LVL16
+ 839 009d 0100     		.2byte	0x1
+ 840 009f 52       		.byte	0x52
+ 841 00a0 00000000 		.4byte	0
+ 842 00a4 00000000 		.4byte	0
+ 843              		.section	.debug_aranges,"",%progbits
+ 844 0000 34000000 		.4byte	0x34
+ 845 0004 0200     		.2byte	0x2
+ 846 0006 00000000 		.4byte	.Ldebug_info0
+ 847 000a 04       		.byte	0x4
+ 848 000b 00       		.byte	0
+ 849 000c 0000     		.2byte	0
+ 850 000e 0000     		.2byte	0
+ 851 0010 00000000 		.4byte	.LFB0
+ 852 0014 50000000 		.4byte	.LFE0-.LFB0
+ 853 0018 00000000 		.4byte	.LFB1
+ 854 001c 6C000000 		.4byte	.LFE1-.LFB1
+ 855 0020 00000000 		.4byte	.LFB2
+ 856 0024 38000000 		.4byte	.LFE2-.LFB2
+ 857 0028 00000000 		.4byte	.LFB3
+ 858 002c 30000000 		.4byte	.LFE3-.LFB3
+ 859 0030 00000000 		.4byte	0
+ 860 0034 00000000 		.4byte	0
+ 861              		.section	.debug_ranges,"",%progbits
+ 862              	.Ldebug_ranges0:
+ 863 0000 00000000 		.4byte	.LFB0
+ 864 0004 50000000 		.4byte	.LFE0
+ 865 0008 00000000 		.4byte	.LFB1
+ 866 000c 6C000000 		.4byte	.LFE1
+ 867 0010 00000000 		.4byte	.LFB2
+ 868 0014 38000000 		.4byte	.LFE2
+ 869 0018 00000000 		.4byte	.LFB3
+ 870 001c 30000000 		.4byte	.LFE3
+ 871 0020 00000000 		.4byte	0
+ 872 0024 00000000 		.4byte	0
+ 873              		.section	.debug_line,"",%progbits
+ 874              	.Ldebug_line0:
+ 875 0000 BD000000 		.section	.debug_str,"MS",%progbits,1
+ 875      02005000 
+ 875      00000201 
+ 875      FB0E0D00 
+ 875      01010101 
+ 876              	.LASF24:
+ 877 0000 4446425F 		.ascii	"DFB_1_Wakeup\000"
+ 877      315F5761 
+ 877      6B657570 
+ 877      00
+ 878              	.LASF28:
+ 879 000d 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 879      43313120 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 20
+
+
+ 879      352E342E 
+ 879      31203230 
+ 879      31363036 
+ 880 0040 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 880      20726576 
+ 880      6973696F 
+ 880      6E203233 
+ 880      37373135 
+ 881 0073 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 881      66756E63 
+ 881      74696F6E 
+ 881      2D736563 
+ 881      74696F6E 
+ 882              	.LASF29:
+ 883 009b 47656E65 		.ascii	"Generated_Source\\PSoC5\\DFB_1_PM.c\000"
+ 883      72617465 
+ 883      645F536F 
+ 883      75726365 
+ 883      5C50536F 
+ 884              	.LASF20:
+ 885 00bd 636F756E 		.ascii	"count\000"
+ 885      7400
+ 886              	.LASF19:
+ 887 00c3 4446425F 		.ascii	"DFB_1_BACKUP_STRUCT\000"
+ 887      315F4241 
+ 887      434B5550 
+ 887      5F535452 
+ 887      55435400 
+ 888              	.LASF21:
+ 889 00d7 4446425F 		.ascii	"DFB_1_SaveConfig\000"
+ 889      315F5361 
+ 889      7665436F 
+ 889      6E666967 
+ 889      00
+ 890              	.LASF14:
+ 891 00e8 666C6F61 		.ascii	"float\000"
+ 891      7400
+ 892              	.LASF27:
+ 893 00ee 4446425F 		.ascii	"DFB_1_Resume\000"
+ 893      315F5265 
+ 893      73756D65 
+ 893      00
+ 894              	.LASF4:
+ 895 00fb 756E7369 		.ascii	"unsigned char\000"
+ 895      676E6564 
+ 895      20636861 
+ 895      7200
+ 896              	.LASF22:
+ 897 0109 4446425F 		.ascii	"DFB_1_RestoreConfig\000"
+ 897      315F5265 
+ 897      73746F72 
+ 897      65436F6E 
+ 897      66696700 
+ 898              	.LASF8:
+ 899 011d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 899      20756E73 
+ 899      69676E65 
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 21
+
+
+ 899      6420696E 
+ 899      7400
+ 900              	.LASF12:
+ 901 012f 75696E74 		.ascii	"uint8\000"
+ 901      3800
+ 902              	.LASF16:
+ 903 0135 72656738 		.ascii	"reg8\000"
+ 903      00
+ 904              	.LASF15:
+ 905 013a 646F7562 		.ascii	"double\000"
+ 905      6C6500
+ 906              	.LASF13:
+ 907 0141 75696E74 		.ascii	"uint32\000"
+ 907      333200
+ 908              	.LASF18:
+ 909 0148 656E6162 		.ascii	"enableState\000"
+ 909      6C655374 
+ 909      61746500 
+ 910              	.LASF0:
+ 911 0154 756E7369 		.ascii	"unsigned int\000"
+ 911      676E6564 
+ 911      20696E74 
+ 911      00
+ 912              	.LASF9:
+ 913 0161 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 913      206C6F6E 
+ 913      6720756E 
+ 913      7369676E 
+ 913      65642069 
+ 914              	.LASF23:
+ 915 0178 4446425F 		.ascii	"DFB_1_Sleep\000"
+ 915      315F536C 
+ 915      65657000 
+ 916              	.LASF10:
+ 917 0184 73697A65 		.ascii	"sizetype\000"
+ 917      74797065 
+ 917      00
+ 918              	.LASF1:
+ 919 018d 6C6F6E67 		.ascii	"long long int\000"
+ 919      206C6F6E 
+ 919      6720696E 
+ 919      7400
+ 920              	.LASF11:
+ 921 019b 63686172 		.ascii	"char\000"
+ 921      00
+ 922              	.LASF30:
+ 923 01a0 433A5C41 		.ascii	"C:\\Academics\\SA\\Lab 1\\microphone\\Design01.cyds"
+ 923      63616465 
+ 923      6D696373 
+ 923      5C53415C 
+ 923      4C616220 
+ 924 01ce 6E00     		.ascii	"n\000"
+ 925              	.LASF25:
+ 926 01d0 4446425F 		.ascii	"DFB_1_backup\000"
+ 926      315F6261 
+ 926      636B7570 
+ 926      00
+ARM GAS  C:\Users\monis\AppData\Local\Temp\ccz3wN2i.s 			page 22
+
+
+ 927              	.LASF5:
+ 928 01dd 73686F72 		.ascii	"short int\000"
+ 928      7420696E 
+ 928      7400
+ 929              	.LASF26:
+ 930 01e7 4446425F 		.ascii	"DFB_1_Pause\000"
+ 930      315F5061 
+ 930      75736500 
+ 931              	.LASF7:
+ 932 01f3 6C6F6E67 		.ascii	"long int\000"
+ 932      20696E74 
+ 932      00
+ 933              	.LASF17:
+ 934 01fc 72656733 		.ascii	"reg32\000"
+ 934      3200
+ 935              	.LASF2:
+ 936 0202 6C6F6E67 		.ascii	"long double\000"
+ 936      20646F75 
+ 936      626C6500 
+ 937              	.LASF3:
+ 938 020e 7369676E 		.ascii	"signed char\000"
+ 938      65642063 
+ 938      68617200 
+ 939              	.LASF6:
+ 940 021a 73686F72 		.ascii	"short unsigned int\000"
+ 940      7420756E 
+ 940      7369676E 
+ 940      65642069 
+ 940      6E7400
+ 941              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

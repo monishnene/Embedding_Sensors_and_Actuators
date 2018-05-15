@@ -1,0 +1,67 @@
+--------------- Rebuild Started: 10/26/2017 14:34:50 Project: main.c, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/main.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -c main.c -o .\CortexM3\ARM_GCC_541\Debug\main.o
+main.c: In function 'main':
+main.c:57:32: warning: unused variable 'error' [-Wunused-variable]
+     int16 error_prev,error_new,error,ierror=0.;
+                                ^
+main.c:57:22: warning: unused variable 'error_new' [-Wunused-variable]
+     int16 error_prev,error_new,error,ierror=0.;
+                      ^
+main.c:57:11: warning: unused variable 'error_prev' [-Wunused-variable]
+     int16 error_prev,error_new,error,ierror=0.;
+           ^
+main.c:56:44: warning: unused variable 'rpm' [-Wunused-variable]
+     int16 speedref = 40,mode=1,inertia=220,rpm;
+                                            ^
+main.c:56:32: warning: unused variable 'inertia' [-Wunused-variable]
+     int16 speedref = 40,mode=1,inertia=220,rpm;
+                                ^
+main.c:56:25: warning: unused variable 'mode' [-Wunused-variable]
+     int16 speedref = 40,mode=1,inertia=220,rpm;
+                         ^
+main.c:56:11: warning: unused variable 'speedref' [-Wunused-variable]
+     int16 speedref = 40,mode=1,inertia=220,rpm;
+           ^
+main.c:55:11: warning: unused variable 'emfrpm' [-Wunused-variable]
+     int16 emfrpm = 0;
+           ^
+main.c:54:11: warning: unused variable 'average' [-Wunused-variable]
+     uint8 average = 0,source_voltage;
+           ^
+main.c:53:12: warning: unused variable 'time' [-Wunused-variable]
+     uint16 time = 180,period;  //mS - time to toggle pin P0_0 - the duration of the for loop - from the scop
+            ^
+main.c:51:11: warning: unused variable 'quadcountprevious' [-Wunused-variable]
+     int16 quadcountprevious = 0,current,current_ref=200;    
+           ^
+main.c:50:11: warning: unused variable 'quadcount' [-Wunused-variable]
+     int16 quadcount = 0;
+           ^
+main.c:49:11: warning: unused variable 'quadcountnew' [-Wunused-variable]
+     int16 quadcountnew = 0;
+           ^
+main.c:48:126: warning: unused variable 'ADC_2_Count_Output_4' [-Wunused-variable]
+     uint8 ADC_2_Count_Output=0,ADC_2_Count_Output_1=0,ADC_2_Count_Output_2=0,ADC_2_Count_Output_3=0,ADC_2_Count_Output_5 = 0,ADC_2_Count_Output_4=0;    
+                                                                                                                              ^
+main.c:48:101: warning: unused variable 'ADC_2_Count_Output_5' [-Wunused-variable]
+     uint8 ADC_2_Count_Output=0,ADC_2_Count_Output_1=0,ADC_2_Count_Output_2=0,ADC_2_Count_Output_3=0,ADC_2_Count_Output_5 = 0,ADC_2_Count_Output_4=0;    
+                                                                                                     ^
+main.c:48:78: warning: unused variable 'ADC_2_Count_Output_3' [-Wunused-variable]
+     uint8 ADC_2_Count_Output=0,ADC_2_Count_Output_1=0,ADC_2_Count_Output_2=0,ADC_2_Count_Output_3=0,ADC_2_Count_Output_5 = 0,ADC_2_Count_Output_4=0;    
+                                                                              ^
+main.c:48:55: warning: unused variable 'ADC_2_Count_Output_2' [-Wunused-variable]
+     uint8 ADC_2_Count_Output=0,ADC_2_Count_Output_1=0,ADC_2_Count_Output_2=0,ADC_2_Count_Output_3=0,ADC_2_Count_Output_5 = 0,ADC_2_Count_Output_4=0;    
+                                                       ^
+main.c:48:32: warning: unused variable 'ADC_2_Count_Output_1' [-Wunused-variable]
+     uint8 ADC_2_Count_Output=0,ADC_2_Count_Output_1=0,ADC_2_Count_Output_2=0,ADC_2_Count_Output_3=0,ADC_2_Count_Output_5 = 0,ADC_2_Count_Output_4=0;    
+                                ^
+main.c:48:11: warning: unused variable 'ADC_2_Count_Output' [-Wunused-variable]
+     uint8 ADC_2_Count_Output=0,ADC_2_Count_Output_1=0,ADC_2_Count_Output_2=0,ADC_2_Count_Output_3=0,ADC_2_Count_Output_5 = 0,ADC_2_Count_Output_4=0;    
+           ^
+main.c:47:11: warning: unused variable 'ADC_Count_Output' [-Wunused-variable]
+     uint8 ADC_Count_Output = 0;
+           ^
+main.c:175:12: warning: 'period' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     period = period - ierror; 
+            ^
+--------------- Rebuild Succeeded: 10/26/2017 14:34:51 ---------------

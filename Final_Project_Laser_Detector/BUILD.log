@@ -1,0 +1,19 @@
+--------------- Build Started: 12/14/2017 17:41:48 Project: Project, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+The code generation step is up to date.
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/main.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -c main.c -o .\CortexM3\ARM_GCC_541\Debug\main.o
+main.c: In function 'slow_step':
+main.c:144:18: warning: unused variable 'column' [-Wunused-variable]
+     static uint8 column=0,row=0;
+                  ^
+main.c: In function 'step':
+main.c:179:18: warning: unused variable 'column' [-Wunused-variable]
+     static uint8 column=0,row=0;
+                  ^
+arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_541\Debug\Project.a .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_1.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_1_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_1_PM.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_2.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_2_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_2_PM.o .\CortexM3\ARM_GCC_541\Debug\LCD_Char_1.o .\CortexM3\ARM_GCC_541\Debug\LCD_Char_1_PM.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_1_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_1_theACLK.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_1_Bypass.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_2_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_2_theACLK.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_2_Bypass.o .\CortexM3\ARM_GCC_541\Debug\LCD_Char_1_LCDPort.o .\CortexM3\ARM_GCC_541\Debug\CyDmac.o .\CortexM3\ARM_GCC_541\Debug\CyFlash.o .\CortexM3\ARM_GCC_541\Debug\CyLib.o .\CortexM3\ARM_GCC_541\Debug\cyPm.o .\CortexM3\ARM_GCC_541\Debug\CySpc.o .\CortexM3\ARM_GCC_541\Debug\cyutils.o .\CortexM3\ARM_GCC_541\Debug\p3_1.o .\CortexM3\ARM_GCC_541\Debug\p3_0.o .\CortexM3\ARM_GCC_541\Debug\p3_5_Orange.o .\CortexM3\ARM_GCC_541\Debug\p3_4_Yellow.o .\CortexM3\ARM_GCC_541\Debug\p3_6_Pink.o .\CortexM3\ARM_GCC_541\Debug\p3_3_Blue.o .\CortexM3\ARM_GCC_541\Debug\p3_7_Potentiometer.o .\CortexM3\ARM_GCC_541\Debug\p0_6_LDR_Top.o .\CortexM3\ARM_GCC_541\Debug\p0_7_LDR_Bottom.o .\CortexM3\ARM_GCC_541\Debug\p3_2_z_axis.o .\CortexM3\ARM_GCC_541\Debug\CyBootAsmGnu.o
+arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_541\Debug\Project.a
+arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\monis\Documents\Academics\SA\Project\Project.fast_working.Bundle01\Project.cydsn\CortexM3\ARM_GCC_541\Debug\Project.elf .\CortexM3\ARM_GCC_541\Debug\main.o .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM3\ARM_GCC_541\Debug\cymetadata.o .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o .\CortexM3\ARM_GCC_541\Debug\Project.a "C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Debug\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_541\Debug/Project.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects -Wl,--end-group
+cyelftool.exe -C C:\Users\monis\Documents\Academics\SA\Project\Project.fast_working.Bundle01\Project.cydsn\CortexM3\ARM_GCC_541\Debug\Project.elf --flash_row_size 256 --flash_size 262144 --flash_offset 0x00000000
+cyelftool.exe -S C:\Users\monis\Documents\Academics\SA\Project\Project.fast_working.Bundle01\Project.cydsn\CortexM3\ARM_GCC_541\Debug\Project.elf
+Flash used: 4294 of 262144 bytes (1.6 %).
+SRAM used: 2609 of 65536 bytes (4.0 %). Stack: 2048 bytes. Heap: 128 bytes.
+--------------- Build Succeeded: 12/14/2017 17:41:51 ---------------
